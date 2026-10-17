@@ -38,7 +38,6 @@ const external: Plugin = {
   repo: "noskillish/bankmcp",
   path: "plugin",
   homepage: "https://github.com/noskillish/bankmcp",
-  cursorMarketplace: "noskillish/bankmcp",
   cliSkills: [],
 };
 
@@ -75,13 +74,20 @@ describe("render", () => {
     expect(c).toContain("v1.2.3");
   });
 
-  test("external plugin: Claude and Copilot via hoaj, Cursor via its own repo, homepage link", () => {
+  test("external plugin: Claude and Copilot via hoaj, homepage link, not in Cursor without a Cursor marketplace", () => {
     const c = cardOf(render(data), "bank");
     expect(c).toContain("/plugin install bank@hoaj");
     expect(c).toContain("copilot plugin install bank@hoaj");
-    expect(c).toMatch(/data-client="cursor"[\s\S]*<code>noskillish\/bankmcp<\/code>/);
+    expect(c).toContain("bank findes ikke til Cursor endnu");
+    expect(c).not.toContain("<code>noskillish/bankmcp</code>");
     expect(c).toContain('href="https://github.com/noskillish/bankmcp"');
     expect(c).not.toContain("/issues?q=");
+  });
+
+  test("external plugin with its own Cursor marketplace: Cursor via its repo", () => {
+    const c = cardOf(render({ marketplace: "hoaj", plugins: [{ ...external, name: "gen", cursorMarketplace: "hoaj/site-cli-creator" }] }), "gen");
+    expect(c).toMatch(/data-client="cursor"[\s\S]*<code>hoaj\/site-cli-creator<\/code>/);
+    expect(c).toContain("Cursor henter dette plugin fra dets eget repo");
   });
 
   test("MCP snippet only for site CLIs", () => {
@@ -117,7 +123,7 @@ describe("loadData", () => {
       local: false,
       cursorMarketplace: "hoaj/site-cli-creator",
     });
-    expect(real.plugins.find((p) => p.name === "bank")?.cursorMarketplace).toBe("noskillish/bankmcp");
+    expect(real.plugins.find((p) => p.name === "bank")?.cursorMarketplace).toBeUndefined();
   });
 
   test("parseCommands reads the commands table", () => {

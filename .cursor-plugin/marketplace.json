@@ -2,7 +2,7 @@
   "name": "hoaj",
   "owner": { "name": "Andreas Jørgensen" },
   "metadata": {
-    "description": "Plugins for coding agents by hoaj. Cursor lists only the plugins in this repo: install site-cli-creator from hoaj/site-cli-creator and BankMCP from noskillish/bankmcp.",
+    "description": "Plugins for coding agents by hoaj. Cursor lists only the plugins in this repo: install site-cli-creator from the marketplace in hoaj/site-cli-creator. BankMCP has no Cursor marketplace.",
     "version": "1.0.0"
   },
   "plugins": [

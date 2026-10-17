@@ -38,8 +38,8 @@ export interface Plugin {
   /** Folder of the plugin inside `repo`. */
   path: string;
   homepage?: string;
-  /** Repo whose marketplace Cursor installs it from. */
-  cursorMarketplace: string;
+  /** Repo whose marketplace Cursor installs it from; absent when no Cursor marketplace lists it. */
+  cursorMarketplace?: string;
   cliSkills: CliSkill[];
   /** Drift-check runs per CLI skill, oldest first. Absent when there is no status file. */
   status?: Record<string, StatusRun[]>;
@@ -160,6 +160,14 @@ export function loadData(root: string, opts: { statusFile?: string } = {}): Site
   return { ...data, statusUpdated: status.updated };
 }
 
+/**
+ * External plugins that a Cursor marketplace of their own repo lists. Cursor cannot list a plugin
+ * from another repo, so an external plugin missing here is not installable in Cursor.
+ */
+export const EXTERNAL_CURSOR_MARKETPLACES: Record<string, string> = {
+  "site-cli-creator": "hoaj/site-cli-creator",
+};
+
 function loadMarketplace(root: string): SiteData {
   const claude = readJson<Marketplace>(join(root, ".claude-plugin/marketplace.json"));
   const copilot = readJsonIfExists<Marketplace>(join(root, ".github/plugin/marketplace.json"));
@@ -214,7 +222,7 @@ function loadMarketplace(root: string): SiteData {
       local: false,
       repo,
       path: (entry.source.path ?? "").replace(/^\.\//, "").replace(/\/+$/, ""),
-      cursorMarketplace: inCursor.has(entry.name) ? REPO : repo,
+      cursorMarketplace: inCursor.has(entry.name) ? REPO : EXTERNAL_CURSOR_MARKETPLACES[entry.name],
       cliSkills: [],
     };
   });
@@ -269,7 +277,7 @@ function githubTree(repo: string, path: string): string {
 function installTabs(p: Plugin, marketplace: string): string {
   const id = slug(p.name);
   const ref = `${p.name}@${marketplace}`;
-  const external = p.cursorMarketplace !== REPO;
+  const external = p.cursorMarketplace !== undefined && p.cursorMarketplace !== REPO;
   const clients = [
     {
       key: "claude",
@@ -292,12 +300,13 @@ function installTabs(p: Plugin, marketplace: string): string {
     {
       key: "cursor",
       label: "Cursor",
-      body:
-        `<p class="step"><span class="path">Settings → Plugins → Add marketplace</span>, indsæt repoet og installér <strong>${esc(p.name)}</strong>:</p>` +
-        cmd(p.cursorMarketplace, { label: `Cursor: markedsplads for ${p.name}` }) +
-        (external
-          ? `<p class="hint">Cursor henter dette plugin fra dets eget repo, ikke fra ${esc(REPO)}.</p>`
-          : ""),
+      body: p.cursorMarketplace
+        ? `<p class="step"><span class="path">Settings → Plugins → Add marketplace</span>, indsæt repoet og installér <strong>${esc(p.name)}</strong>:</p>` +
+          cmd(p.cursorMarketplace, { label: `Cursor: markedsplads for ${p.name}` }) +
+          (external
+            ? `<p class="hint">Cursor henter dette plugin fra dets eget repo, ikke fra ${esc(REPO)}.</p>`
+            : "")
+        : `<p class="step">${esc(p.name)} findes ikke til Cursor endnu: dets repo har ingen Cursor-markedsplads, og Cursor kan ikke hente plugins fra andre repos. Brug Claude Code eller Copilot CLI.</p>`,
     },
   ];
 

@@ -9,6 +9,7 @@
 //   exit 3 (drift)    one issue per Fingerprint, titled with the Fingerprint exactly, labels
 //                     drift + <plugin>: the same title the plugin's Feedback skill writes, so a
 //                     user's report and the daily check never file the same Drift twice
+//                     (and, like it, a closed one counts while its fix is not released)
 //   exit 1/2 (error)  "check: <plugin>:<skill>: the daily check failed (<kind>)", labels bug + <plugin>
 //   exit 4 (session)  "ci-session: <plugin>:<skill>: …", label ci-session: the CI session expired
 //   exit 5 (network)  recorded only
@@ -27,8 +28,9 @@ export type Status = { updated?: string; plugins: Record<string, { skills: Recor
 export type Skill = { plugin: string; skill: string; dir: string; version: string; auth: "login" | "none" };
 export type Drift = { operation: string; fingerprint: string; diff: unknown[] };
 export type Outcome = { result: Result; detail: string; drifts: Drift[]; kind?: string };
-export type Issue = { number: number; title: string; state: "OPEN" | "CLOSED" };
-export type Exec = (cmd: string[], opts?: { cwd?: string; env?: Record<string, string>; stdin?: string; timeoutMs?: number }) => { code: number; stdout: string; stderr: string };
+export type Issue = { number: number; title: string; state: "OPEN" | "CLOSED"; labels?: { name: string }[] };
+/** `isolated`: the child sees none of this job's secrets (SECRETS_JSON, SESSION_*, GH_TOKEN, GITHUB_TOKEN). */
+export type Exec = (cmd: string[], opts?: { cwd?: string; env?: Record<string, string>; stdin?: string; timeoutMs?: number; isolated?: boolean }) => { code: number; stdout: string; stderr: string };
 
 export const MAX_RUNS = 60;
 
@@ -107,17 +109,49 @@ export const sessionTitle = (s: Skill) => `ci-session: ${s.plugin}:${s.skill}: t
 
 export type IssuePlan = { title: string; labels: string[]; body: string; existing?: number };
 
-/** The issues an outcome calls for. `existing` is set when an open issue with that exact title is there already. */
-export function planIssues(s: Skill, o: Outcome, open: Issue[], runUrl: string | undefined, closed: Issue[] = []): IssuePlan[] {
+/** The version in a `fixed-in:<plugin>-vX.Y.Z` (or `fixed-in:vX.Y.Z`) label of this plugin, else null. */
+export function fixedIn(issue: Issue, plugin: string): string | null {
+  for (const { name } of issue.labels ?? []) {
+    const m = /^fixed-in:(.*?)v(\d+\.\d+\.\d+)$/.exec(name);
+    if (m && (m[1] === "" || m[1] === `${plugin}-`)) return m[2]!;
+  }
+  return null;
+}
+
+function newer(a: string, b: string): boolean {
+  const pa = a.split(".").map(Number), pb = b.split(".").map(Number);
+  for (let i = 0; i < 3; i++) if (pa[i] !== pb[i]) return pa[i]! > pb[i]!;
+  return false;
+}
+
+/**
+ * The closed issue that already stands for this Drift, as the Feedback skill decides: one whose fix
+ * is merged but not released yet (no fixed-in label), or released in a version newer than the one
+ * checked. Null when every fix was released at or below that version: the Drift came back.
+ */
+export function pendingFix(closed: Issue[], s: Skill): Issue | null {
+  for (const i of [...closed].sort((a, b) => b.number - a.number)) {
+    const v = fixedIn(i, s.plugin);
+    if (v === null || (s.version !== "unknown" && newer(v, s.version))) return i;
+  }
+  return null;
+}
+
+/**
+ * The issues an outcome calls for. `existing` is set when an issue already stands for it: an open
+ * one with that exact title, or (Drift) a closed one whose fix is not released at this version yet.
+ */
+export function planIssues(s: Skill, o: Outcome, open: Issue[], runUrl: string | undefined, closed: Issue[] = [], repo = "hoaj/plugins"): IssuePlan[] {
   const exact = (title: string) => open.find((i) => i.title === title && i.state === "OPEN")?.number;
   const run = runUrl ? `\n\nRun: ${runUrl}` : "";
   if (o.result === "drift") {
     return o.drifts.map((d) => {
-      const back = closed.find((i) => i.title === d.fingerprint);
+      const same = closed.filter((i) => i.title === d.fingerprint);
+      const back = same.length ? same.reduce((a, b) => (a.number > b.number ? a : b)) : undefined;
       return {
         title: d.fingerprint,
         labels: ["drift", s.plugin],
-        existing: exact(d.fingerprint),
+        existing: exact(d.fingerprint) ?? pendingFix(same, s)?.number,
         body: [
           `The daily check found Drift in \`${s.plugin}\` ${s.version}, skill \`${s.skill}\`${d.operation ? `, Operation \`${d.operation}\`` : ""}: the site changed away from the Contract.`,
           "",
@@ -155,7 +189,7 @@ export function planIssues(s: Skill, o: Outcome, open: Issue[], runUrl: string |
         "",
         "```sh",
         `bin/${s.skill} login                 # in plugins/${s.plugin}/skills/${s.skill}`,
-        `gh secret set ${secretName(s)} --repo <owner/repo> < ~/.${s.plugin === s.skill ? s.plugin : `${s.plugin}-${s.skill}`}/session.json`,
+        `gh secret set ${secretName(s)} --repo ${repo} < ~/.${s.plugin === s.skill ? s.plugin : `${s.plugin}-${s.skill}`}/session.json`,
         "```",
         "",
         "Then close this issue. Filed by the daily drift check." + run,
@@ -174,10 +208,21 @@ export function record(status: Status, s: Skill, run: Run, now: string): Status 
   return { updated: now, plugins };
 }
 
+/** This process's env without the job's secrets, for install.sh and the CLI. */
+export function isolatedEnv(env: Record<string, string | undefined>): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const [k, v] of Object.entries(env)) {
+    if (v === undefined || k === "SECRETS_JSON" || k === "GH_TOKEN" || k === "GITHUB_TOKEN" || k.startsWith("SESSION_")) continue;
+    out[k] = v;
+  }
+  return out;
+}
+
 const realExec: Exec = (cmd, opts = {}) => {
+  const base = opts.isolated ? isolatedEnv(process.env) : process.env;
   const p = Bun.spawnSync(cmd, {
     cwd: opts.cwd,
-    env: { ...process.env, ...(opts.env ?? {}) },
+    env: { ...base, ...(opts.env ?? {}) },
     stdin: opts.stdin !== undefined ? new TextEncoder().encode(opts.stdin) : "ignore",
     timeout: opts.timeoutMs,
   });
@@ -190,7 +235,7 @@ function lastLine(text: string): string {
 
 /** Installs and checks one skill. The session, if any, lives in a temp state dir removed afterwards. */
 export function checkSkill(s: Skill, secrets: Record<string, string>, exec: Exec = realExec): Outcome {
-  const install = exec(["bash", join(s.dir, "install.sh")], { timeoutMs: 300_000 });
+  const install = exec(["bash", join(s.dir, "install.sh")], { timeoutMs: 300_000, isolated: true });
   if (install.code !== 0) return { result: "install", detail: lastLine(install.stderr) || "install.sh failed", drifts: [] };
   const state = mkdtempSync(join(tmpdir(), `check-${s.skill}-`));
   try {
@@ -201,7 +246,8 @@ export function checkSkill(s: Skill, secrets: Record<string, string>, exec: Exec
       chmodSync(join(state, "session.json"), 0o600);
     }
     const bin = join(s.dir, "bin", process.platform === "win32" ? `${s.skill}.exe` : s.skill);
-    const r = exec([bin, "check"], { env: { SITE_CLI_HOME: state }, timeoutMs: 300_000 });
+    // No one can sign in on a runner: an expired session must end as kind "session", not open Chrome.
+    const r = exec([bin, "check"], { env: { SITE_CLI_HOME: state, SITE_CLI_NONINTERACTIVE: "1" }, timeoutMs: 300_000, isolated: true });
     return classify(r.code, r.stdout);
   } finally {
     rmSync(state, { recursive: true, force: true });
@@ -209,7 +255,7 @@ export function checkSkill(s: Skill, secrets: Record<string, string>, exec: Exec
 }
 
 function ghIssues(exec: Exec, repo: string, title: string): Issue[] {
-  const r = exec(["gh", "issue", "list", "--repo", repo, "--state", "all", "--limit", "50", "--search", `"${title}" in:title`, "--json", "number,title,state"]);
+  const r = exec(["gh", "issue", "list", "--repo", repo, "--state", "all", "--limit", "50", "--search", `"${title}" in:title`, "--json", "number,title,state,labels"]);
   if (r.code !== 0) throw new Error(`gh issue list failed: ${lastLine(r.stderr)}`);
   return (JSON.parse(r.stdout) as Issue[]).filter((i) => i.title === title);
 }
@@ -220,7 +266,7 @@ export function fileIssues(plans: IssuePlan[], repo: string, exec: Exec, dryRun:
   for (const p of plans) {
     if (p.existing) {
       numbers.push(p.existing);
-      log(`  open already: #${p.existing} ${p.title}`);
+      log(`  already filed: #${p.existing} ${p.title}`);
       continue;
     }
     if (dryRun) {
@@ -271,10 +317,16 @@ export function main(argv: string[], exec: Exec = realExec): number {
     console.error(`  ${o.result}: ${o.detail}`);
     let issues: number[] = [];
     if (["drift", "error", "session"].includes(o.result)) {
-      const titles = o.result === "drift" ? o.drifts.map((d) => d.fingerprint) : [o.result === "error" ? errorTitle(s, o.kind ?? "bug") : sessionTitle(s)];
-      const found = titles.flatMap((t) => (dryRun ? [] : ghIssues(exec, repo, t)));
-      const plans = planIssues(s, o, found.filter((i) => i.state === "OPEN"), runUrl, found.filter((i) => i.state === "CLOSED"));
-      issues = fileIssues(plans, repo, exec, dryRun, (l) => console.error(l));
+      // A GitHub failure must not lose the run: log it, record the result, go on.
+      try {
+        const titles = o.result === "drift" ? o.drifts.map((d) => d.fingerprint) : [o.result === "error" ? errorTitle(s, o.kind ?? "bug") : sessionTitle(s)];
+        const found = titles.flatMap((t) => (dryRun ? [] : ghIssues(exec, repo, t)));
+        const plans = planIssues(s, o, found.filter((i) => i.state === "OPEN"), runUrl, found.filter((i) => i.state === "CLOSED"), repo);
+        issues = fileIssues(plans, repo, exec, dryRun, (l) => console.error(l));
+      } catch (err) {
+        console.error(`  issues not filed: ${(err as Error).message}`);
+        o.detail += " (issue not filed: see the run log)";
+      }
     }
     const now = new Date().toISOString();
     status = record(status, s, { at: now, result: o.result, version: s.version, ...(runUrl ? { run: runUrl } : {}), issues, detail: o.detail }, now);

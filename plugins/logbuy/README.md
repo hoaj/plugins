@@ -35,6 +35,8 @@ copilot plugin marketplace add hoaj/plugins
 copilot plugin install logbuy@hoaj
 ```
 
+Installed it from the old `hoaj-skills` marketplace? Run `/plugin marketplace remove hoaj-skills`, then add `hoaj/plugins` and install `logbuy@hoaj` as above.
+
 There is no setup step. The first time your agent uses a CLI skill, it runs that skill's `install.sh`, which downloads the binary matching the skill's version into the skill's `bin/` folder. Skills that need a login open Chrome once for you to sign in.
 
 ### Any MCP client (Claude Desktop, Cursor, …)

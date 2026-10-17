@@ -24,7 +24,9 @@ copilot plugin install logbuy@hoaj
 
 ### Cursor
 
-Settings → Plugins → Add marketplace → `hoaj/plugins`, then install a plugin. Cursor lists only the plugins in this repo; install site-cli-creator from `hoaj/site-cli-creator` and BankMCP from `noskillish/bankmcp`.
+Settings → Plugins → Add marketplace → `hoaj/plugins`, then install a plugin. Cursor cannot list a plugin from another repo, so it shows only the plugins in this repo. For site-cli-creator, add the marketplace `hoaj/site-cli-creator` instead. BankMCP is not available in Cursor.
+
+Coming from the old `hoaj-skills` marketplace (hoaj/skills, now hoaj/site-cli-creator)? Remove it and add this one: `/plugin marketplace remove hoaj-skills`, `/plugin marketplace add hoaj/plugins`, then `/plugin install logbuy@hoaj`.
 
 The CLI binaries download over HTTPS from this repo's public releases the first time your agent uses a skill. No GitHub account is needed; the GitHub CLI is only used to report a problem.
 

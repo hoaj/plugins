@@ -2,7 +2,7 @@ import { afterAll, describe, expect, test } from "bun:test";
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { checkSkill, classify, discover, fileIssues, MAX_RUNS, planIssues, record, secretName, sessionText, type Exec, type Skill, type Status } from "./check";
+import { checkSkill, classify, discover, fileIssues, fixedIn, isolatedEnv, MAX_RUNS, planIssues, record, secretName, sessionText, type Exec, type Skill, type Status } from "./check";
 
 const tmp = mkdtempSync(join(tmpdir(), "status-check-"));
 afterAll(() => rmSync(tmp, { recursive: true, force: true }));
@@ -76,14 +76,30 @@ describe("planIssues", () => {
     expect(planIssues(SKILL, drift, [{ number: 7, title: FP, state: "OPEN" }], undefined)[0]!.existing).toBe(7);
   });
 
-  test("a closed one is linked as come back", () => {
-    expect(planIssues(SKILL, drift, [], undefined, [{ number: 3, title: FP, state: "CLOSED" }])[0]!.body).toContain("reported before in #3");
+  test("a closed one whose fix shipped at or below this version: a new issue that links it (it came back)", () => {
+    const [p] = planIssues(SKILL, drift, [], undefined, [{ number: 3, title: FP, state: "CLOSED", labels: [{ name: "fixed-in:shop-v1.2.0" }] }]);
+    expect(p!.existing).toBeUndefined();
+    expect(p!.body).toContain("reported before in #3");
+  });
+
+  test("a closed one whose fix is merged but not released (no fixed-in) stands for it: nothing new", () => {
+    expect(planIssues(SKILL, drift, [], undefined, [{ number: 3, title: FP, state: "CLOSED", labels: [] }])[0]!.existing).toBe(3);
+  });
+
+  test("a closed one fixed in a newer version than the one checked stands for it", () => {
+    expect(planIssues(SKILL, drift, [], undefined, [{ number: 4, title: FP, state: "CLOSED", labels: [{ name: "fixed-in:shop-v1.3.0" }] }])[0]!.existing).toBe(4);
+  });
+
+  test("fixedIn reads only this plugin's labels", () => {
+    expect(fixedIn({ number: 1, title: "", state: "CLOSED", labels: [{ name: "fixed-in:other-v9.0.0" }, { name: "fixed-in:shop-v1.0.1" }] }, "shop")).toBe("1.0.1");
+    expect(fixedIn({ number: 1, title: "", state: "CLOSED", labels: [{ name: "fixed-in:v2.0.0" }] }, "shop")).toBe("2.0.0");
+    expect(fixedIn({ number: 1, title: "", state: "CLOSED", labels: [{ name: "drift" }] }, "shop")).toBeNull();
   });
 
   test("session: a ci-session issue that says how to renew the secret", () => {
-    const [p] = planIssues(SKILL, classify(4, JSON.stringify({ error: { kind: "session" } })), [], undefined);
+    const [p] = planIssues(SKILL, classify(4, JSON.stringify({ error: { kind: "session" } })), [], undefined, [], "acme/plugins");
     expect(p!.labels).toEqual(["ci-session", "shop"]);
-    expect(p!.body).toContain("gh secret set SESSION_SHOP_SHOP");
+    expect(p!.body).toContain("gh secret set SESSION_SHOP_SHOP --repo acme/plugins");
     expect(p!.body).toContain("~/.shop/session.json");
   });
 
@@ -107,7 +123,9 @@ describe("checkSkill", () => {
   const calls: string[][] = [];
   const exec = (answers: Record<string, { code: number; stdout?: string }>): Exec => (cmd, opts) => {
     calls.push(cmd);
+    expect(opts?.isolated).toBe(true);
     if (cmd[0] === "bash") return { code: answers.install?.code ?? 0, stdout: "", stderr: "install.sh: release logbuy-v9 still being built" };
+    expect(opts!.env!.SITE_CLI_NONINTERACTIVE).toBe("1");
     const session = readFileSync(join(opts!.env!.SITE_CLI_HOME!, "session.json"), "utf8");
     expect(session).toBe('{"cookies":[]}');
     return { code: answers.check!.code, stdout: answers.check!.stdout ?? "", stderr: "" };
@@ -127,6 +145,10 @@ describe("checkSkill", () => {
     expect(o.result).toBe("ok");
     expect(calls.at(-1)).toEqual(["/x/bin/shop", "check"]);
   });
+});
+
+test("isolatedEnv drops the job's secrets and keeps the rest", () => {
+  expect(isolatedEnv({ PATH: "/bin", HOME: "/h", SECRETS_JSON: "{}", GH_TOKEN: "t", GITHUB_TOKEN: "t", SESSION_SHOP_SHOP: "s", X: undefined })).toEqual({ PATH: "/bin", HOME: "/h" });
 });
 
 test("fileIssues opens only what is not open yet and returns every number", () => {
