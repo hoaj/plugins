@@ -4,7 +4,7 @@ Find deals on Visma LogBuy (mylogbuy.com): search products, show a deal, browse 
 
 A plugin for coding agents (Claude Code, Cursor, GitHub Copilot CLI). Each CLI skill in `skills/` wraps one site with a small compiled CLI that your agent runs for you. It notices when the site changes (Drift) and, once you agree, reports it so it gets fixed.
 
-**Maintainer:** [@hoaj](https://github.com/hoaj). Generated with [site-cli-creator](https://github.com/hoaj/site-cli-creator). It lives in [`hoaj/plugins`](https://github.com/hoaj/plugins) and ships through its `hoaj` marketplace. Catalog: [agentplugins.dk](https://agentplugins.dk).
+**Maintainer:** [@hoaj](https://github.com/hoaj). Generated with [site-cli-creator](https://github.com/hoaj/site-cli-creator). It lives in [`hoaj/plugins`](https://github.com/hoaj/plugins) and ships through its `hoaj` marketplace. Catalog: [hoaj.github.io/plugins](https://hoaj.github.io/plugins/).
 
 ## Requirements
 

@@ -2,7 +2,7 @@
 
 Plugins for coding agents (**Claude Code**, **GitHub Copilot CLI**, **Cursor**), and the `hoaj` marketplace that lists them. Most are made with [site-cli-creator](https://github.com/hoaj/site-cli-creator): each wraps one website as a small CLI that your agent runs for you, signed in as you, on your own machine. The same binary is also a local MCP server. When the site changes, the plugin notices and, once you agree, files an issue here so it gets fixed.
 
-Browse them at **[agentplugins.dk](https://agentplugins.dk)**.
+Browse them at **[hoaj.github.io/plugins](https://hoaj.github.io/plugins/)**.
 
 ## Install
 
@@ -44,7 +44,7 @@ Ask your agent to "report this": each plugin has a `<plugin>-feedback` skill tha
 
 ## Daily drift check
 
-Every morning `.github/workflows/drift-check.yml` installs each CLI skill's released binary and runs its read-only `check` against the live site (never `--writes`). Drift opens an issue titled with the Fingerprint, the same title the plugin's Feedback skill uses, so a user's report and the daily check never file the same Drift twice. A failing check opens a `bug` issue, and an expired CI session opens a `ci-session` issue. Every result is kept in `status.json` on the `status` branch, and [agentplugins.dk](https://agentplugins.dk) shows it as each plugin's status: Stabil, Ustabil or Drift fundet.
+Every morning `.github/workflows/drift-check.yml` installs each CLI skill's released binary and runs its read-only `check` against the live site (never `--writes`). Drift opens an issue titled with the Fingerprint, the same title the plugin's Feedback skill uses, so a user's report and the daily check never file the same Drift twice. A failing check opens a `bug` issue, and an expired CI session opens a `ci-session` issue. Every result is kept in `status.json` on the `status` branch, and the [catalog](https://hoaj.github.io/plugins/) shows it as each plugin's status: Stabil, Ustabil or Drift fundet.
 
 A skill with a login is checked only when its session is stored as the repo secret `SESSION_<PLUGIN>_<SKILL>`. After `bin/<skill> login` on your machine:
 

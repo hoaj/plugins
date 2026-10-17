@@ -1,4 +1,4 @@
-# Builds agentplugins.dk from the marketplace files (site/build.ts) and deploys it to GitHub Pages.
+# Builds the catalog (hoaj.github.io/plugins) from the marketplace files (site/build.ts) and deploys it to GitHub Pages.
 name: pages
 
 on:

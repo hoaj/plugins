@@ -1,7 +1,7 @@
 # The daily drift check: every CLI skill's read-only `check` against its live site, with the
 # released binary (status/check.ts). Drift, a failing check or an expired CI session opens an
-# issue; every result goes into status.json on the `status` branch, which the catalog at
-# agentplugins.dk shows as each plugin's stability. Login skills need their session in the
+# issue; every result goes into status.json on the `status` branch, which the catalog
+# (hoaj.github.io/plugins) shows as each plugin's stability. Login skills need their session in the
 # secret SESSION_<PLUGIN>_<SKILL> (see README "Daily drift check").
 name: drift-check
 
