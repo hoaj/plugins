@@ -43,7 +43,7 @@ Ask your agent to "report this": each plugin has a `<plugin>-feedback` skill tha
 
 ## Daily drift check
 
-Every morning `.github/workflows/drift-check.yml` installs each CLI skill's released binary and runs its read-only `check` against the live site (never `--writes`). Drift opens an issue titled with the Fingerprint, the same title the plugin's Feedback skill uses, so a user's report and the daily check never file the same Drift twice. A failing check opens a `bug` issue, and an expired CI session opens a `ci-session` issue. Every result is kept in `status.json` on the `status` branch, and the [catalog](https://hoaj.github.io/plugins/) shows it as each plugin's status: Stabil, Ustabil or Drift fundet.
+Every morning `.github/workflows/drift-check.yml` installs each CLI skill's released binary and runs its read-only `check` against the live site (never `--writes`). Drift opens an issue titled with the Fingerprint, the same title the plugin's Feedback skill uses, so a user's report and the daily check never file the same Drift twice. A failing check opens a `bug` issue, and an expired CI session opens a `ci-session` issue. Every result is kept in `status.json` on the `status` branch, and the [catalog](https://hoaj.github.io/plugins/) shows it as each plugin's status: Stabil, Ustabil, Drift, Ny or Ikke tjekket.
 
 A skill with a login is checked only when its session is stored as the repo secret `SESSION_<PLUGIN>_<SKILL>`. After `bin/<skill> login` on your machine:
 
@@ -55,7 +55,7 @@ The secret is the maintainer's own signed-in session. Workflows on `main` can re
 
 ## Adding a plugin
 
-Generate it with site-cli-creator into `plugins/<plugin>/`. Each plugin owns its code, tests and version and shares nothing with the others:
+Generate it with site-cli-creator's `new --into <this repo>`, which writes everything below. Each plugin owns its code, tests and version and shares nothing with the others:
 
 - `plugins/<plugin>/`: the plugin, with its four manifests, `generated.json`, skills, scripts and tests.
 - `.github/workflows/<plugin>-ci.yml` and `<plugin>-release.yml`, filtered to `plugins/<plugin>/**`. Merging a version bump to `main` builds the binaries and publishes the release `<plugin>-vX.Y.Z`.
