@@ -1,0 +1,25 @@
+{
+  "name": "hoaj",
+  "owner": { "name": "Andreas Jørgensen", "url": "https://github.com/hoaj" },
+  "metadata": {
+    "description": "Plugins for coding agents by hoaj: CLI skills for websites, made with site-cli-creator, and the generator itself.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "logbuy",
+      "source": "./plugins/logbuy",
+      "description": "Find deals on Visma LogBuy (mylogbuy.com): search products, show a deal, browse categories."
+    },
+    {
+      "name": "site-cli-creator",
+      "source": { "source": "github", "repo": "hoaj/site-cli-creator", "path": "plugins/site-cli-creator" },
+      "description": "Turn the calls a website makes into a plugin of CLI skills that coding agents can run, with Drift checks and a feedback loop."
+    },
+    {
+      "name": "bank",
+      "source": { "source": "github", "repo": "noskillish/bankmcp", "path": "plugin" },
+      "description": "BankMCP: ask your AI assistant about your own bank accounts. Read-only, self-hosted, on PSD2 open banking via Enable Banking. /bank:setup installs it locally, /bank:deploy hosts it."
+    }
+  ]
+}
