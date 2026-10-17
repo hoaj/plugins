@@ -1,0 +1,63 @@
+# Builds the catalog (hoaj.github.io/plugins) from the marketplace files (site/build.ts) and deploys it to GitHub Pages.
+name: pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - site/**
+      - .claude-plugin/**
+      - .github/plugin/**
+      - .cursor-plugin/**
+      - plugins/*/.claude-plugin/**
+      - plugins/*/skills/*/SKILL.md
+      - plugins/*/skills/*/install.sh
+      - .github/workflows/pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.3"
+      # "./site", not "site": a bare filter would also match plugins/*/…/site.test.ts.
+      - name: Test
+        run: bun test ./site
+      # The daily drift check keeps its history in status.json on the `status` branch. No branch
+      # or no file yet: build without status (the cards say "Endnu ikke tjekket").
+      - name: Fetch drift-check status
+        run: |
+          if git fetch --depth 1 origin status; then
+            git show FETCH_HEAD:status.json > "$RUNNER_TEMP/status.json" || rm -f "$RUNNER_TEMP/status.json"
+          fi
+      - name: Build
+        run: bun site/build.ts --status "$RUNNER_TEMP/status.json"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/dist
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

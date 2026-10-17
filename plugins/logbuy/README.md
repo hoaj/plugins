@@ -4,47 +4,50 @@ Find deals on Visma LogBuy (mylogbuy.com): search products, show a deal, browse 
 
 A plugin for coding agents (Claude Code, Cursor, GitHub Copilot CLI). Each CLI skill in `skills/` wraps one site with a small compiled CLI that your agent runs for you. It notices when the site changes (Drift) and, once you agree, reports it so it gets fixed.
 
-**Maintainer:** [@hoaj](https://github.com/hoaj). Generated with [site-cli-creator](../site-cli-creator). It lives in [`hoaj/skills`](https://github.com/hoaj/skills) and ships through its `hoaj-skills` marketplace.
+**Maintainer:** [@hoaj](https://github.com/hoaj). Generated with [site-cli-creator](https://github.com/hoaj/site-cli-creator). It lives in [`hoaj/plugins`](https://github.com/hoaj/plugins) and ships through its `hoaj` marketplace. Catalog: [hoaj.github.io/plugins](https://hoaj.github.io/plugins/).
 
 ## Requirements
 
-- [GitHub CLI](https://cli.github.com), logged in (`gh auth login`) with read access to [`hoaj/skills`](https://github.com/hoaj/skills). The CLI binaries are downloaded from that repo's `logbuy-v<version>` releases with your own `gh`.
+- `curl`, which macOS, Linux and Git Bash on Windows already have. The CLI binaries download over HTTPS from the public `logbuy-v<version>` releases of [`hoaj/plugins`](https://github.com/hoaj/plugins), with no GitHub account.
+- [GitHub CLI](https://cli.github.com), logged in (`gh auth login`), only to report a problem (see below).
 - [Google Chrome](https://www.google.com/chrome/), for CLI skills that sign in to a site or have write commands. The skill tells you when it needs it.
 - macOS (Apple silicon or Intel), Linux (x64 or arm64) or Windows x64. On Windows the install step runs in Git Bash.
 
 ## Install
 
-Add the `hoaj-skills` marketplace, then install the plugin from it.
+Add the `hoaj` marketplace, then install the plugin from it.
 
 ### Claude Code
 
 ```
-/plugin marketplace add hoaj/skills
-/plugin install logbuy@hoaj-skills
+/plugin marketplace add hoaj/plugins
+/plugin install logbuy@hoaj
 ```
 
 ### Cursor
 
-Settings → Plugins → Add marketplace → `hoaj/skills`, then install **logbuy**.
+Settings → Plugins → Add marketplace → `hoaj/plugins`, then install **logbuy**.
 
 ### GitHub Copilot CLI
 
 ```
-copilot plugin marketplace add hoaj/skills
-copilot plugin install logbuy
+copilot plugin marketplace add hoaj/plugins
+copilot plugin install logbuy@hoaj
 ```
+
+Installed it from the old `hoaj-skills` marketplace? Run `/plugin marketplace remove hoaj-skills`, then add `hoaj/plugins` and install `logbuy@hoaj` as above.
 
 There is no setup step. The first time your agent uses a CLI skill, it runs that skill's `install.sh`, which downloads the binary matching the skill's version into the skill's `bin/` folder. Skills that need a login open Chrome once for you to sign in.
 
 ### Any MCP client (Claude Desktop, Cursor, …)
 
-The `logbuy` binary is also an MCP server: `skills/logbuy/bin/logbuy mcp` serves the same Tasks as tools over stdio (`deal_search`, `deal_show`, `deal_browse` and `category_list`, plus `login`, `check` and `doctor`), with the same sign-in and Drift checks. Clone [`hoaj/skills`](https://github.com/hoaj/skills), get the binary once with `bash plugins/logbuy/skills/logbuy/install.sh`, then add it to your client:
+The `logbuy` binary is also an MCP server: `skills/logbuy/bin/logbuy mcp` serves the same Tasks as tools over stdio (`deal_search`, `deal_show`, `deal_browse` and `category_list`, plus `login`, `check` and `doctor`), with the same sign-in and Drift checks. Clone [`hoaj/plugins`](https://github.com/hoaj/plugins), get the binary once with `bash plugins/logbuy/skills/logbuy/install.sh`, then add it to your client:
 
 ```json
-{ "mcpServers": { "logbuy": { "command": "/path/to/skills/plugins/logbuy/skills/logbuy/bin/logbuy", "args": ["mcp"] } } }
+{ "mcpServers": { "logbuy": { "command": "/path/to/plugins/plugins/logbuy/skills/logbuy/bin/logbuy", "args": ["mcp"] } } }
 ```
 
-Claude Code: `claude mcp add logbuy -- /path/to/skills/plugins/logbuy/skills/logbuy/bin/logbuy mcp` (the plugin above is the better fit there: it also brings the skill's guidance). The first tool call asks you to call the `login` tool, which opens Chrome for you to sign in to LogBuy; the session stays on your machine in `~/.logbuy/`, shared with the CLI.
+Claude Code: `claude mcp add logbuy -- /path/to/plugins/plugins/logbuy/skills/logbuy/bin/logbuy mcp` (the plugin above is the better fit there: it also brings the skill's guidance). The first tool call asks you to call the `login` tool, which opens Chrome for you to sign in to LogBuy; the session stays on your machine in `~/.logbuy/`, shared with the CLI.
 
 ### Remote mode (claude.ai and the phone)
 
@@ -56,12 +59,12 @@ Update the plugin in your agent's plugin manager (Claude Code: `/plugin update l
 
 ## Report a problem
 
-Ask your agent to "report this". The `logbuy-feedback` skill drafts a GitHub issue on `hoaj/skills`, labelled `logbuy`, from the CLI's error output (shapes and type names, never your data), shows it to you, and files it only when you say yes. It also files requests for things the plugin cannot do yet.
+Ask your agent to "report this". The `logbuy-feedback` skill drafts a GitHub issue on `hoaj/plugins`, labelled `logbuy`, from the CLI's error output (shapes and type names, never your data), shows it to you, and files it only when you say yes. It also files requests for things the plugin cannot do yet.
 
 To check whether the site changed or the problem is on your side, ask your agent to run the skill's `check` command.
 
 ## Maintaining
 
-Changes are made with the site-cli-creator generator (`add-skill`, `add-task`, `fix`), with `plugins/logbuy` as the plugin root and `hoaj/skills` as its repo. Every change bumps the version (`cd plugins/logbuy && bun run bump <patch|minor|major>`); merging it to `main` builds and publishes the release `logbuy-vX.Y.Z` (`.github/workflows/logbuy-release.yml`). CI for the plugin is `.github/workflows/logbuy-ci.yml`; both run only when `plugins/logbuy/` changes.
+Changes are made with the site-cli-creator generator (`add-skill`, `add-task`, `fix`), with `plugins/logbuy` as the plugin root and `hoaj/plugins` as its repo. Every change bumps the version (`cd plugins/logbuy && bun run bump <patch|minor|major>`); merging it to `main` builds and publishes the release `logbuy-vX.Y.Z` (`.github/workflows/logbuy-release.yml`). CI for the plugin is `.github/workflows/logbuy-ci.yml`; both run only when `plugins/logbuy/` changes.
 
-Issues for this plugin are the ones labelled `logbuy`: `gh issue list --repo hoaj/skills --label logbuy`.
+Issues for this plugin are the ones labelled `logbuy`: `gh issue list --repo hoaj/plugins --label logbuy`. Its history before the move is in `hoaj/site-cli-creator` (formerly `hoaj/skills`) and the private `hoaj/logbuy-plugin`.

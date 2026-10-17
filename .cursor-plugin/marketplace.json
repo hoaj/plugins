@@ -1,0 +1,15 @@
+{
+  "name": "hoaj",
+  "owner": { "name": "Andreas Jørgensen" },
+  "metadata": {
+    "description": "Plugins for coding agents by hoaj. Cursor lists only the plugins in this repo: install site-cli-creator from the marketplace in hoaj/site-cli-creator. BankMCP has no Cursor marketplace.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "logbuy",
+      "source": "./plugins/logbuy",
+      "description": "Find deals on Visma LogBuy (mylogbuy.com): search products, show a deal, browse categories."
+    }
+  ]
+}

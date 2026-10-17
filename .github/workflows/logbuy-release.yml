@@ -123,8 +123,13 @@ jobs:
           if [ "$state" = true ]; then
             echo "reusing the draft of $TAG from an earlier run"
           else
-            # --latest=false: the repo's "Latest" release is not any one plugin's.
-            gh release create "$TAG" --draft --target "$GITHUB_SHA" --title "logbuy v$VERSION" --generate-notes --latest=false
+            # The notes start at logbuy's previous release, not whichever release of the repo
+            # GitHub would pick (another plugin's). --latest=false: the repo's "Latest" release
+            # is not any one plugin's.
+            prev="$( { gh api "repos/$GITHUB_REPOSITORY/tags" --paginate --jq '.[].name' | grep -E "^${TAG_PREFIX}[0-9]+\.[0-9]+\.[0-9]+$" || true; echo "$TAG"; } | sort -uV | grep -xF -B1 "$TAG" | grep -vxF "$TAG" || true)"
+            notes=(--generate-notes)
+            if [ -n "$prev" ]; then notes+=(--notes-start-tag "$prev"); fi
+            gh release create "$TAG" --draft --target "$GITHUB_SHA" --title "logbuy v$VERSION" "${notes[@]}" --latest=false
           fi
           echo "go=true" >>"$GITHUB_OUTPUT"
 

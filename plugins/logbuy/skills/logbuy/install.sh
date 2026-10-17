@@ -3,12 +3,13 @@
 # Run it once, when the binary is missing:  bash install.sh   (Git Bash on Windows)
 #
 # It stops with a clear message at the first step that fails:
-#   1. GitHub CLI (gh) present
-#   2. gh logged in
-#   3. Google Chrome present, when this skill needs it
-#   4. this platform has a release binary
-#   5. gh release download logbuy-v<version> --pattern logbuy-<target>[.exe]
-#   6. macOS: strip quarantine, ad-hoc sign if the signature is invalid.
+#   1. curl or GitHub CLI (gh) present
+#   2. Google Chrome present, when this skill needs it
+#   3. this platform has a release binary
+#   4. download logbuy-<target>[.exe] from release logbuy-v<version>: over HTTPS with curl, which
+#      needs no login (a public repo); when that finds nothing and gh is logged in, with
+#      `gh release download` (a private repo the user can see)
+#   5. macOS: strip quarantine, ad-hoc sign if the signature is invalid.
 #      Windows: Unblock-File. Both ignore errors.
 #
 # The version comes from the `<!-- version: X.Y.Z -->` comment in SKILL.md, so the binary
@@ -18,10 +19,11 @@
 # Environment:
 #   SITE_CLI_CHROME          Chrome executable to check instead of the fixed per-OS path
 #   SITE_CLI_INSTALL_UNAME   replaces `uname -sm`, e.g. "Darwin arm64" (tests only)
+#   SITE_CLI_INSTALL_BASE_URL  replaces https://github.com in the download URL (tests only)
 set -euo pipefail
 
 SKILL="logbuy"
-REPO="hoaj/skills"
+REPO="hoaj/plugins"
 # The repo holds other plugins, so its release tags carry the plugin's name: logbuy-v<version>.
 TAG_PREFIX="logbuy-v"
 OWNER="hoaj"
@@ -114,13 +116,17 @@ chrome_hint() {
   printf ', or set SITE_CLI_CHROME to its executable'
 }
 
-# 1-2. GitHub CLI
-command -v gh >/dev/null 2>&1 || die "GitHub CLI (gh) not found: install GitHub CLI (https://cli.github.com) and run \`gh auth login\`"
-gh auth status >/dev/null 2>&1 || die "gh is not logged in: run \`gh auth login\`"
+# 1. A way to download
+has_curl=""
+has_gh=""
+command -v curl >/dev/null 2>&1 && has_curl=1
+command -v gh >/dev/null 2>&1 && has_gh=1
+[ -n "$has_curl$has_gh" ] ||
+  die "neither curl nor GitHub CLI (gh) found: install curl, or install GitHub CLI (https://cli.github.com) and run \`gh auth login\`"
 
 detect_platform
 
-# 3. Chrome, only when the skill needs it. An unknown OS fails at step 4 instead.
+# 2. Chrome, only when the skill needs it. An unknown OS fails at step 3 instead.
 case "$os" in
   darwin | linux | windows)
     if needs_chrome && [ -z "$(find_chrome)" ]; then
@@ -129,7 +135,7 @@ case "$os" in
     ;;
 esac
 
-# 4. Platform
+# 3. Platform
 case " $SUPPORTED " in
   *" $platform "*) ;;
   *) die "unsupported platform: $platform" ;;
@@ -143,29 +149,59 @@ target="$SKILL_DIR/bin/$SKILL$ext"
 version="$(first_match "$SKILL_DIR/SKILL.md" '^<!-- version: ([0-9]+\.[0-9]+\.[0-9]+) -->')" ||
   die "SKILL.md has no <!-- version: X.Y.Z --> comment"
 
-# 5. Download into a temp dir, so bin/ only ever holds a finished binary.
+# 4. Download into a temp dir, so bin/ only ever holds a finished binary.
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 mkdir "$tmp/dl"
 tag="$TAG_PREFIX$version"
-if ! gh release download "$tag" --repo "$REPO" --pattern "$asset" --dir "$tmp/dl" 2>"$tmp/err"; then
-  err="$(<"$tmp/err")"
-  case "$err" in
-    *"not found"* | *"Not Found"* | *404* | *"no assets match"* | *"Could not resolve"*)
-      if gh api "repos/$REPO" --silent >/dev/null 2>&1; then
-        die "release $tag of $REPO is still being built: try again in a few minutes"
-      fi
-      die "cannot see $REPO: ask $OWNER for access to $REPO"
-      ;;
-  esac
-  die "gh release download $tag failed: $err"
-fi
 binary="$tmp/dl/$asset"
-[ -f "$binary" ] || die "gh release download $tag did not produce $asset"
+url="${SITE_CLI_INSTALL_BASE_URL:-https://github.com}/$REPO/releases/download/$tag/$asset"
+
+# Over HTTPS first: a public repo's release needs no gh and no login. Prints the HTTP status.
+download_public() {
+  local code
+  if ! code="$(curl -sSL --retry 2 -o "$binary" -w '%{http_code}' "$url" 2>"$tmp/err")"; then
+    die "could not download $url: $(<"$tmp/err")"
+  fi
+  printf '%s' "$code"
+}
+
+# Through gh: a private repo the user has access to.
+download_gh() {
+  gh auth status >/dev/null 2>&1 || die "gh is not logged in: run \`gh auth login\`"
+  if ! gh release download "$tag" --repo "$REPO" --pattern "$asset" --dir "$tmp/dl" 2>"$tmp/err"; then
+    err="$(<"$tmp/err")"
+    case "$err" in
+      *"not found"* | *"Not Found"* | *404* | *"no assets match"* | *"Could not resolve"*)
+        if gh api "repos/$REPO" --silent >/dev/null 2>&1; then
+          die "release $tag of $REPO is still being built: try again in a few minutes"
+        fi
+        die "cannot see $REPO: ask $OWNER for access to $REPO"
+        ;;
+    esac
+    die "gh release download $tag failed: $err"
+  fi
+  [ -f "$binary" ] || die "gh release download $tag did not produce $asset"
+}
+
+if [ -n "$has_curl" ]; then
+  code="$(download_public)"
+  if [ "$code" != 200 ]; then
+    rm -f "$binary"
+    if [ -n "$has_gh" ] && gh auth status >/dev/null 2>&1; then
+      download_gh
+    else
+      die "release $tag of $REPO was not found at $url (HTTP $code): if it was just released, it is still being built, so try again in a few minutes; if $REPO is private, install GitHub CLI (https://cli.github.com), run \`gh auth login\` and ask $OWNER for access"
+    fi
+  fi
+else
+  download_gh
+fi
 chmod 0755 "$binary"
 
-# 6. Unblock. gh sets no quarantine attribute today, so the xattr step is defensive. Bun's
-# cross-compiled darwin binaries can carry an invalid signature, which an ad-hoc one replaces.
+# 5. Unblock. Neither curl nor gh sets a quarantine attribute today, so the xattr step is
+# defensive. Bun's cross-compiled darwin binaries can carry an invalid signature, which an
+# ad-hoc one replaces.
 case "$os" in
   darwin)
     xattr -d com.apple.quarantine "$binary" >/dev/null 2>&1 || true
