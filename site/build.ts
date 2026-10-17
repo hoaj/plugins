@@ -41,12 +41,34 @@ export interface Plugin {
   /** Repo whose marketplace Cursor installs it from. */
   cursorMarketplace: string;
   cliSkills: CliSkill[];
+  /** Drift-check runs per CLI skill, oldest first. Absent when there is no status file. */
+  status?: Record<string, StatusRun[]>;
 }
 
 export interface SiteData {
   marketplace: string;
   description?: string;
   plugins: Plugin[];
+  /** `updated` from the status file. */
+  statusUpdated?: string;
+}
+
+export const RESULTS = ["ok", "drift", "error", "session", "no-session", "network", "install"] as const;
+export type RunResult = (typeof RESULTS)[number];
+
+export interface StatusRun {
+  at: string;
+  result: RunResult;
+  version?: string;
+  run?: string;
+  issues?: number[];
+  detail?: string;
+}
+
+/** status.json on the `status` branch, written by the daily drift-check workflow. */
+export interface StatusFile {
+  updated?: string;
+  plugins?: Record<string, { skills?: Record<string, { runs?: StatusRun[] }> }>;
 }
 
 interface MarketplaceEntry {
@@ -97,8 +119,48 @@ export function parseCommands(skillMd: string): CliCommand[] {
   return rows;
 }
 
-/** Reads the marketplace files and local plugin manifests under `root`. */
-export function loadData(root: string): SiteData {
+/**
+ * Reads a status file. A missing or unreadable file means no status (the site still builds);
+ * runs with an unknown `result` are dropped and the rest are sorted oldest first.
+ */
+export function loadStatus(file: string | undefined): StatusFile | undefined {
+  if (!file || !existsSync(file)) return undefined;
+  let raw: StatusFile;
+  try {
+    raw = readJson<StatusFile>(file);
+  } catch (e) {
+    console.warn(`site/build.ts: ignoring status file ${file}: ${(e as Error).message}`);
+    return undefined;
+  }
+  if (!raw || typeof raw !== "object") return undefined;
+  const plugins: NonNullable<StatusFile["plugins"]> = {};
+  for (const [name, p] of Object.entries(raw.plugins ?? {})) {
+    const skills: Record<string, { runs: StatusRun[] }> = {};
+    for (const [skill, s] of Object.entries(p?.skills ?? {})) {
+      const runs = (Array.isArray(s?.runs) ? s.runs : [])
+        .filter((r) => r && typeof r.at === "string" && (RESULTS as readonly string[]).includes(r.result))
+        .sort((a, b) => a.at.localeCompare(b.at));
+      skills[skill] = { runs };
+    }
+    plugins[name] = { skills };
+  }
+  return { updated: typeof raw.updated === "string" ? raw.updated : undefined, plugins };
+}
+
+/** Reads the marketplace files and local plugin manifests under `root`, plus an optional status file. */
+export function loadData(root: string, opts: { statusFile?: string } = {}): SiteData {
+  const data = loadMarketplace(root);
+  const status = loadStatus(opts.statusFile);
+  if (!status) return data;
+  for (const p of data.plugins) {
+    if (!p.cliSkills.length) continue;
+    const skills = status.plugins?.[p.name]?.skills ?? {};
+    p.status = Object.fromEntries(p.cliSkills.map((s) => [s.name, skills[s.name]?.runs ?? []]));
+  }
+  return { ...data, statusUpdated: status.updated };
+}
+
+function loadMarketplace(root: string): SiteData {
   const claude = readJson<Marketplace>(join(root, ".claude-plugin/marketplace.json"));
   const copilot = readJsonIfExists<Marketplace>(join(root, ".github/plugin/marketplace.json"));
   const cursor = readJsonIfExists<Marketplace>(join(root, ".cursor-plugin/marketplace.json"));
@@ -287,6 +349,178 @@ function commandList(skill: CliSkill): string {
   return `<div class="commands"><h3 class="mini">Kommandoer</h3><ul>${items}</ul></div>`;
 }
 
+// ---------------------------------------------------------------------------------------
+// Drift-check status
+
+export type Health = "drift" | "unstable" | "stable" | "new" | "unchecked";
+
+/** Results that say something about the site; the others mean the check did not run. */
+const COUNTED: ReadonlySet<RunResult> = new Set(["ok", "drift", "error"]);
+const BAD: ReadonlySet<RunResult> = new Set(["drift", "error"]);
+const WINDOW = 14;
+const STRIP = 30;
+
+export const HEALTH_LABEL: Record<Health, string> = {
+  drift: "Drift fundet",
+  unstable: "Ustabil",
+  stable: "Stabil",
+  new: "Ny",
+  unchecked: "Endnu ikke tjekket",
+};
+
+const NOT_CHECKED: Partial<Record<RunResult, string>> = {
+  session: "Ikke tjekket i dag: CI-sessionen er udløbet",
+  "no-session": "Ikke tjekket i dag: ingen CI-session sat op",
+  install: "Ikke tjekket i dag: binæren kunne ikke hentes",
+  network: "Ikke tjekket i dag: sitet svarede ikke",
+};
+
+const RESULT_LABEL: Record<RunResult, string> = {
+  ok: "OK",
+  drift: "drift",
+  error: "fejl i tjekket",
+  session: "ikke tjekket (CI-sessionen var udløbet)",
+  "no-session": "ikke tjekket (ingen CI-session)",
+  network: "ikke tjekket (sitet svarede ikke)",
+  install: "ikke tjekket (binæren kunne ikke hentes)",
+};
+
+export interface HealthSummary {
+  health: Health;
+  /** The counted run behind a "drift" badge. */
+  failing?: StatusRun;
+  /** Most recent run of any kind, across skills. */
+  latest?: StatusRun;
+  /** Muted "not checked today" notes. */
+  notes: string[];
+}
+
+/**
+ * Badge rule over a plugin's CLI skills, counting only ok/drift/error: the latest counted
+ * run of a skill is drift/error -> drift; any drift/error in a skill's last 14 counted runs
+ * -> unstable; every skill that has counted runs has at least 3, all ok -> stable;
+ * otherwise new. No counted runs at all -> unchecked.
+ */
+export function pluginHealth(status: Record<string, StatusRun[]> | undefined): HealthSummary {
+  const skills = Object.entries(status ?? {});
+  const all = skills.flatMap(([, runs]) => runs).sort((a, b) => a.at.localeCompare(b.at));
+  const notes = [
+    ...new Set(
+      skills.flatMap(([name, runs]) => {
+        const note = runs.length ? NOT_CHECKED[runs[runs.length - 1].result] : undefined;
+        return note ? [skills.length > 1 ? `${name}: ${note}` : note] : [];
+      }),
+    ),
+  ];
+  const latest = all[all.length - 1];
+  const counted = skills.map(([, runs]) => runs.filter((r) => COUNTED.has(r.result)));
+  if (!counted.some((c) => c.length)) return { health: "unchecked", latest, notes };
+
+  for (const c of counted) {
+    const last = c[c.length - 1];
+    if (last && BAD.has(last.result)) return { health: "drift", failing: last, latest, notes };
+  }
+  if (counted.some((c) => c.slice(-WINDOW).some((r) => BAD.has(r.result)))) {
+    return { health: "unstable", latest, notes };
+  }
+  const stable = counted.every((c) => c.length === 0 || c.length >= 3);
+  return { health: stable ? "stable" : "new", latest, notes };
+}
+
+const TZ = "Europe/Copenhagen";
+const fmtDate = new Intl.DateTimeFormat("da-DK", { day: "numeric", month: "short", year: "numeric", timeZone: TZ });
+const fmtDateTime = new Intl.DateTimeFormat("da-DK", { dateStyle: "medium", timeStyle: "short", timeZone: TZ });
+
+function date(iso: string, withTime = false): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return (withTime ? fmtDateTime : fmtDate).format(d);
+}
+
+function explain(h: HealthSummary): string {
+  switch (h.health) {
+    case "drift":
+      return h.failing?.result === "error"
+        ? "Seneste tjek fejlede. Nogle kommandoer virker måske ikke, før det er undersøgt."
+        : "Sitet har ændret sig. Nogle kommandoer virker måske ikke, før pluginnet er rettet.";
+    case "unstable":
+      return `Virker nu, men tjekket har fundet drift eller fejl inden for de seneste ${WINDOW} tjek.`;
+    case "stable":
+      return "De seneste daglige tjek er gået igennem uden fejl.";
+    case "new":
+      return "For få tjek endnu til at sige noget om stabiliteten.";
+    case "unchecked":
+      return "Det daglige tjek har ikke kørt for dette plugin endnu.";
+  }
+}
+
+function mark(r: StatusRun): string {
+  const label = `${date(r.at)}: ${RESULT_LABEL[r.result]}`;
+  return `<li class="m r-${r.result}" title="${esc(label)}"><span class="sr">${esc(label)}</span></li>`;
+}
+
+function statusBlock(p: Plugin): string {
+  if (!p.cliSkills.length) return "";
+  const h = pluginHealth(p.status);
+  const multi = p.cliSkills.length > 1;
+  const strips = p.cliSkills
+    .map((s) => {
+      const runs = (p.status?.[s.name] ?? []).slice(-STRIP);
+      if (!runs.length) return "";
+      return `<div class="strip-row">${multi ? `<span class="strip-skill">${esc(s.name)}</span>` : ""}<ol class="strip" aria-label="De seneste ${runs.length} tjek af ${esc(s.name)}, ældste først">${runs.map(mark).join("")}</ol></div>`;
+    })
+    .join("");
+  const meta: string[] = [];
+  if (h.latest) {
+    const when = `<time datetime="${esc(h.latest.at)}">${esc(date(h.latest.at, true))}</time>`;
+    meta.push(`Sidst tjekket ${h.latest.run ? `<a href="${esc(h.latest.run)}">${when}</a>` : when}`);
+  }
+  if (h.failing?.result === "drift" && h.failing.issues?.length) {
+    meta.push(
+      h.failing.issues
+        .map((n) => `<a href="https://github.com/${REPO}/issues/${encodeURIComponent(String(n))}">#${esc(String(n))}</a>`)
+        .join(" "),
+    );
+  }
+  meta.push(
+    `<a href="https://github.com/${REPO}/issues?q=is%3Aopen+label%3Adrift+label%3A${encodeURIComponent(p.name)}">Åbne drift-issues</a>`,
+  );
+  return `<div class="status h-${h.health}">
+<h3 class="mini">Dagligt tjek</h3>
+<p class="status-head"><span class="hbadge">${HEALTH_LABEL[h.health]}</span><span class="status-text">${explain(h)}</span></p>
+${h.notes.map((n) => `<p class="status-note">${esc(n)}</p>`).join("")}
+${strips}
+<p class="status-meta">${meta.join('<span aria-hidden="true"> · </span>')}</p>
+</div>`;
+}
+
+/** The intro's one-line summary, or "" when no plugin has CLI skills. */
+function statusSummary(data: SiteData): string {
+  const tracked = data.plugins.filter((p) => p.cliSkills.length);
+  if (!tracked.length) return "";
+  const withStatus = tracked.filter((p) => p.status);
+  if (!withStatus.length) {
+    return `<p class="hero-status"><span class="hs-label">Status</span><span>Det daglige tjek har ikke kørt endnu.</span></p>`;
+  }
+  const stable = tracked.filter((p) => pluginHealth(p.status).health === "stable").length;
+  const lastAt =
+    data.statusUpdated ??
+    withStatus
+      .flatMap((p) => Object.values(p.status ?? {}).flat())
+      .map((r) => r.at)
+      .sort()
+      .pop();
+  const when = lastAt ? ` · sidst tjekket ${esc(date(lastAt))}` : "";
+  return `<p class="hero-status"><span class="hs-label">Status</span><span><a href="#plugins">${stable} af ${tracked.length} plugins kører stabilt</a>${when}</span></p>`;
+}
+
+function legend(data: SiteData): string {
+  if (!data.plugins.some((p) => p.status)) return "";
+  const item = (cls: string, text: string) =>
+    `<li><span class="m ${cls}" aria-hidden="true"></span>${text}</li>`;
+  return `<ul class="legend" aria-label="Forklaring til dagligt tjek">${item("r-ok", "OK")}${item("r-drift", "Drift")}${item("r-error", "Fejl i tjekket")}${item("r-network", "Ikke tjekket")}</ul>`;
+}
+
 function card(p: Plugin, marketplace: string): string {
   const id = slug(p.name);
   const source = githubTree(p.repo, p.path);
@@ -313,6 +547,7 @@ function card(p: Plugin, marketplace: string): string {
 <h2 id="h-${id}"><a class="anchor" href="#${id}">${esc(p.name)}</a></h2>
 <p class="desc">${esc(p.description)}</p>
 <p class="kind-note">${KIND_NOTE[p.kind]}</p>
+${statusBlock(p)}
 ${p.cliSkills.map(commandList).join("")}
 <p class="links">${links.join("")}</p>
 </div>
@@ -363,6 +598,7 @@ export function render(data: SiteData): string {
 <p class="eyebrow">Plugins til Claude Code, GitHub Copilot CLI og Cursor</p>
 <h1 id="hero-h">Lad din AI-agent klare ting på <mark>websites</mark> for dig.</h1>
 <p class="lede">Hvert plugin pakker ét website ind i en lille CLI, som din agent kører på din egen maskine, logget ind som dig. Den samme fil er også en lokal MCP-server, så du kan bruge den fra andre klienter.</p>
+${statusSummary(data)}
 <ul class="points">
 <li><h2>Kører hos dig</h2><p>CLI’en kører lokalt, og dit login bliver på din egen maskine. Der står ingen server imellem dig og sitet.</p></li>
 <li><h2>Siger til, når sitet ændrer sig</h2><p>Hvis et website ændrer sig, stopper CLI’en i stedet for at gætte. Med dit OK rapporterer den ændringen, så den bliver rettet.</p></li>
@@ -375,7 +611,7 @@ export function render(data: SiteData): string {
 <h2 id="plugins-h">Plugins <span class="count">${count}</span></h2>
 <p>Alle ligger i markedspladsen <code>${esc(data.marketplace)}</code> på <a href="https://github.com/${REPO}">${esc(REPO)}</a>.</p>
 </div>
-<ul class="jump" aria-label="Gå til plugin">${nav}</ul>
+<div class="subhead"><ul class="jump" aria-label="Gå til plugin">${nav}</ul>${legend(data)}</div>
 ${cards}
 </section>
 
@@ -404,6 +640,7 @@ const CSS = `
   --accent:#1c6a44;--accent-ink:#fff;--mark:#d6f05a;--mark-ink:#121614;
   --code-bg:#151a17;--code-ink:#e4eae2;--code-muted:#7f8b83;--code-line:#151a17;
   --k-site:#1c6a44;--k-gen:#8a4b0f;--k-ext:#3d4a8c;
+  --ok:#1b7a45;--warn:#9a5a00;--bad:#b42318;--neutral:#626b65;
   --radius:10px;--shadow:0 1px 0 rgba(18,22,20,.04),0 8px 24px -16px rgba(18,22,20,.25);
   --f-head:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
   --f-body:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -414,6 +651,7 @@ const CSS = `
   --accent:#7ed3a0;--accent-ink:#0d100e;--mark:#c8e24c;--mark-ink:#0d100e;
   --code-bg:#090b0a;--code-ink:#dfe6dd;--code-muted:#6f7b73;--code-line:#27302b;
   --k-site:#7ed3a0;--k-gen:#f0b46e;--k-ext:#a9b6f5;
+  --ok:#6fd49a;--warn:#f2b259;--bad:#ff8b7d;--neutral:#9ba59e;
   --shadow:none;
 }}
 *,*::before,*::after{box-sizing:border-box}
@@ -501,6 +739,31 @@ mark{background:linear-gradient(transparent 58%,var(--mark) 58%,var(--mark) 92%,
 .copy:hover{background:color-mix(in srgb,var(--code-ink) 18%,var(--code-bg))}
 .copy:focus-visible{outline-color:var(--mark)}
 .copy.ok{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+
+.hero-status{display:flex;flex-wrap:wrap;align-items:baseline;gap:.25rem .75rem;margin:1.25rem 0 0;font-size:.95rem}
+.hs-label{font:600 .75rem/1.2 var(--f-mono);text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.subhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.5rem 1.5rem;margin:1rem 0 1.5rem}
+.subhead .jump{margin:0}
+.legend{list-style:none;display:flex;flex-wrap:wrap;gap:.35rem 1rem;padding:0;margin:0;font-size:.82rem;color:var(--muted)}
+.legend li{display:inline-flex;align-items:center;gap:.4rem}
+.legend .m{width:8px;flex:none}
+
+.status{--h:var(--neutral);margin-top:1.25rem;border-left:3px solid var(--h);padding:.1rem 0 .1rem .9rem}
+.status.h-drift{--h:var(--bad)}
+.status.h-unstable{--h:var(--warn)}
+.status.h-stable{--h:var(--ok)}
+.status-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.35rem .6rem;margin:0}
+.hbadge{font:600 .78rem/1 var(--f-body);color:var(--h);border:1.5px solid var(--h);background:color-mix(in srgb,var(--h) 12%,transparent);padding:.3rem .5rem;border-radius:999px;white-space:nowrap}
+.status-text{font-size:.93rem}
+.status-note{margin:.4rem 0 0;color:var(--muted);font-size:.88rem;font-style:italic}
+.strip-row{display:flex;align-items:center;gap:.6rem;margin-top:.65rem;min-width:0}
+.strip-skill{font:500 .75rem/1 var(--f-mono);color:var(--muted);flex:none}
+.strip{list-style:none;display:flex;align-items:flex-end;gap:3px;padding:0;margin:0;height:22px;min-width:0;flex:1}
+.m{display:inline-block;flex:0 1 8px;min-width:4px;height:22px;border-radius:2px;background:var(--ok);position:relative}
+.m.r-drift{background:repeating-linear-gradient(45deg,var(--bad) 0 2px,transparent 2px 4px);box-shadow:inset 0 0 0 1.5px var(--bad)}
+.m.r-error{background:repeating-linear-gradient(0deg,var(--warn) 0 2px,transparent 2px 4px);box-shadow:inset 0 0 0 1.5px var(--warn)}
+.m.r-session,.m.r-no-session,.m.r-network,.m.r-install{height:9px;background:transparent;box-shadow:inset 0 0 0 1.5px var(--neutral)}
+.status-meta{margin:.6rem 0 0;font-size:.85rem;color:var(--muted)}
 
 .mcp{margin-top:1.25rem;border:1px solid var(--line-strong);border-radius:8px}
 .mcp summary{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:.25rem 1rem;padding:.75rem .9rem;cursor:pointer;font-weight:600;list-style:none;border-radius:8px}
@@ -595,8 +858,8 @@ const JS = `
 `;
 
 /** Loads data from `root`, renders, and writes index.html, CNAME and .nojekyll to `outDir`. */
-export function build(root: string, outDir: string): string {
-  const html = render(loadData(root));
+export function build(root: string, outDir: string, opts: { statusFile?: string } = {}): string {
+  const html = render(loadData(root, opts));
   mkdirSync(outDir, { recursive: true });
   writeFileSync(join(outDir, "index.html"), html);
   writeFileSync(join(outDir, "CNAME"), `${DOMAIN}\n`);
@@ -604,9 +867,21 @@ export function build(root: string, outDir: string): string {
   return html;
 }
 
+/** `--status <file>` or `--status=<file>`, else env STATUS_FILE. */
+export function statusFileArg(argv: string[], env: Record<string, string | undefined>): string | undefined {
+  for (let i = 0; i < argv.length; i++) {
+    if (argv[i] === "--status") return argv[i + 1];
+    if (argv[i].startsWith("--status=")) return argv[i].slice("--status=".length);
+  }
+  return env.STATUS_FILE || undefined;
+}
+
 if (import.meta.main) {
   const root = resolve(import.meta.dir, "..");
   const out = join(root, "site/dist");
-  const html = build(root, out);
-  console.log(`wrote ${out}/index.html (${(html.length / 1024).toFixed(1)} KB), CNAME, .nojekyll`);
+  const arg = statusFileArg(Bun.argv.slice(2), process.env);
+  const statusFile = arg ? resolve(arg) : undefined;
+  const html = build(root, out, { statusFile });
+  const status = statusFile && existsSync(statusFile) ? `status from ${statusFile}` : "no status file";
+  console.log(`wrote ${out}/index.html (${(html.length / 1024).toFixed(1)} KB), CNAME, .nojekyll; ${status}`);
 }

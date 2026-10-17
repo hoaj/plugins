@@ -40,6 +40,18 @@ The CLI binaries download over HTTPS from this repo's public releases the first 
 
 Ask your agent to "report this": each plugin has a `<plugin>-feedback` skill that drafts an issue from the error (shapes only, never your data), shows it to you, and files it here with the plugin's label only when you say yes. Issues per plugin: filter by its label, e.g. [`logbuy`](https://github.com/hoaj/plugins/issues?q=is%3Aopen+label%3Alogbuy).
 
+## Daily drift check
+
+Every morning `.github/workflows/drift-check.yml` installs each CLI skill's released binary and runs its read-only `check` against the live site (never `--writes`). Drift opens an issue titled with the Fingerprint, the same title the plugin's Feedback skill uses, so a user's report and the daily check never file the same Drift twice. A failing check opens a `bug` issue, and an expired CI session opens a `ci-session` issue. Every result is kept in `status.json` on the `status` branch, and [agentplugins.dk](https://agentplugins.dk) shows it as each plugin's status: Stabil, Ustabil or Drift fundet.
+
+A skill with a login is checked only when its session is stored as the repo secret `SESSION_<PLUGIN>_<SKILL>`. After `bin/<skill> login` on your machine:
+
+```sh
+gh secret set SESSION_LOGBUY_LOGBUY --repo hoaj/plugins < ~/.logbuy/session.json
+```
+
+The secret is the maintainer's own signed-in session. Workflows on `main` can read it, and pull requests from forks cannot. Only store sessions for accounts whose daily read-only use you are fine with. When the session expires, the check opens a `ci-session` issue that says how to renew it.
+
 ## Adding a plugin
 
 Generate it with site-cli-creator into `plugins/<plugin>/`. Each plugin owns its code, tests and version and shares nothing with the others:

@@ -1,0 +1,61 @@
+# The daily drift check: every CLI skill's read-only `check` against its live site, with the
+# released binary (status/check.ts). Drift, a failing check or an expired CI session opens an
+# issue; every result goes into status.json on the `status` branch, which the catalog at
+# agentplugins.dk shows as each plugin's stability. Login skills need their session in the
+# secret SESSION_<PLUGIN>_<SKILL> (see README "Daily drift check").
+name: drift-check
+
+on:
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+concurrency:
+  group: drift-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.3"
+      - name: Status branch
+        run: |
+          if git ls-remote --exit-code --heads origin status >/dev/null; then
+            git fetch --depth 1 origin status:status
+            git worktree add status-data status
+          else
+            git worktree add --orphan -b status status-data
+          fi
+      - name: Labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh label create ci-session --force --color c5def5 --description "The daily drift check needs a new session for a login skill"
+      - name: Check every CLI skill
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SECRETS_JSON: ${{ toJSON(secrets) }}
+          SITE_CLI_CHROME: /usr/bin/google-chrome
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: bun status/check.ts --data status-data/status.json --repo "$GITHUB_REPOSITORY" --run-url "$RUN_URL"
+      - name: Save the status
+        working-directory: status-data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add status.json
+          git commit -q -m "drift check $(date -u +%Y-%m-%d)"
+          git push -q origin status
+      - name: Rebuild the catalog
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main

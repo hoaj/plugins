@@ -36,8 +36,15 @@ jobs:
       # "./site", not "site": a bare filter would also match plugins/*/…/site.test.ts.
       - name: Test
         run: bun test ./site
+      # The daily drift check keeps its history in status.json on the `status` branch. No branch
+      # or no file yet: build without status (the cards say "Endnu ikke tjekket").
+      - name: Fetch drift-check status
+        run: |
+          if git fetch --depth 1 origin status; then
+            git show FETCH_HEAD:status.json > "$RUNNER_TEMP/status.json" || rm -f "$RUNNER_TEMP/status.json"
+          fi
       - name: Build
-        run: bun site/build.ts
+        run: bun site/build.ts --status "$RUNNER_TEMP/status.json"
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
