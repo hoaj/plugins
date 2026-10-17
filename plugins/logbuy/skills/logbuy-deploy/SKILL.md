@@ -2,15 +2,15 @@
 name: logbuy-deploy
 description: Deploys the logbuy CLI skill as a remote MCP server on a host the user controls (Railway first), so claude.ai and the phone can use it, and walks the user through the Owner password, the Session upload and the connector. Use when the user wants logbuy on claude.ai or on their phone, asks to deploy, host or put the logbuy CLI skill online, or has trouble with its remote server, its Setup page or an expired Session there. Not for using logbuy on the user's own computer (that is the CLI skill itself, or its local `mcp`), for anyone else's account, or for hosting it for other people.
 ---
-<!-- version: 0.5.2 -->
+<!-- version: 0.6.0 -->
 
 # logbuy deploy
 
-Runs this plugin's one CLI skill, `logbuy`, in remote mode (`logbuy mcp --http`) on a host the Owner controls, so claude.ai and the phone reach the same Tasks as tools. The Owner is the one person this is for: they deploy from their own checkout of `hoaj/skills`, and the server serves their account only. A site whose Sessions are short or that blocks bots suits remote mode poorly: the server cannot sign in again by itself, so the Owner uploads a new Session each time. For those, use local mode (`logbuy mcp`) instead.
+Runs this plugin's one CLI skill, `logbuy`, in remote mode (`logbuy mcp --http`) on a host the Owner controls, so claude.ai and the phone reach the same Tasks as tools. The Owner is the one person this is for: they deploy from their own checkout of `hoaj/plugins`, and the server serves their account only. A site whose Sessions are short or that blocks bots suits remote mode poorly: the server cannot sign in again by itself, so the Owner uploads a new Session each time. For those, use local mode (`logbuy mcp`) instead.
 
 ## Pick the CLI skill
 
-There is one, `logbuy`. Everything below runs from `plugins/logbuy/skills/logbuy/` in the Owner's checkout of `hoaj/skills`, which holds the `Dockerfile` and `.dockerignore`. Nothing host-specific lives there.
+There is one, `logbuy`. Everything below runs from `plugins/logbuy/skills/logbuy/` in the Owner's checkout of `hoaj/plugins`, which holds the `Dockerfile` and `.dockerignore`. Nothing host-specific lives there.
 
 ## The contract
 
