@@ -1,4 +1,6 @@
 {
   "generatedWith": "0.6.0",
-  "maintainer": "hoaj"
+  "maintainer": "hoaj",
+  "pluginDir": "plugins/logbuy",
+  "tagPrefix": "logbuy-v"
 }
