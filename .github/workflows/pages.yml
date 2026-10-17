@@ -37,14 +37,18 @@ jobs:
       - name: Test
         run: bun test ./site
       # The daily drift check keeps its history in status.json on the `status` branch. No branch
-      # or no file yet: build without status (the cards say "Endnu ikke tjekket").
+      # or no file yet: build without status (the cards say "Ikke tjekket").
       - name: Fetch drift-check status
         run: |
           if git fetch --depth 1 origin status; then
             git show FETCH_HEAD:status.json > "$RUNNER_TEMP/status.json" || rm -f "$RUNNER_TEMP/status.json"
           fi
+      # No CUSTOM_DOMAIN: no CNAME is written and the site stays at hoaj.github.io/plugins/. Set
+      # CUSTOM_DOMAIN=agentplugins.dk and SITE_URL=https://agentplugins.dk/ once its DNS points at GitHub.
       - name: Build
         run: bun site/build.ts --status "$RUNNER_TEMP/status.json"
+        env:
+          SITE_URL: https://hoaj.github.io/plugins/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

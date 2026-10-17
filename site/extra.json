@@ -1,0 +1,14 @@
+{
+  "logbuy": {
+    "prompts": [
+      "Er der LogBuy-rabat på høretelefoner?",
+      "Vis mig LogBuy-tilbuddet hos Zalando.",
+      "Hvilke kategorier har LogBuy?"
+    ],
+    "demo": {
+      "prompt": "Er der LogBuy-rabat på høretelefoner?",
+      "command": "logbuy deal search \"høretelefoner\"",
+      "answer": "3 tilbud fundet."
+    }
+  }
+}
