@@ -1,0 +1,62 @@
+{
+  "operation": "GET /std/method/dtp-nuuday/:id/index",
+  "kind": "rest",
+  "effect": "read",
+  "loginFlow": true,
+  "navigation": true,
+  "resourceType": "document",
+  "host": "signicat-id.mitid.dk",
+  "method": "GET",
+  "path": "/std/method/dtp-nuuday/:id/index",
+  "request": {
+    "headers": {
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/jxl,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+      "cookie": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "upgrade-insecure-requests": null,
+      "user-agent": null
+    },
+    "query": {
+      "type": "record",
+      "values": {
+        "type": "string"
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "text/html",
+      "headers": {
+        "connection": null,
+        "content-type": "text/html",
+        "date": null,
+        "keep-alive": null,
+        "p3p": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "server": null,
+        "strict-transport-security": null,
+        "transfer-encoding": null,
+        "x-content-type-options": null,
+        "x-frame-options": null,
+        "x-robots-tag": null,
+        "x-xss-protection": null
+      },
+      "setCookies": [
+        "JSESSIONID",
+        "JSESSIONID-fallback",
+        "transid",
+        "transid-fallback"
+      ],
+      "body": {
+        "kind": "html"
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

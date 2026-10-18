@@ -1,0 +1,126 @@
+{
+  "operation": "GET /:id/v2/help/areas",
+  "kind": "rest",
+  "effect": "read",
+  "loginFlow": true,
+  "resourceType": "xhr",
+  "host": "www.mitid.dk",
+  "method": "GET",
+  "path": "/:id/v2/help/areas",
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "content-type": "application/json",
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-correlation-id": null
+    },
+    "query": {
+      "type": "object",
+      "fields": {
+        "language": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-headers": null,
+        "access-control-allow-methods": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "content-length": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "expires": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "server": null,
+        "vary": null,
+        "x-content-type-options": null,
+        "x-correlation-id": null,
+        "x-frame-options": null,
+        "x-xss-protection": null
+      },
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "fields": {
+              "area": {
+                "type": "string"
+              },
+              "topics": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "fields": {
+                    "localeHeaderText": {
+                      "type": "union",
+                      "anyOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "localeHeaderTextAria": {
+                      "type": "null"
+                    },
+                    "localeBodyText": {
+                      "type": "union",
+                      "anyOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "localeBodyTextAria": {
+                      "type": "null"
+                    },
+                    "localeURLText": {
+                      "type": "union",
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "localeURLTextAria": {
+                      "type": "null"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

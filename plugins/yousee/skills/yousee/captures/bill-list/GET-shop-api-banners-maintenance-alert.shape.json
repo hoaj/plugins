@@ -1,0 +1,73 @@
+{
+  "operation": "GET /shop/api/banners/maintenance-alert",
+  "kind": "rest",
+  "effect": "read",
+  "resourceType": "xhr",
+  "host": "yousee.dk",
+  "method": "GET",
+  "path": "/shop/api/banners/maintenance-alert",
+  "request": {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "authorization": null,
+      "cookie": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 404,
+      "contentType": "application/json",
+      "headers": {
+        "connection": null,
+        "content-encoding": null,
+        "content-type": "application/json",
+        "date": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-b3-spanid": null,
+        "x-b3-traceid": null,
+        "x-request-id": null,
+        "x-server-time": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "binary"
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

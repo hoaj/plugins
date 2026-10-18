@@ -1,0 +1,195 @@
+{
+  "operation": "GET /shop/cip-routes/sim-profile/:id",
+  "kind": "rest",
+  "effect": "read",
+  "resourceType": "xhr",
+  "host": "yousee.dk",
+  "method": "GET",
+  "path": "/shop/cip-routes/sim-profile/:id",
+  "request": {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "authorization": null,
+      "cookie": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "query": {
+      "type": "object",
+      "fields": {
+        "customerId": {
+          "type": "string"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "accept": "application/json, text/plain, */*",
+        "accept-encoding": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "customerid": null,
+        "date": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "sec-ch-ua": null,
+        "sec-ch-ua-mobile": null,
+        "sec-ch-ua-platform": null,
+        "sec-fetch-dest": null,
+        "sec-fetch-mode": null,
+        "sec-fetch-site": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "vary": null,
+        "x-appgw-trace-id": null,
+        "x-b3-parentspanid": null,
+        "x-b3-spanid": null,
+        "x-b3-traceid": null,
+        "x-content-type-options": null,
+        "x-envoy-expected-rq-timeout-ms": null,
+        "x-envoy-original-host": null,
+        "x-envoy-original-path": null,
+        "x-envoy-upstream-service-time": null,
+        "x-forwarded-host": null,
+        "x-forwarded-port": null,
+        "x-forwarded-proto": null,
+        "x-forwarded-scheme": null,
+        "x-frame-options": null,
+        "x-original-forwarded-for": null,
+        "x-original-forwarded-host": null,
+        "x-original-host": null,
+        "x-original-url": null,
+        "x-real-ip": null,
+        "x-request-id": null,
+        "x-scheme": null,
+        "x-total-count": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "iccid": {
+              "type": "string",
+              "format": "numeric"
+            },
+            "hni": {
+              "type": "string",
+              "format": "numeric"
+            },
+            "supi-type": {
+              "type": "number"
+            },
+            "pin": {
+              "type": "string",
+              "format": "numeric"
+            },
+            "pin2": {
+              "type": "string",
+              "format": "numeric"
+            },
+            "puk": {
+              "type": "string",
+              "format": "numeric"
+            },
+            "puk2": {
+              "type": "string",
+              "format": "numeric"
+            },
+            "customer-account-id": {
+              "type": "string"
+            },
+            "status-transition-date": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "vendor": {
+              "type": "string"
+            },
+            "epin": {
+              "type": "string",
+              "format": "numeric"
+            },
+            "activation-code": {
+              "type": "string"
+            },
+            "extended-parameters": {
+              "type": "object",
+              "fields": {
+                "pcr-fase": {
+                  "type": "string",
+                  "format": "numeric"
+                }
+              }
+            },
+            "sim-type": {
+              "type": "string"
+            },
+            "usage-state": {
+              "type": "string"
+            },
+            "operational-status": {
+              "type": "string"
+            },
+            "activation-pattern": {
+              "type": "string"
+            },
+            "technology": {
+              "type": "string"
+            },
+            "provider-ref": {
+              "type": "object",
+              "fields": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

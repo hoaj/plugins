@@ -1,0 +1,50 @@
+{
+  "operation": "GET /assets/img/code-app-slider-emulator.svg",
+  "kind": "rest",
+  "effect": "read",
+  "loginFlow": true,
+  "navigation": true,
+  "resourceType": "document",
+  "host": "www.mitid.dk",
+  "method": "GET",
+  "path": "/assets/img/code-app-slider-emulator.svg",
+  "request": {
+    "headers": {
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/jxl,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+      "cookie": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "upgrade-insecure-requests": null,
+      "user-agent": null
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "headers": {
+        "accept-ranges": null,
+        "access-control-allow-credentials": null,
+        "access-control-allow-headers": null,
+        "access-control-allow-methods": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "content-length": null,
+        "content-type": "image/svg+xml",
+        "date": null,
+        "etag": null,
+        "expires": null,
+        "last-modified": null,
+        "referrer-policy": null,
+        "server": null,
+        "strict-transport-security": null
+      },
+      "body": {
+        "kind": "text"
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

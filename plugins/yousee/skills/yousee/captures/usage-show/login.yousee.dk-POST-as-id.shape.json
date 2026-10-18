@@ -1,0 +1,93 @@
+{
+  "operation": "POST /as/:id",
+  "kind": "rest",
+  "effect": "write",
+  "loginFlow": true,
+  "resourceType": "fetch",
+  "host": "login.yousee.dk",
+  "method": "POST",
+  "path": "/as/:id",
+  "request": {
+    "headers": {
+      "accept": "application/json",
+      "content-type": "application/x-www-form-urlencoded",
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null
+    },
+    "body": {
+      "kind": "form",
+      "shape": {
+        "type": "object",
+        "fields": {
+          "grant_type": {
+            "type": "string"
+          },
+          "redirect_uri": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "code_verifier": {
+            "type": "string"
+          },
+          "client_id": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "content-type": "application/json",
+        "date": null,
+        "expires": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "strict-transport-security": null,
+        "vary": null,
+        "via": null,
+        "x-amz-cf-id": null,
+        "x-amz-cf-pop": null,
+        "x-cache": null,
+        "x-frame-options": null
+      },
+      "setCookies": [
+        "PF"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "access_token": {
+              "type": "string"
+            },
+            "id_token": {
+              "type": "string"
+            },
+            "token_type": {
+              "type": "string"
+            },
+            "expires_in": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 2,
+  "aborted": 0
+}

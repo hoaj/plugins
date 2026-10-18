@@ -1,0 +1,17 @@
+{
+  "name": "yousee",
+  "description": "Read your Mit YouSee subscription, bills and usage.",
+  "version": "0.1.0",
+  "author": {
+    "name": "hoaj"
+  },
+  "repository": "https://github.com/hoaj/plugins",
+  "keywords": [
+    "yousee"
+  ],
+  "skills": [
+    "./skills/yousee",
+    "./skills/yousee-deploy",
+    "./skills/yousee-feedback"
+  ]
+}

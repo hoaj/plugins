@@ -1,0 +1,72 @@
+{
+  "operation": "GET /.well-known/openid-configuration",
+  "kind": "rest",
+  "effect": "read",
+  "loginFlow": true,
+  "resourceType": "fetch",
+  "host": "login.yousee.dk",
+  "method": "GET",
+  "path": "/.well-known/openid-configuration",
+  "request": {
+    "headers": {
+      "accept": "application/jwk-set+json, application/json",
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "content-type": "application/json",
+        "date": null,
+        "expires": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "strict-transport-security": null,
+        "vary": null,
+        "via": null,
+        "x-amz-cf-id": null,
+        "x-amz-cf-pop": null,
+        "x-cache": null,
+        "x-frame-options": null
+      },
+      "setCookies": [
+        "PF"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "record",
+          "values": {
+            "type": "union",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "seen": 2,
+  "aborted": 0
+}

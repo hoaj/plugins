@@ -1,0 +1,75 @@
+{
+  "operation": "GET /:id/v1/authentication-sessions/:id",
+  "kind": "rest",
+  "effect": "read",
+  "loginFlow": true,
+  "resourceType": "xhr",
+  "host": "www.mitid.dk",
+  "method": "GET",
+  "path": "/:id/v1/authentication-sessions/:id",
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-correlation-id": null
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-headers": null,
+        "access-control-allow-methods": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "content-length": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "expires": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "server": null,
+        "vary": null,
+        "x-content-type-options": null,
+        "x-correlation-id": null,
+        "x-frame-options": null,
+        "x-xss-protection": null
+      },
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "serviceProviderName": {
+              "type": "string"
+            },
+            "referenceTextHeader": {
+              "type": "string"
+            },
+            "referenceTextBody": {
+              "type": "string"
+            },
+            "userIdentificationStep": {
+              "type": "boolean"
+            },
+            "brokerSecurityContext": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

@@ -1,0 +1,68 @@
+# yousee
+
+Read your Mit YouSee subscription, bills and usage.
+
+A plugin for coding agents (Claude Code, Cursor, Codex, GitHub Copilot CLI). Each CLI skill in `skills/` wraps one site with a small compiled CLI that your agent runs for you. It notices when the site changes (Drift) and, once you agree, reports it here so it gets fixed.
+
+**Maintainer:** [@hoaj](https://github.com/hoaj). Generated with [site-cli-creator](https://github.com/hoaj/site-cli-creator/tree/main/plugins/site-cli-creator). It lives in `plugins/yousee` of [`hoaj/plugins`](https://github.com/hoaj/plugins), alongside other plugins, and ships through that repo's `hoaj` marketplace.
+
+## Requirements
+
+- `curl`, which macOS, Linux and Git Bash on Windows already have. The CLI binaries download over HTTPS from the public `yousee-v<version>` releases of [`hoaj/plugins`](https://github.com/hoaj/plugins), with no GitHub account.
+- [GitHub CLI](https://cli.github.com), logged in (`gh auth login`), only to report a problem with the Feedback skill, or to install from [`hoaj/plugins`](https://github.com/hoaj/plugins) if it is private (then you also need read access).
+- [Google Chrome](https://www.google.com/chrome/), for CLI skills that sign in to a site or have write commands. The skill tells you when it needs it.
+- macOS (Apple silicon or Intel), Linux (x64 or arm64) or Windows x64. On Windows the install step runs in Git Bash.
+
+## Install
+
+Add the `hoaj` marketplace (the repo [`hoaj/plugins`](https://github.com/hoaj/plugins)), then install the plugin from it.
+
+### Claude Code
+
+```
+/plugin marketplace add hoaj/plugins
+/plugin install yousee@hoaj
+```
+
+### Cursor
+
+Settings → Plugins → Add marketplace → `hoaj/plugins`, then install **yousee**.
+
+### GitHub Copilot CLI
+
+```
+copilot plugin marketplace add hoaj/plugins
+copilot plugin install yousee@hoaj
+```
+
+There is no setup step. The first time your agent uses a CLI skill, it runs that skill's `install.sh`, which downloads the binary matching the skill's version into the skill's `bin/` folder. Skills that need a login open Chrome once for you to sign in.
+
+### Any MCP client (Claude Desktop, Cursor, …)
+
+Every CLI skill's binary is also an MCP server: `skills/<skill>/bin/<skill> mcp` serves the same Tasks as tools over stdio, with the same login, Drift checks and dry runs for writes. Clone [`hoaj/plugins`](https://github.com/hoaj/plugins), get the binary once with `bash plugins/yousee/skills/<skill>/install.sh`, then add it to your client:
+
+```json
+{ "mcpServers": { "<skill>": { "command": "/path/to/checkout/plugins/yousee/skills/<skill>/bin/<skill>", "args": ["mcp"] } } }
+```
+
+Claude Code: `claude mcp add <skill> -- /path/to/checkout/plugins/yousee/skills/<skill>/bin/<skill> mcp` (the plugin above is the better fit there: it also brings the skills' guidance). Your session stays on your machine, in the same state dir the CLI uses.
+
+### Remote mode (claude.ai and the phone)
+
+To use a CLI skill from claude.ai or your phone, it has to run on a server you control. Ask your agent to deploy it: the `yousee-deploy` skill walks through Railway, one server per CLI skill. You choose an Owner password that signs your clients in (the skill can generate one), give the server your Session on its Setup page (`/setup`), and add the server's `/mcp` address as a custom connector. It is for your own account only. A connector added in claude.ai also shows up in Claude Code; if you run the CLI skill's local `mcp` there too, turn the claude.ai one off with `/mcp`, or all claude.ai connectors with `"disableClaudeAiConnectors": true` in `~/.claude/settings.json`.
+
+## Update
+
+Update the plugin in your agent's plugin manager (Claude Code: `/plugin update yousee`). A new version lands in a new folder, so the agent downloads the matching binary on first use. Right after a release, the binary can take a few minutes to build; `install.sh` says so when it is not there yet.
+
+## Report a problem
+
+Ask your agent to "report this". The `yousee-feedback` skill drafts a GitHub issue on `hoaj/plugins`, labelled `yousee`, from the CLI's error output (shapes and type names, never your data), shows it to you, and files it only when you say yes. It also files requests for things the plugin cannot do yet.
+
+To check whether the site changed or the problem is on your side, ask your agent to run the skill's `check` command.
+
+## Maintaining
+
+Changes are made with the site-cli-creator generator (`add-skill`, `add-task`, `fix`), with `plugins/yousee` as the plugin root and `hoaj/plugins` as its repo. Every change bumps the version (`cd plugins/yousee && bun run bump <patch|minor|major>`); merging it to `main` builds and publishes the release `yousee-vX.Y.Z` (`.github/workflows/yousee-release.yml`). CI for the plugin is `.github/workflows/yousee-ci.yml`; both run only when `plugins/yousee/` changes.
+
+Issues for this plugin are the ones labelled `yousee`: `gh issue list --repo hoaj/plugins --label yousee`.

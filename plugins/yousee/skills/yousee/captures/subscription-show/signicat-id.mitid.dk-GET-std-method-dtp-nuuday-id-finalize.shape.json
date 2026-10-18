@@ -1,0 +1,47 @@
+{
+  "operation": "GET /std/method/dtp-nuuday/:id/finalize",
+  "kind": "rest",
+  "effect": "read",
+  "loginFlow": true,
+  "navigation": true,
+  "resourceType": "document",
+  "host": "signicat-id.mitid.dk",
+  "method": "GET",
+  "path": "/std/method/dtp-nuuday/:id/finalize",
+  "request": {
+    "headers": {
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/jxl,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+      "cookie": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "upgrade-insecure-requests": null,
+      "user-agent": null
+    }
+  },
+  "responses": [
+    {
+      "status": 302,
+      "headers": {
+        "connection": null,
+        "content-length": null,
+        "date": null,
+        "keep-alive": null,
+        "location": null,
+        "p3p": null,
+        "referrer-policy": null,
+        "server": null,
+        "strict-transport-security": null,
+        "x-content-type-options": null,
+        "x-robots-tag": null,
+        "x-xss-protection": null
+      },
+      "body": {
+        "kind": "empty"
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

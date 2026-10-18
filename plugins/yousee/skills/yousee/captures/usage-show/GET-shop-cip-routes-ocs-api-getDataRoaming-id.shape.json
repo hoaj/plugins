@@ -1,0 +1,166 @@
+{
+  "operation": "GET /shop/cip-routes/ocs-api/getDataRoaming/:id",
+  "kind": "rest",
+  "effect": "read",
+  "resourceType": "xhr",
+  "host": "yousee.dk",
+  "method": "GET",
+  "path": "/shop/cip-routes/ocs-api/getDataRoaming/:id",
+  "request": {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "authorization": null,
+      "cookie": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "query": {
+      "type": "object",
+      "fields": {
+        "month": {
+          "type": "string"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "accept": "application/json",
+        "accept-encoding": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "model": null,
+        "month": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "sec-ch-ua": null,
+        "sec-ch-ua-mobile": null,
+        "sec-ch-ua-platform": null,
+        "sec-fetch-dest": null,
+        "sec-fetch-mode": null,
+        "sec-fetch-site": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "vary": null,
+        "version": null,
+        "x-appgw-trace-id": null,
+        "x-b3-parentspanid": null,
+        "x-b3-spanid": null,
+        "x-b3-traceid": null,
+        "x-content-type-options": null,
+        "x-envoy-expected-rq-timeout-ms": null,
+        "x-envoy-original-host": null,
+        "x-envoy-original-path": null,
+        "x-envoy-upstream-service-time": null,
+        "x-forwarded-host": null,
+        "x-forwarded-port": null,
+        "x-forwarded-proto": null,
+        "x-forwarded-scheme": null,
+        "x-frame-options": null,
+        "x-original-forwarded-for": null,
+        "x-original-forwarded-host": null,
+        "x-original-host": null,
+        "x-original-url": null,
+        "x-real-ip": null,
+        "x-request-id": null,
+        "x-scheme": null,
+        "x-total-count": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "subscriber": {
+              "type": "string",
+              "format": "numeric"
+            },
+            "month": {
+              "type": "string"
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "products": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "fields": {
+                  "unit": {
+                    "type": "string"
+                  },
+                  "currentlimit": {
+                    "type": "number"
+                  },
+                  "startlimit": {
+                    "type": "number"
+                  },
+                  "end-time": {
+                    "type": "string",
+                    "format": "datetime"
+                  },
+                  "topup-price": {
+                    "type": "string",
+                    "format": "numeric"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "counter": {
+                    "type": "number"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 2,
+  "aborted": 0
+}

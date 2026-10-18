@@ -1,0 +1,228 @@
+{
+  "operation": "POST /:id/v2/authentication-sessions/:id/next",
+  "kind": "rest",
+  "effect": "write",
+  "loginFlow": true,
+  "resourceType": "xhr",
+  "host": "www.mitid.dk",
+  "method": "POST",
+  "path": "/:id/v2/authentication-sessions/:id/next",
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-correlation-id": null
+    },
+    "body": {
+      "kind": "json",
+      "shape": {
+        "type": "object",
+        "fields": {
+          "combinationId": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-headers": null,
+        "access-control-allow-methods": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "content-length": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "expires": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "server": null,
+        "vary": null,
+        "x-content-type-options": null,
+        "x-correlation-id": null,
+        "x-frame-options": null,
+        "x-xss-protection": null
+      },
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "selectCombination": {
+              "type": "boolean"
+            },
+            "defaultCombinationId": {
+              "type": "string"
+            },
+            "flowCancelled": {
+              "type": "boolean"
+            },
+            "errors": {
+              "type": "null"
+            },
+            "nextAuthenticator": {
+              "type": "union",
+              "anyOf": [
+                {
+                  "type": "object",
+                  "fields": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "authenticatorType": {
+                      "type": "string"
+                    },
+                    "authenticatorSessionId": {
+                      "type": "string"
+                    },
+                    "eafeUrl": {
+                      "type": "string"
+                    },
+                    "eafeHash": {
+                      "type": "string"
+                    },
+                    "authenticatorSessionFlowKey": {
+                      "type": "string"
+                    },
+                    "additionalParameters": {
+                      "type": "record",
+                      "values": {
+                        "type": "string"
+                      }
+                    },
+                    "eafeDataJson": {
+                      "type": "object",
+                      "fields": {
+                        "continueText": {
+                          "type": "object",
+                          "fields": {
+                            "textAria": {
+                              "type": "string"
+                            },
+                            "text": {
+                              "type": "string"
+                            },
+                            "textAriaDisabled": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "authenticatorContexts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "fields": {
+                          "contextKey": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "object",
+                            "fields": {
+                              "text": {
+                                "type": "string"
+                              },
+                              "textAria": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "text": {
+                            "type": "object",
+                            "fields": {
+                              "text": {
+                                "type": "string"
+                              },
+                              "textAria": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "renderingType": {
+                            "type": "string"
+                          },
+                          "iconUrl": {
+                            "type": "object",
+                            "fields": {
+                              "url": {
+                                "type": "string"
+                              },
+                              "textAria": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "tooltip": {
+                            "type": "null"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "combinations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "fields": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "combinationItems": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "fields": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "iconURL": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "terms": {
+              "type": "null"
+            },
+            "nextSessionId": {
+              "type": "union",
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 2,
+  "aborted": 0
+}

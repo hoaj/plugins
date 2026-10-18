@@ -1,0 +1,2253 @@
+{
+  "operation": "listFtpdProducts",
+  "kind": "graphql",
+  "effect": "read",
+  "resourceType": "fetch",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/graphql-server/graphql",
+  "graphql": {
+    "operationName": "listFtpdProducts",
+    "operationType": "query",
+    "query": "# number literals were redacted to 0: write the real ones (or variables) back\nquery listFtpdProducts($customerId: ID!, $filters: [String!], $exposeTotalPrice: Boolean, $priceEstimationDate: DateTime) {\n  listFtpdProducts(\n    customerId: $customerId\n    exposeTotalPrice: $exposeTotalPrice\n    priceEstimationDate: $priceEstimationDate\n  ) @limit(limit: 0) @filter(filters: $filters) {\n    ...FtpdProductParts\n    __typename\n  }\n}\n\nfragment FtpdProductParts on Product {\n  id\n  status\n  name\n  marketId\n  distributionChannelId\n  productSerialNumber\n  parentProductId\n  eventGenerating\n  rootProductId\n  quoteId\n  quantity\n  sourceQuoteItemId\n  startDate\n  effectiveDate\n  disconnectionReason\n  disconnectionReasonDescription\n  terminationDate\n  extendedParameters\n  technicalBarringRecord {\n    id\n    barringType\n    businessBarringRecordId\n    __typename\n  }\n  productFamily {\n    id\n    __typename\n  }\n  businessBarringSpecification {\n    id\n    name\n    extendedParameters\n    __typename\n  }\n  businessBarringRecord {\n    id\n    businessBarringSpecification {\n      id\n      name\n      __typename\n    }\n    __typename\n  }\n  numberOfInstallments\n  expirationDate\n  originalExpirationDate\n  isOneTimeOffering\n  place {\n    id\n    name\n    origin {\n      address {\n        country\n        streetName\n        streetNr\n        streetNrSuffix\n        stateOrProvince\n        postCode\n        city\n        extendedAttributes\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  billingAccount {\n    id\n    originFD {\n      id\n      name\n      accountNumber\n      extendedAttributes\n      __typename\n    }\n    __typename\n  }\n  characteristic {\n    id\n    name\n    value\n    attributeId\n    businessType\n    technical\n    __typename\n  }\n  productOffering {\n    id\n    name\n    origin {\n      ...FtpdProductOfferingParts\n      __typename\n    }\n    __typename\n  }\n  productPrice {\n    priceType\n    rateCurrency\n    priceCurrency\n    priceAlteration {\n      priceAlterationType\n      priceType\n      name\n      promotionId\n      extendedParameters\n      validFor {\n        startDateTime\n        endDateTime\n        __typename\n      }\n      price {\n        percentage\n        __typename\n      }\n      __typename\n    }\n    price {\n      pricePlanId\n      overridden\n      valueSubTotalPriceIncludingTaxRounded\n      valueBasePriceIncludingTaxRounded\n      valueIncludingTaxRounded\n      approxInstallmentPaymentAmountIncludingTaxRounded\n      downPaymentValueIncludingTaxRounded\n      __typename\n    }\n    __typename\n  }\n  businessGroup {\n    id\n    name\n    extendedParameters\n    marketingBundleId\n    __typename\n  }\n  relatedParty {\n    id\n    role\n    atReferredType\n    userOfService\n    name\n    validFor {\n      startDateTime\n      endDateTime\n      __typename\n    }\n    origin {\n      ... on Individual {\n        contactMedium {\n          characteristic {\n            emailAddress\n            __typename\n          }\n          type\n          mediumType\n          preferred\n          __typename\n        }\n        familyName\n        fullName\n        givenName\n        __typename\n      }\n      ... on Customer {\n        name\n        engagedParty {\n          id\n          origin {\n            ... on Individual {\n              extendedAttributes\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  realizingService {\n    id\n    name\n    role\n    __typename\n  }\n  productRelationship {\n    relationshipType\n    product {\n      id\n      name\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment FtpdProductOfferingParts on ProductOffering {\n  id\n  name\n  isTangible\n  templateId\n  isAppliedByBusinessRule\n  effectiveLifecycleStatus\n  extendedParameters\n  removeRoles\n  businessBarringSpecification {\n    id\n    name\n    extendedParameters\n    __typename\n  }\n  duration {\n    units\n    amount\n    __typename\n  }\n  channel {\n    id\n    __typename\n  }\n  isBundleOnly\n  productFamily {\n    id\n    name\n    __typename\n  }\n  localizedData {\n    ...FtpdLocalizedDataParts\n    __typename\n  }\n  isTopOffer\n  category {\n    id\n    name\n    __typename\n  }\n  childCategory {\n    id\n    name\n    __typename\n  }\n  childOffering {\n    id\n    childMin\n    childMax\n    cardinalityDefault\n    __typename\n  }\n  prodSpecCharValueUse {\n    ...FtpdProdSpecCharValueUseParts\n    __typename\n  }\n  validFor {\n    endDateTime\n    __typename\n  }\n  productOfferingPrice {\n    id\n    origin {\n      id\n      eligibility {\n        id\n        __typename\n      }\n      priceType\n      priceSpecificationId\n      extendedParameters\n      prodSpecCharValueUse {\n        name\n        businessType\n        productSpecCharacteristicValue {\n          name\n          value\n          __typename\n        }\n        __typename\n      }\n      price {\n        value\n        units\n        __typename\n      }\n      validFor {\n        startDateTime\n        __typename\n      }\n      ... on ProductOfferPriceCharge {\n        isBasePrice\n        isDefaultPrice\n        pricePlanId\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  enrichmentContainer {\n    staticEnrichment {\n      ...FtpdStaticEnrichmentValueFragment\n      __typename\n    }\n    ...FtpdEnrichmentContainerFragment\n    __typename\n  }\n  __typename\n}\n\nfragment FtpdLocalizedDataParts on LocalizedData {\n  name\n  description\n  locale\n  __typename\n}\n\nfragment FtpdProdSpecCharValueUseParts on ProdSpecCharValueUse {\n  id\n  characteristicId\n  productSpecificationCharacteristic {\n    attributeId\n    __typename\n  }\n  name\n  mask\n  businessType\n  modifiable\n  localizedData {\n    ...FtpdLocalizedDataParts\n    __typename\n  }\n  defaultValue {\n    name\n    localizedData {\n      ...FtpdLocalizedDataParts\n      __typename\n    }\n    value\n    __typename\n  }\n  availableValue {\n    name\n    localizedData {\n      ...FtpdLocalizedDataParts\n      __typename\n    }\n    value\n    __typename\n  }\n  productSpecCharacteristicValue {\n    name\n    localizedData {\n      ...FtpdLocalizedDataParts\n      __typename\n    }\n    value\n    __typename\n  }\n  valueFrom\n  valueTo\n  validFor {\n    startDateTime\n    endDateTime\n    __typename\n  }\n  __typename\n}\n\nfragment FtpdStaticEnrichmentValueFragment on StaticEnrichmentValue {\n  name\n  atType\n  value\n  localizedGroup {\n    ...FtpdLocalizedDataParts\n    __typename\n  }\n  localizedName {\n    ...FtpdLocalizedDataParts\n    __typename\n  }\n  localizedValue {\n    ...FtpdLocalizedDataParts\n    __typename\n  }\n  group\n  __typename\n}\n\nfragment FtpdEnrichmentContainerFragment on EnrichmentContainer {\n  id\n  name\n  entity {\n    id\n    name\n    __typename\n  }\n  validFor {\n    startDateTime\n    endDateTime\n    __typename\n  }\n  wrapper {\n    name\n    enrichment {\n      name\n      attribute {\n        meta\n        name\n        value\n        localizedName {\n          ...FtpdLocalizedDataParts\n          __typename\n        }\n        localizedValue {\n          ...FtpdLocalizedDataParts\n          __typename\n        }\n        __typename\n      }\n      component {\n        name\n        order\n        attribute {\n          meta\n          name\n          value\n          localizedName {\n            ...FtpdLocalizedDataParts\n            __typename\n          }\n          localizedValue {\n            ...FtpdLocalizedDataParts\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}",
+    "persisted": false
+  },
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "variables": {
+      "type": "object",
+      "fields": {
+        "customerId": {
+          "type": "string"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exposeTotalPrice": {
+          "type": "boolean"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "request-start-time": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-content-type-options": null,
+        "x-envoy-upstream-service-time": null,
+        "x-frame-options": null,
+        "x-projected-time": null,
+        "x-request-id": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "data": {
+              "type": "object",
+              "fields": {
+                "listFtpdProducts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "fields": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "marketId": {
+                        "type": "string"
+                      },
+                      "distributionChannelId": {
+                        "type": "string"
+                      },
+                      "productSerialNumber": {
+                        "type": "null"
+                      },
+                      "parentProductId": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "eventGenerating": {
+                        "type": "boolean"
+                      },
+                      "rootProductId": {
+                        "type": "string"
+                      },
+                      "quoteId": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "quantity": {
+                        "type": "string",
+                        "format": "numeric"
+                      },
+                      "sourceQuoteItemId": {
+                        "type": "null"
+                      },
+                      "startDate": {
+                        "type": "string",
+                        "format": "datetime"
+                      },
+                      "effectiveDate": {
+                        "type": "string",
+                        "format": "datetime"
+                      },
+                      "disconnectionReason": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "disconnectionReasonDescription": {
+                        "type": "null"
+                      },
+                      "terminationDate": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "format": "datetime"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "extendedParameters": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "fields": {
+                              "deactivationFee": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "isFutureDateOrder": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "regretPeriodStartDate": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "feePerDay": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "offeringBusinessUse": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "usageValidFrom": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "datetime"
+                                }
+                              },
+                              "legacy_product_id": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "downloadSpeed": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "lineId": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "uploadSpeed": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "accessProvider": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "technology": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "integrator": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "accessLid": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "migration_source_id": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "migration_phase": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "externalBBSid": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "establishmentType": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "installationId": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "NAMID": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "offeringBusinessType": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "migration_date": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "datetime"
+                                }
+                              },
+                              "uniqueIdentifier": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "cpiTechnology": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "cpiMobileLineType": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "cpiMinimumWishdate": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "date"
+                                }
+                              },
+                              "assignLocation": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "businessAction": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "uniqueTVSequenceNumber": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              }
+                            },
+                            "optional": [
+                              "NAMID",
+                              "accessLid",
+                              "accessProvider",
+                              "assignLocation",
+                              "businessAction",
+                              "cpiMinimumWishdate",
+                              "cpiMobileLineType",
+                              "cpiTechnology",
+                              "deactivationFee",
+                              "downloadSpeed",
+                              "establishmentType",
+                              "externalBBSid",
+                              "feePerDay",
+                              "installationId",
+                              "integrator",
+                              "isFutureDateOrder",
+                              "legacy_product_id",
+                              "lineId",
+                              "migration_date",
+                              "migration_phase",
+                              "migration_source_id",
+                              "offeringBusinessType",
+                              "offeringBusinessUse",
+                              "regretPeriodStartDate",
+                              "technology",
+                              "uniqueIdentifier",
+                              "uniqueTVSequenceNumber",
+                              "uploadSpeed",
+                              "usageValidFrom"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "record",
+                            "values": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "technicalBarringRecord": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "barringType": {
+                                  "type": "string"
+                                },
+                                "businessBarringRecordId": {
+                                  "type": "string"
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "productFamily": {
+                        "type": "object",
+                        "fields": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "businessBarringSpecification": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "fields": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "extendedParameters": {
+                              "type": "object",
+                              "fields": {
+                                "migrationId": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "allowedBarringsToApply": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "applicableForOrderConfirmation": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "allowedOperations": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "isAllowedDuringFDO": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "barringGroup": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "allowedForCustomersWithoutCPR": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "optional": [
+                                "allowedBarringsToApply",
+                                "allowedForCustomersWithoutCPR",
+                                "allowedOperations",
+                                "applicableForOrderConfirmation",
+                                "isAllowedDuringFDO",
+                                "migrationId"
+                              ]
+                            },
+                            "__typename": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "businessBarringRecord": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "businessBarringSpecification": {
+                                  "type": "object",
+                                  "fields": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "numberOfInstallments": {
+                        "type": "null"
+                      },
+                      "expirationDate": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "format": "datetime"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "originalExpirationDate": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "format": "datetime"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "isOneTimeOffering": {
+                        "type": "boolean"
+                      },
+                      "place": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "origin": {
+                                  "type": "object",
+                                  "fields": {
+                                    "address": {
+                                      "type": "object",
+                                      "fields": {
+                                        "country": {
+                                          "type": "string"
+                                        },
+                                        "streetName": {
+                                          "type": "string"
+                                        },
+                                        "streetNr": {
+                                          "type": "string",
+                                          "format": "numeric"
+                                        },
+                                        "streetNrSuffix": {
+                                          "type": "null"
+                                        },
+                                        "stateOrProvince": {
+                                          "type": "string"
+                                        },
+                                        "postCode": {
+                                          "type": "string",
+                                          "format": "numeric"
+                                        },
+                                        "city": {
+                                          "type": "string"
+                                        },
+                                        "extendedAttributes": {
+                                          "type": "object",
+                                          "fields": {
+                                            "regionCode": {
+                                              "type": "string",
+                                              "format": "numeric"
+                                            },
+                                            "municipality": {
+                                              "type": "string"
+                                            },
+                                            "municipalityCode": {
+                                              "type": "string",
+                                              "format": "numeric"
+                                            },
+                                            "floor": {
+                                              "type": "string",
+                                              "format": "numeric"
+                                            },
+                                            "suite": {
+                                              "type": "string"
+                                            },
+                                            "streetCode": {
+                                              "type": "string",
+                                              "format": "numeric"
+                                            }
+                                          }
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "billingAccount": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "originFD": {
+                                  "type": "object",
+                                  "fields": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "accountNumber": {
+                                      "type": "string",
+                                      "format": "numeric"
+                                    },
+                                    "extendedAttributes": {
+                                      "type": "object",
+                                      "fields": {
+                                        "migration_phase": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "numeric"
+                                          }
+                                        },
+                                        "migration_date": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "datetime"
+                                          }
+                                        },
+                                        "migration_source": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "numeric"
+                                          }
+                                        },
+                                        "inCollectionind": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "coverOnly": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "optional": [
+                                        "coverOnly",
+                                        "migration_date",
+                                        "migration_phase",
+                                        "migration_source"
+                                      ]
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "characteristic": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "value": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "attributeId": {
+                                  "type": "string"
+                                },
+                                "businessType": {
+                                  "type": "union",
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "technical": {
+                                  "type": "boolean"
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "productOffering": {
+                        "type": "object",
+                        "fields": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "origin": {
+                            "type": "object",
+                            "fields": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "isTangible": {
+                                "type": "boolean"
+                              },
+                              "templateId": {
+                                "type": "string"
+                              },
+                              "isAppliedByBusinessRule": {
+                                "type": "boolean"
+                              },
+                              "effectiveLifecycleStatus": {
+                                "type": "string"
+                              },
+                              "extendedParameters": {
+                                "type": "union",
+                                "anyOf": [
+                                  {
+                                    "type": "object",
+                                    "fields": {
+                                      "commitmentType": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "offeringBusinessUse": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "productFamily": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "prohibitInAnonymousFlow": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "simOfferingType": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "offeringBusinessType": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "emailRequired": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "numberOfFreeMeshNodes": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string",
+                                          "format": "numeric"
+                                        }
+                                      },
+                                      "isApplicableForLoan": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "replacementEquipment": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "replacementRouterAddMeshNode": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "nonSerializedEquipment": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "routerType": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "mobileAddOnType": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "skipServiceability": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "autoAppliedAssociationOfferingId": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "fixedAddOnType": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "optional": [
+                                      "autoAppliedAssociationOfferingId",
+                                      "commitmentType",
+                                      "emailRequired",
+                                      "fixedAddOnType",
+                                      "isApplicableForLoan",
+                                      "mobileAddOnType",
+                                      "nonSerializedEquipment",
+                                      "numberOfFreeMeshNodes",
+                                      "offeringBusinessType",
+                                      "offeringBusinessUse",
+                                      "productFamily",
+                                      "prohibitInAnonymousFlow",
+                                      "replacementEquipment",
+                                      "replacementRouterAddMeshNode",
+                                      "routerType",
+                                      "simOfferingType",
+                                      "skipServiceability"
+                                    ]
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "removeRoles": {
+                                "type": "union",
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  }
+                                ]
+                              },
+                              "businessBarringSpecification": {
+                                "type": "null"
+                              },
+                              "duration": {
+                                "type": "object",
+                                "fields": {
+                                  "units": {
+                                    "type": "union",
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "amount": {
+                                    "type": "union",
+                                    "anyOf": [
+                                      {
+                                        "type": "number"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "__typename": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "channel": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "fields": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "isBundleOnly": {
+                                "type": "boolean"
+                              },
+                              "productFamily": {
+                                "type": "object",
+                                "fields": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "__typename": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "localizedData": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "fields": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "description": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "locale": {
+                                      "type": "string"
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "isTopOffer": {
+                                "type": "boolean"
+                              },
+                              "category": {
+                                "type": "union",
+                                "anyOf": [
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "fields": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "childCategory": {
+                                "type": "union",
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "fields": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "childOffering": {
+                                "type": "union",
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "fields": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "childMin": {
+                                          "type": "number"
+                                        },
+                                        "childMax": {
+                                          "type": "number"
+                                        },
+                                        "cardinalityDefault": {
+                                          "type": "number"
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "prodSpecCharValueUse": {
+                                "type": "union",
+                                "anyOf": [
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "fields": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "characteristicId": {
+                                          "type": "string"
+                                        },
+                                        "productSpecificationCharacteristic": {
+                                          "type": "union",
+                                          "anyOf": [
+                                            {
+                                              "type": "object",
+                                              "fields": {
+                                                "attributeId": {
+                                                  "type": "string"
+                                                },
+                                                "__typename": {
+                                                  "type": "string"
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "mask": {
+                                          "type": "union",
+                                          "anyOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "type": "string"
+                                            }
+                                          ]
+                                        },
+                                        "businessType": {
+                                          "type": "union",
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        },
+                                        "modifiable": {
+                                          "type": "boolean"
+                                        },
+                                        "localizedData": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "fields": {
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "description": {
+                                                "type": "union",
+                                                "anyOf": [
+                                                  {
+                                                    "type": "null"
+                                                  },
+                                                  {
+                                                    "type": "string"
+                                                  }
+                                                ]
+                                              },
+                                              "locale": {
+                                                "type": "string"
+                                              },
+                                              "__typename": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "defaultValue": {
+                                          "type": "union",
+                                          "anyOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "object",
+                                                "fields": {
+                                                  "name": {
+                                                    "type": "string"
+                                                  },
+                                                  "localizedData": {
+                                                    "type": "union",
+                                                    "anyOf": [
+                                                      {
+                                                        "type": "null"
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "object",
+                                                          "fields": {
+                                                            "name": {
+                                                              "type": "string"
+                                                            },
+                                                            "description": {
+                                                              "type": "union",
+                                                              "anyOf": [
+                                                                {
+                                                                  "type": "string"
+                                                                },
+                                                                {
+                                                                  "type": "null"
+                                                                }
+                                                              ]
+                                                            },
+                                                            "locale": {
+                                                              "type": "string"
+                                                            },
+                                                            "__typename": {
+                                                              "type": "string"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    ]
+                                                  },
+                                                  "value": {
+                                                    "type": "string"
+                                                  },
+                                                  "__typename": {
+                                                    "type": "string"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "availableValue": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "fields": {
+                                              "name": {
+                                                "type": "union",
+                                                "anyOf": [
+                                                  {
+                                                    "type": "null"
+                                                  },
+                                                  {
+                                                    "type": "string"
+                                                  }
+                                                ]
+                                              },
+                                              "localizedData": {
+                                                "type": "union",
+                                                "anyOf": [
+                                                  {
+                                                    "type": "null"
+                                                  },
+                                                  {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object",
+                                                      "fields": {
+                                                        "name": {
+                                                          "type": "string"
+                                                        },
+                                                        "description": {
+                                                          "type": "union",
+                                                          "anyOf": [
+                                                            {
+                                                              "type": "string"
+                                                            },
+                                                            {
+                                                              "type": "null"
+                                                            }
+                                                          ]
+                                                        },
+                                                        "locale": {
+                                                          "type": "string"
+                                                        },
+                                                        "__typename": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              "value": {
+                                                "type": "union",
+                                                "anyOf": [
+                                                  {
+                                                    "type": "null"
+                                                  },
+                                                  {
+                                                    "type": "string"
+                                                  }
+                                                ]
+                                              },
+                                              "__typename": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "productSpecCharacteristicValue": {
+                                          "type": "null"
+                                        },
+                                        "valueFrom": {
+                                          "type": "union",
+                                          "anyOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "type": "string",
+                                              "format": "numeric"
+                                            }
+                                          ]
+                                        },
+                                        "valueTo": {
+                                          "type": "union",
+                                          "anyOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "type": "string",
+                                              "format": "numeric"
+                                            }
+                                          ]
+                                        },
+                                        "validFor": {
+                                          "type": "null"
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "validFor": {
+                                "type": "object",
+                                "fields": {
+                                  "endDateTime": {
+                                    "type": "null"
+                                  },
+                                  "__typename": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "productOfferingPrice": {
+                                "type": "union",
+                                "anyOf": [
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "fields": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "origin": {
+                                          "type": "object",
+                                          "fields": {
+                                            "id": {
+                                              "type": "string"
+                                            },
+                                            "eligibility": {
+                                              "type": "union",
+                                              "anyOf": [
+                                                {
+                                                  "type": "array",
+                                                  "items": {
+                                                    "type": "object",
+                                                    "fields": {
+                                                      "id": {
+                                                        "type": "union",
+                                                        "anyOf": [
+                                                          {
+                                                            "type": "string"
+                                                          },
+                                                          {
+                                                            "type": "null"
+                                                          }
+                                                        ]
+                                                      },
+                                                      "__typename": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            },
+                                            "priceType": {
+                                              "type": "string"
+                                            },
+                                            "priceSpecificationId": {
+                                              "type": "string"
+                                            },
+                                            "extendedParameters": {
+                                              "type": "union",
+                                              "anyOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "type": "object",
+                                                  "fields": {
+                                                    "prohibitInAnonymousFlow": {
+                                                      "type": "array",
+                                                      "items": {
+                                                        "type": "string"
+                                                      }
+                                                    },
+                                                    "CostPrice": {
+                                                      "type": "array",
+                                                      "items": {
+                                                        "type": "string",
+                                                        "format": "numeric"
+                                                      }
+                                                    },
+                                                    "weight": {
+                                                      "type": "array",
+                                                      "items": {
+                                                        "type": "string",
+                                                        "format": "numeric"
+                                                      }
+                                                    },
+                                                    "promotionTechnicalType": {
+                                                      "type": "array",
+                                                      "items": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  },
+                                                  "optional": [
+                                                    "CostPrice",
+                                                    "prohibitInAnonymousFlow",
+                                                    "promotionTechnicalType",
+                                                    "weight"
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            "prodSpecCharValueUse": {
+                                              "type": "union",
+                                              "anyOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "type": "array",
+                                                  "items": {
+                                                    "type": "object",
+                                                    "fields": {
+                                                      "name": {
+                                                        "type": "string"
+                                                      },
+                                                      "businessType": {
+                                                        "type": "string"
+                                                      },
+                                                      "productSpecCharacteristicValue": {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "object",
+                                                          "fields": {
+                                                            "name": {
+                                                              "type": "string"
+                                                            },
+                                                            "value": {
+                                                              "type": "string"
+                                                            },
+                                                            "__typename": {
+                                                              "type": "string"
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "__typename": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            },
+                                            "price": {
+                                              "type": "union",
+                                              "anyOf": [
+                                                {
+                                                  "type": "object",
+                                                  "fields": {
+                                                    "value": {
+                                                      "type": "number"
+                                                    },
+                                                    "units": {
+                                                      "type": "string"
+                                                    },
+                                                    "__typename": {
+                                                      "type": "string"
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            },
+                                            "validFor": {
+                                              "type": "object",
+                                              "fields": {
+                                                "startDateTime": {
+                                                  "type": "string",
+                                                  "format": "datetime"
+                                                },
+                                                "__typename": {
+                                                  "type": "string"
+                                                }
+                                              }
+                                            },
+                                            "isBasePrice": {
+                                              "type": "boolean"
+                                            },
+                                            "isDefaultPrice": {
+                                              "type": "boolean"
+                                            },
+                                            "pricePlanId": {
+                                              "type": "union",
+                                              "anyOf": [
+                                                {
+                                                  "type": "string"
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            },
+                                            "__typename": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "optional": [
+                                            "isBasePrice",
+                                            "isDefaultPrice",
+                                            "pricePlanId"
+                                          ]
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "enrichmentContainer": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "fields": {
+                                    "staticEnrichment": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "fields": {
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "atType": {
+                                            "type": "null"
+                                          },
+                                          "value": {
+                                            "type": "string"
+                                          },
+                                          "localizedGroup": {
+                                            "type": "null"
+                                          },
+                                          "localizedName": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object",
+                                              "fields": {
+                                                "name": {
+                                                  "type": "string"
+                                                },
+                                                "description": {
+                                                  "type": "null"
+                                                },
+                                                "locale": {
+                                                  "type": "string"
+                                                },
+                                                "__typename": {
+                                                  "type": "string"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "localizedValue": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object",
+                                              "fields": {
+                                                "name": {
+                                                  "type": "string"
+                                                },
+                                                "description": {
+                                                  "type": "null"
+                                                },
+                                                "locale": {
+                                                  "type": "string"
+                                                },
+                                                "__typename": {
+                                                  "type": "string"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "group": {
+                                            "type": "string"
+                                          },
+                                          "__typename": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "entity": {
+                                      "type": "object",
+                                      "fields": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "name": {
+                                          "type": "null"
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "validFor": {
+                                      "type": "object",
+                                      "fields": {
+                                        "startDateTime": {
+                                          "type": "string",
+                                          "format": "datetime"
+                                        },
+                                        "endDateTime": {
+                                          "type": "null"
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "wrapper": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "fields": {
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "enrichment": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object",
+                                              "fields": {
+                                                "name": {
+                                                  "type": "string"
+                                                },
+                                                "attribute": {
+                                                  "type": "array",
+                                                  "items": {
+                                                    "type": "object",
+                                                    "fields": {
+                                                      "meta": {
+                                                        "type": "object",
+                                                        "fields": {
+                                                          "SMALL": {
+                                                            "type": "string"
+                                                          },
+                                                          "LARGE": {
+                                                            "type": "string"
+                                                          },
+                                                          "ORIGINAL": {
+                                                            "type": "string"
+                                                          },
+                                                          "THUMBNAIL": {
+                                                            "type": "string"
+                                                          }
+                                                        },
+                                                        "optional": [
+                                                          "LARGE",
+                                                          "ORIGINAL",
+                                                          "SMALL",
+                                                          "THUMBNAIL"
+                                                        ]
+                                                      },
+                                                      "name": {
+                                                        "type": "string"
+                                                      },
+                                                      "value": {
+                                                        "type": "string"
+                                                      },
+                                                      "localizedName": {
+                                                        "type": "array"
+                                                      },
+                                                      "localizedValue": {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "object",
+                                                          "fields": {
+                                                            "name": {
+                                                              "type": "string"
+                                                            },
+                                                            "description": {
+                                                              "type": "null"
+                                                            },
+                                                            "locale": {
+                                                              "type": "string"
+                                                            },
+                                                            "__typename": {
+                                                              "type": "string"
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "__typename": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "component": {
+                                                  "type": "array",
+                                                  "items": {
+                                                    "type": "object",
+                                                    "fields": {
+                                                      "name": {
+                                                        "type": "string"
+                                                      },
+                                                      "order": {
+                                                        "type": "number"
+                                                      },
+                                                      "attribute": {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "object",
+                                                          "fields": {
+                                                            "meta": {
+                                                              "type": "object",
+                                                              "fields": {
+                                                                "SMALL": {
+                                                                  "type": "string"
+                                                                },
+                                                                "LARGE": {
+                                                                  "type": "string"
+                                                                },
+                                                                "ORIGINAL": {
+                                                                  "type": "string"
+                                                                },
+                                                                "THUMBNAIL": {
+                                                                  "type": "string"
+                                                                }
+                                                              },
+                                                              "optional": [
+                                                                "LARGE",
+                                                                "ORIGINAL",
+                                                                "SMALL",
+                                                                "THUMBNAIL"
+                                                              ]
+                                                            },
+                                                            "name": {
+                                                              "type": "string"
+                                                            },
+                                                            "value": {
+                                                              "type": "string"
+                                                            },
+                                                            "localizedName": {
+                                                              "type": "array"
+                                                            },
+                                                            "localizedValue": {
+                                                              "type": "array",
+                                                              "items": {
+                                                                "type": "object",
+                                                                "fields": {
+                                                                  "name": {
+                                                                    "type": "string"
+                                                                  },
+                                                                  "description": {
+                                                                    "type": "null"
+                                                                  },
+                                                                  "locale": {
+                                                                    "type": "string"
+                                                                  },
+                                                                  "__typename": {
+                                                                    "type": "string"
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "__typename": {
+                                                              "type": "string"
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "__typename": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "__typename": {
+                                                  "type": "string"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "__typename": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "__typename": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "productPrice": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "priceType": {
+                                  "type": "string"
+                                },
+                                "rateCurrency": {
+                                  "type": "null"
+                                },
+                                "priceCurrency": {
+                                  "type": "union",
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "priceAlteration": {
+                                  "type": "union",
+                                  "anyOf": [
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "fields": {
+                                          "priceAlterationType": {
+                                            "type": "string"
+                                          },
+                                          "priceType": {
+                                            "type": "string"
+                                          },
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "promotionId": {
+                                            "type": "union",
+                                            "anyOf": [
+                                              {
+                                                "type": "null"
+                                              },
+                                              {
+                                                "type": "string"
+                                              }
+                                            ]
+                                          },
+                                          "extendedParameters": {
+                                            "type": "null"
+                                          },
+                                          "validFor": {
+                                            "type": "object",
+                                            "fields": {
+                                              "startDateTime": {
+                                                "type": "string",
+                                                "format": "datetime"
+                                              },
+                                              "endDateTime": {
+                                                "type": "null"
+                                              },
+                                              "__typename": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          },
+                                          "price": {
+                                            "type": "object",
+                                            "fields": {
+                                              "percentage": {
+                                                "type": "union",
+                                                "anyOf": [
+                                                  {
+                                                    "type": "null"
+                                                  },
+                                                  {
+                                                    "type": "number"
+                                                  }
+                                                ]
+                                              },
+                                              "__typename": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          },
+                                          "__typename": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "price": {
+                                  "type": "record",
+                                  "values": {
+                                    "type": "union",
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "boolean"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "businessGroup": {
+                        "type": "null"
+                      },
+                      "relatedParty": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "fields": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "role": {
+                              "type": "string"
+                            },
+                            "atReferredType": {
+                              "type": "string"
+                            },
+                            "userOfService": {
+                              "type": "union",
+                              "anyOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            },
+                            "name": {
+                              "type": "union",
+                              "anyOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "validFor": {
+                              "type": "null"
+                            },
+                            "origin": {
+                              "type": "object",
+                              "fields": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "engagedParty": {
+                                  "type": "object",
+                                  "fields": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "origin": {
+                                      "type": "object",
+                                      "fields": {
+                                        "extendedAttributes": {
+                                          "type": "object",
+                                          "fields": {
+                                            "cprLastUpdated": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "string",
+                                                "format": "datetime"
+                                              }
+                                            },
+                                            "cprStatus": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "cprSubscribed": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "cprEventStatus": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "string",
+                                                "format": "numeric"
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "__typename": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "realizingService": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "role": {
+                                  "type": "string"
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "productRelationship": {
+                        "type": "null"
+                      },
+                      "__typename": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

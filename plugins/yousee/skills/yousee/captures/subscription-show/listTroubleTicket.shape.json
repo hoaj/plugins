@@ -1,0 +1,133 @@
+{
+  "operation": "listTroubleTicket",
+  "kind": "graphql",
+  "effect": "read",
+  "resourceType": "fetch",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/graphql-server/graphql",
+  "graphql": {
+    "operationName": "listTroubleTicket",
+    "operationType": "query",
+    "query": "query listTroubleTicket($filters: [String!], $offset: Int, $limit: Int) {\n  listTroubleTicket @filter(filters: $filters) @limit(offset: $offset, limit: $limit) {\n    ...TroubleTicketParts\n    __typename\n  }\n}\n\nfragment TroubleTicketParts on TroubleTicket {\n  id\n  name\n  status\n  externalId\n  statusChange {\n    status\n    changeDate\n    __typename\n  }\n  contact {\n    contactName\n    contactMedium {\n      ...ContactMediumFragment\n      __typename\n    }\n    __typename\n  }\n  creationDate\n  statusChangeDate\n  description\n  ticketType\n  note {\n    id\n    date\n    text\n    isNoteVisibleForContact\n    __typename\n  }\n  ticketCategory\n  relatedParty {\n    id\n    role\n    atReferredType\n    origin {\n      ... on Customer {\n        id\n        name\n        customerCategoryId\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  requestedResolutionDate\n  extendedAttributes\n  expectedResolutionDate\n  troubleTicketRelationship {\n    id\n    relationshipType\n    __typename\n  }\n  closedDate\n  relatedEntity {\n    id\n    atReferredType\n    name\n    origin {\n      ... on BillingAccountFD {\n        accountNumber\n        __typename\n      }\n      ... on Quote {\n        state\n        id\n        quoteItem {\n          id\n          businessGroupId\n          rootQuoteItemId\n          parentQuoteItemId\n          action\n          extendedParameters\n          businessAction\n          quoteItemPrice {\n            priceType\n            price {\n              valueIncludingTaxRounded\n              approxInstallmentPaymentAmountIncludingTaxRounded\n              __typename\n            }\n            priceCurrency\n            __typename\n          }\n          product {\n            productCharacteristic {\n              rawValue\n              value\n              businessType\n              name\n              __typename\n            }\n            productOffering {\n              id\n              origin {\n                productFamily {\n                  id\n                  name\n                  __typename\n                }\n                canBeDowngradedTo {\n                  id\n                  __typename\n                }\n                canBeUpgradedTo {\n                  id\n                  __typename\n                }\n                localizedData {\n                  ...LocalizedDataFragment\n                  __typename\n                }\n                enrichmentContainer {\n                  ...EnrichmentContainerFragment\n                  __typename\n                }\n                __typename\n              }\n              __typename\n            }\n            __typename\n          }\n          numberOfInstallments\n          productOffering {\n            id\n            name\n            origin {\n              isTangible\n              id\n              name\n              localizedData {\n                locale\n                name\n                __typename\n              }\n              category {\n                id\n                __typename\n              }\n              productFamily {\n                id\n                __typename\n              }\n              enrichmentContainer {\n                staticEnrichment {\n                  ...StaticEnrichmentValueFragment\n                  __typename\n                }\n                ...EnrichmentContainerFragment\n                __typename\n              }\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      ... on Product {\n        id\n        status\n        place {\n          name\n          __typename\n        }\n        parentProductId\n        rootProductId\n        marketId\n        distributionChannelId\n        productFamily {\n          id\n          __typename\n        }\n        characteristic {\n          id\n          name\n          businessType\n          value\n          attributeId\n          technical\n          __typename\n        }\n        productOffering {\n          name\n          origin {\n            id\n            name\n            isTangible\n            productFamily {\n              id\n              name\n              __typename\n            }\n            localizedData {\n              ...LocalizedDataParts\n              __typename\n            }\n            prodSpecCharValueUse {\n              ...ProdSpecCharValueUseFragment\n              __typename\n            }\n            enrichmentContainer {\n              staticEnrichment {\n                ...StaticEnrichmentValueFragment\n                __typename\n              }\n              ...EnrichmentContainerFragment\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment ContactMediumFragment on ContactMedium {\n  id\n  type\n  mediumType\n  preferred\n  characteristic {\n    emailAddress\n    phoneNumber\n    country\n    postCode\n    stateOrProvince\n    city\n    street1\n    street2\n    type\n    extendedAttributes\n    extendedParameters\n    __typename\n  }\n  __typename\n}\n\nfragment LocalizedDataFragment on LocalizedData {\n  name\n  description\n  locale\n  __typename\n}\n\nfragment EnrichmentContainerFragment on EnrichmentContainer {\n  id\n  name\n  entity {\n    id\n    name\n    __typename\n  }\n  validFor {\n    startDateTime\n    endDateTime\n    __typename\n  }\n  wrapper {\n    name\n    enrichment {\n      name\n      attribute {\n        meta\n        name\n        value\n        localizedName {\n          ...LocalizedDataParts\n          __typename\n        }\n        localizedValue {\n          ...LocalizedDataParts\n          __typename\n        }\n        __typename\n      }\n      component {\n        name\n        order\n        attribute {\n          meta\n          name\n          value\n          localizedName {\n            ...LocalizedDataParts\n            __typename\n          }\n          localizedValue {\n            ...LocalizedDataParts\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment LocalizedDataParts on LocalizedData {\n  name\n  description\n  locale\n  __typename\n}\n\nfragment StaticEnrichmentValueFragment on StaticEnrichmentValue {\n  name\n  atType\n  value\n  localizedGroup {\n    ...LocalizedDataParts\n    __typename\n  }\n  localizedName {\n    ...LocalizedDataParts\n    __typename\n  }\n  localizedValue {\n    ...LocalizedDataParts\n    __typename\n  }\n  group\n  __typename\n}\n\nfragment ProdSpecCharValueUseFragment on ProdSpecCharValueUse {\n  id\n  characteristicId\n  name\n  mask\n  businessType\n  localizedData {\n    ...LocalizedDataFragment\n    __typename\n  }\n  defaultValue {\n    ...ProductSpecCharacteristicValueFragment\n    __typename\n  }\n  availableValue {\n    ...ProductSpecCharacteristicValueFragment\n    __typename\n  }\n  productSpecCharacteristicValue {\n    ...ProductSpecCharacteristicValueFragment\n    __typename\n  }\n  productSpecificationCharacteristic {\n    attributeId\n    __typename\n  }\n  __typename\n}\n\nfragment ProductSpecCharacteristicValueFragment on ProductSpecCharacteristicValue {\n  id\n  name\n  disabled\n  localizedData {\n    ...LocalizedDataFragment\n    __typename\n  }\n  value\n  __typename\n}",
+    "persisted": false
+  },
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "variables": {
+      "type": "object",
+      "fields": {
+        "filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "offset": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "request-start-time": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-content-type-options": null,
+        "x-envoy-upstream-service-time": null,
+        "x-frame-options": null,
+        "x-projected-time": null,
+        "x-request-id": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "extensions": {
+              "type": "object",
+              "fields": {
+                "listTroubleTicket": {
+                  "type": "object",
+                  "fields": {
+                    "totalCount": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "data": {
+              "type": "object",
+              "fields": {
+                "listTroubleTicket": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 5,
+  "aborted": 0
+}

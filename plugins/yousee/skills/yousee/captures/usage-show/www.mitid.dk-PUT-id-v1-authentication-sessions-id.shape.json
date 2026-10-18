@@ -1,0 +1,63 @@
+{
+  "operation": "PUT /:id/v1/authentication-sessions/:id",
+  "kind": "rest",
+  "effect": "write",
+  "loginFlow": true,
+  "resourceType": "xhr",
+  "host": "www.mitid.dk",
+  "method": "PUT",
+  "path": "/:id/v1/authentication-sessions/:id",
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-correlation-id": null
+    },
+    "body": {
+      "kind": "json",
+      "shape": {
+        "type": "object",
+        "fields": {
+          "identityClaim": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-headers": null,
+        "access-control-allow-methods": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "content-length": null,
+        "content-security-policy": null,
+        "date": null,
+        "expires": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "server": null,
+        "x-content-type-options": null,
+        "x-correlation-id": null,
+        "x-frame-options": null,
+        "x-xss-protection": null
+      },
+      "body": {
+        "kind": "empty"
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

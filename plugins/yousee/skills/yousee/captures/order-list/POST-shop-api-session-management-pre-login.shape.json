@@ -1,0 +1,67 @@
+{
+  "operation": "POST /shop/api/session-management/pre-login",
+  "kind": "rest",
+  "effect": "write",
+  "loginFlow": true,
+  "resourceType": "xhr",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/session-management/pre-login",
+  "request": {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "body": {
+      "kind": "json",
+      "shape": {
+        "type": "object",
+        "fields": {
+          "returnUrl": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 204,
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-methods": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "connection": null,
+        "date": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "x-b3-spanid": null,
+        "x-b3-traceid": null,
+        "x-request-id": null,
+        "x-server-time": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "CSESSIONID",
+        "TS010116dd",
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "empty"
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

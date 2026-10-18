@@ -1,0 +1,155 @@
+{
+  "operation": "createQuote",
+  "kind": "graphql",
+  "effect": "write",
+  "resourceType": "fetch",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/graphql-server/graphql",
+  "graphql": {
+    "operationName": "createQuote",
+    "operationType": "mutation",
+    "query": "mutation createQuote($input: QuoteInput!, $exposeNotAppliedDiscounts: Boolean, $inMemoryQuoteStrategy: String) {\n  createQuote(\n    input: $input\n    exposeNotAppliedDiscounts: $exposeNotAppliedDiscounts\n    inMemoryQuoteStrategy: $inMemoryQuoteStrategy\n  ) {\n    ...QuoteFragment\n    __typename\n  }\n}\n\nfragment QuoteFragment on Quote {\n  id\n  name\n  number\n  deliveryMethod\n  businessAction\n  state\n  deliveryItem {\n    ...QuoteDeliveryItemFragment\n    __typename\n  }\n  validFor {\n    endDateTime\n    __typename\n  }\n  anonymousCustomerData {\n    ...AnonymousCustomerDataFragment\n    __typename\n  }\n  contactMedium {\n    ...ContactMediumFragment\n    __typename\n  }\n  relatedParty {\n    ...RelatedPartyRefFragment\n    __typename\n  }\n  quoteTotalPrice {\n    ...QuotePriceFragment\n    __typename\n  }\n  quoteItem {\n    ...QuoteItemFragment\n    __typename\n  }\n  agreement {\n    id\n    name\n    action\n    accepted\n    externalId\n    agreementType\n    origin {\n      name\n      agreementPeriod {\n        startDateTime\n        endDateTime\n        __typename\n      }\n      attachment {\n        mimeType\n        size\n        sizeUnit\n        href\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  alertItems {\n    characteristicId\n    message {\n      code\n      defaultMessage\n      __typename\n    }\n    __typename\n  }\n  businessGroup {\n    id\n    marketingBundleId\n    action\n    billingName\n    name\n    businessGroupPrice {\n      ...QuotePriceFragment\n      __typename\n    }\n    __typename\n  }\n  extendedParameters\n  placeRefs {\n    id\n    externalId\n    address\n    geoAddressId\n    role\n    marketId\n    __typename\n  }\n  __typename\n}\n\nfragment QuoteDeliveryItemFragment on DeliveryItem {\n  id\n  deliveryMethodId\n  deliveryMethodName\n  contactMedium {\n    ...ContactMediumFragment\n    __typename\n  }\n  extendedParameters\n  __typename\n}\n\nfragment ContactMediumFragment on ContactMedium {\n  id\n  type\n  mediumType\n  preferred\n  characteristic {\n    emailAddress\n    phoneNumber\n    country\n    postCode\n    stateOrProvince\n    city\n    street1\n    street2\n    type\n    extendedAttributes\n    extendedParameters\n    __typename\n  }\n  __typename\n}\n\nfragment AnonymousCustomerDataFragment on AnonymousCustomerData {\n  name\n  engagedParty {\n    firstName\n    lastName\n    __typename\n  }\n  templateName\n  extendedParameters\n  __typename\n}\n\nfragment RelatedPartyRefFragment on RelatedPartyRef {\n  atReferredType\n  role\n  id\n  name\n  userOfService\n  origin {\n    ... on Customer {\n      id\n      name\n      contactMedium {\n        ...ContactMediumFragment\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment QuotePriceFragment on QuotePrice {\n  priceSpecificationType\n  priceCurrency\n  priceType\n  priceComponentSpecificationRef\n  price {\n    percentage\n    approxInstallmentPaymentAmountExcludingTax\n    approxInstallmentPaymentAmountExcludingTaxRounded\n    approxInstallmentPaymentAmountIncludingTax\n    approxInstallmentPaymentAmountIncludingTaxRounded\n    downPaymentOverridden\n    downPaymentValueExcludingTax\n    downPaymentValueExcludingTaxRounded\n    downPaymentValueIncludingTax\n    downPaymentValueIncludingTaxRounded\n    taxRate\n    valueBasePriceExcludingTax\n    valueBasePriceExcludingTaxRounded\n    valueBasePriceIncludingTax\n    valueBasePriceIncludingTaxRounded\n    valueExcludingTax\n    valueExcludingTaxRounded\n    valueIncludingTax\n    valueIncludingTaxRounded\n    overridden\n    overriddenValue\n    overrideType\n    priceValueRef\n    valueSubTotalPriceExcludingTax\n    valueSubTotalPriceExcludingTaxRounded\n    valueSubTotalPriceIncludingTax\n    valueSubTotalPriceIncludingTaxRounded\n    __typename\n  }\n  priceAlteration {\n    ...PriceAlterationFragment\n    __typename\n  }\n  __typename\n}\n\nfragment PriceAlterationFragment on PriceAlteration {\n  id\n  name\n  priceType\n  productOfferingPrice {\n    href\n    id\n    name\n    atReferredType\n    __typename\n  }\n  validFor {\n    endDateTime\n    startDateTime\n    __typename\n  }\n  price {\n    taxRate\n    overridden\n    overrideType\n    overriddenValue\n    priceArrow\n    poPriceAlterationDiscountId\n    priceValueRef\n    valueBasePriceExcludingTax\n    valueBasePriceExcludingTaxRounded\n    valueBasePriceIncludingTax\n    valueBasePriceIncludingTaxRounded\n    valueExcludingTax\n    valueExcludingTaxRounded\n    valueIncludingTax\n    valueIncludingTaxRounded\n    valueSubTotalPriceExcludingTax\n    valueSubTotalPriceExcludingTaxRounded\n    valueSubTotalPriceIncludingTax\n    valueSubTotalPriceIncludingTaxRounded\n    atType\n    percentage\n    __typename\n  }\n  priority\n  action\n  promotionId\n  applicationMode\n  applied\n  priceAlterationType\n  alterationOnSuspendedPrice\n  solo\n  recurringChargePeriod\n  extendedParameters\n  __typename\n}\n\nfragment QuoteItemFragment on QuoteItem {\n  id\n  action\n  businessGroupId\n  cpiBusinessGroupId\n  businessAction\n  billingName\n  deliveryItemId\n  extendedParameters\n  parentQuoteItemId\n  rootQuoteItemId\n  appliedBusinessBarringId\n  availabilityCheckResult\n  state\n  approvalLevel\n  quantityNumber {\n    amount\n    __typename\n  }\n  appointment {\n    id\n    timeSlot {\n      startDateTime\n      endDateTime\n      __typename\n    }\n    __typename\n  }\n  billingAccount {\n    id\n    name\n    atReferredType\n    __typename\n  }\n  cpiBillingAccountId\n  quoteItemPrice {\n    ...QuoteItemPriceFragment\n    __typename\n  }\n  product {\n    ...ExtendedQuoteItemProductFragment\n    __typename\n  }\n  productOffering {\n    id\n    origin {\n      ...QuoteItemProductOfferingFragment\n      __typename\n    }\n    __typename\n  }\n  activeFrom\n  activeTo\n  relatedParty {\n    ...RelatedPartyRefFragment\n    __typename\n  }\n  quantityNumber {\n    amount\n    __typename\n  }\n  distributionChannelId\n  marketId\n  __typename\n}\n\nfragment QuoteItemPriceFragment on QuotePrice {\n  priceAlteration {\n    ...PriceAlterationFragment\n    __typename\n  }\n  priceCurrency\n  priceSpecificationType\n  priceType\n  priceComponentSpecificationRef\n  price {\n    pricePlanId\n    valueIncludingTaxRounded\n    valueSubTotalPriceIncludingTaxRounded\n    valueBasePriceIncludingTaxRounded\n    extendedParameters\n    __typename\n  }\n  __typename\n}\n\nfragment ExtendedQuoteItemProductFragment on ProductRefOrValue {\n  id\n  name\n  origin {\n    status\n    productPrice {\n      priceType\n      price {\n        valueIncludingTaxRounded\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  productCharacteristic {\n    id\n    value\n    rawValue\n    businessType\n    name\n    __typename\n  }\n  productOffering {\n    id\n    origin {\n      id\n      canBeUpgradedTo {\n        id\n        __typename\n      }\n      canBeDowngradedTo {\n        id\n        __typename\n      }\n      productFamily {\n        id\n        name\n        __typename\n      }\n      localizedData {\n        ...LocalizedDataFragment\n        __typename\n      }\n      enrichmentContainer {\n        ...EnrichmentContainerFragment\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  place {\n    id\n    name\n    role\n    address\n    externalId\n    marketId\n    marketName\n    geoAddressId\n    belongsToHousingAssociation\n    housingAssociationId\n    ownedByHousingAssociation\n    extendedParameters\n    relatedPlace {\n      id\n      name\n      role\n      __typename\n    }\n    __typename\n  }\n  businessBarringRecord {\n    id\n    action\n    businessBarringSpecification {\n      id\n      name\n      __typename\n    }\n    __typename\n  }\n  productRelationship {\n    relationshipType\n    product {\n      customerId\n      id\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment LocalizedDataFragment on LocalizedData {\n  name\n  description\n  locale\n  __typename\n}\n\nfragment EnrichmentContainerFragment on EnrichmentContainer {\n  id\n  name\n  entity {\n    id\n    name\n    __typename\n  }\n  validFor {\n    startDateTime\n    endDateTime\n    __typename\n  }\n  wrapper {\n    name\n    enrichment {\n      name\n      attribute {\n        meta\n        name\n        value\n        localizedName {\n          ...LocalizedDataParts\n          __typename\n        }\n        localizedValue {\n          ...LocalizedDataParts\n          __typename\n        }\n        __typename\n      }\n      component {\n        name\n        order\n        attribute {\n          meta\n          name\n          value\n          localizedName {\n            ...LocalizedDataParts\n            __typename\n          }\n          localizedValue {\n            ...LocalizedDataParts\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment LocalizedDataParts on LocalizedData {\n  name\n  description\n  locale\n  __typename\n}\n\nfragment QuoteItemProductOfferingFragment on ProductOffering {\n  id\n  category {\n    id\n    name\n    __typename\n  }\n  isTangible\n  extendedParameters\n  localizedData {\n    ...LocalizedDataFragment\n    __typename\n  }\n  productFamily {\n    id\n    name\n    __typename\n  }\n  prodSpecCharValueUse {\n    defaultValue {\n      value\n      isDefault\n      __typename\n    }\n    businessType\n    mask\n    __typename\n  }\n  enrichmentContainer {\n    staticEnrichment {\n      ...StaticEnrichmentValueFragment\n      __typename\n    }\n    ...EnrichmentContainerFragment\n    __typename\n  }\n  childOffering {\n    childMin\n    id\n    cardinalityDefault\n    childOffersRetained\n    __typename\n  }\n  isAppliedByBusinessRule\n  channel {\n    id\n    name\n    __typename\n  }\n  __typename\n}\n\nfragment StaticEnrichmentValueFragment on StaticEnrichmentValue {\n  name\n  atType\n  value\n  localizedGroup {\n    ...LocalizedDataParts\n    __typename\n  }\n  localizedName {\n    ...LocalizedDataParts\n    __typename\n  }\n  localizedValue {\n    ...LocalizedDataParts\n    __typename\n  }\n  group\n  __typename\n}",
+    "persisted": false
+  },
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "variables": {
+      "type": "object",
+      "fields": {
+        "input": {
+          "type": "object",
+          "fields": {
+            "quoteItem": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "fields": {
+                  "action": {
+                    "type": "string"
+                  },
+                  "marketId": {
+                    "type": "string"
+                  },
+                  "distributionChannelId": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "productOffering": {
+                    "type": "object",
+                    "fields": {
+                      "id": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "product": {
+                    "type": "object",
+                    "fields": {
+                      "id": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "relatedParty": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "fields": {
+                        "atReferredType": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "fields": {
+                  "atReferredType": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "distributionChannelId": {
+              "type": "string"
+            },
+            "extendedParameters": {
+              "type": "object",
+              "fields": {
+                "skipSoftReservation": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "exposeNotAppliedDiscounts": {
+          "type": "boolean"
+        },
+        "inMemoryQuoteStrategy": {
+          "type": "string"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [],
+  "seen": 2,
+  "aborted": 2
+}
