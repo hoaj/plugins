@@ -15,10 +15,12 @@ export const TABLES = {
 
 export const DOMAIN = "totalkredit";
 
-// "101,02" -> 101.02, "4,54 %" -> 4.54, "" or anything unreadable -> null.
+// "101,02" -> 101.02, "4,54 %" -> 4.54, "1.234,5" -> 1234.5, "" or anything unreadable -> null.
+// A dot is a thousands separator only next to a decimal comma; alone it stays a decimal point.
 export const num = (s: string | null | undefined): number | null => {
   if (s == null) return null;
-  const t = s.replace(/[%\s ]/g, "").replace(/\./g, "").replace(",", ".");
+  let t = s.replace(/[%\s ]/g, "");
+  if (t.includes(",")) t = t.replace(/\./g, "").replace(",", ".");
   if (t === "") return null;
   const n = Number(t);
   return Number.isFinite(n) ? n : null;
