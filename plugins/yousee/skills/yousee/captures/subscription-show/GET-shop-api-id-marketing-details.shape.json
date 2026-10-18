@@ -1,0 +1,283 @@
+{
+  "operation": "GET /shop/api/:id/marketing-details",
+  "kind": "rest",
+  "effect": "read",
+  "resourceType": "xhr",
+  "host": "yousee.dk",
+  "method": "GET",
+  "path": "/shop/api/:id/marketing-details",
+  "request": {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "authorization": null,
+      "cookie": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "query": {
+      "type": "object",
+      "fields": {
+        "key": {
+          "type": "string"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-type": "application/json",
+        "date": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-b3-spanid": null,
+        "x-b3-traceid": null,
+        "x-request-id": null,
+        "x-server-time": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "fields": {
+              "promotion": {
+                "type": "object",
+                "fields": {
+                  "__typename": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "lifecycleStatus": {
+                    "type": "string"
+                  },
+                  "autoApplied": {
+                    "type": "boolean"
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "localizedData": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "fields": {
+                        "__typename": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "locale": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "validFor": {
+                    "type": "object",
+                    "fields": {
+                      "__typename": {
+                        "type": "string"
+                      },
+                      "startDateTime": {
+                        "type": "string",
+                        "format": "datetime"
+                      }
+                    }
+                  },
+                  "extendedParameters": {
+                    "type": "object",
+                    "fields": {
+                      "prohibitInAnonymousFlow": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "promotionTechnicalType": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "optional": [
+                      "prohibitInAnonymousFlow",
+                      "promotionTechnicalType"
+                    ]
+                  },
+                  "pattern": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "fields": {
+                        "__typename": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "validFor": {
+                          "type": "object",
+                          "fields": {
+                            "__typename": {
+                              "type": "string"
+                            },
+                            "startDateTime": {
+                              "type": "string",
+                              "format": "datetime"
+                            }
+                          }
+                        },
+                        "action": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "fields": {
+                              "__typename": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "actionType": {
+                                "type": "string"
+                              },
+                              "actionValue": {
+                                "type": "number"
+                              },
+                              "productOfferingPriceSpecification": {
+                                "type": "object",
+                                "fields": {
+                                  "__typename": {
+                                    "type": "string"
+                                  },
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "target": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "fields": {
+                                    "__typename": {
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "atReferredType": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "criteriaGroup": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "fields": {
+                              "__typename": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "groupName": {
+                                "type": "string"
+                              },
+                              "atType": {
+                                "type": "string"
+                              },
+                              "criteria": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "fields": {
+                                    "__typename": {
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "atType": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "criteriaValue": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 4,
+  "aborted": 0
+}

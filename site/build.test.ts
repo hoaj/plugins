@@ -235,13 +235,16 @@ describe("render", () => {
 });
 
 describe("loadData", () => {
-  test("logbuy is the one local plugin, with a version and its command table", () => {
+  test("the local plugins load with a version and their command tables", () => {
     const real = loadData(ROOT);
-    expect(real.plugins.map((p) => p.name)).toEqual(["logbuy"]);
-    const logbuy = real.plugins[0];
-    expect(logbuy.version).toMatch(/^\d+\.\d+\.\d+$/);
-    expect(logbuy.cliSkills.map((s) => s.name)).toEqual(["logbuy"]);
-    expect(logbuy.cliSkills[0].commands.map((c) => c.command)).toContain("logbuy deal search");
+    expect(real.plugins.map((p) => p.name).sort()).toEqual(["logbuy", "yousee"]);
+    const byName = (name: string) => real.plugins.find((p) => p.name === name)!;
+    for (const [name, command] of [["logbuy", "logbuy deal search"], ["yousee", "yousee bill list"]] as const) {
+      const plugin = byName(name);
+      expect(plugin.version).toMatch(/^\d+\.\d+\.\d+$/);
+      expect(plugin.cliSkills.map((s) => s.name)).toEqual([name]);
+      expect(plugin.cliSkills[0].commands.map((c) => c.command)).toContain(command);
+    }
   });
 
   test("parseCommands reads the commands table", () => {

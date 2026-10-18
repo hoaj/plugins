@@ -1,0 +1,63 @@
+{
+  "operation": "POST /as/:id/resume/as/:id",
+  "kind": "rest",
+  "effect": "write",
+  "loginFlow": true,
+  "resourceType": "document",
+  "host": "login.yousee.dk",
+  "method": "POST",
+  "path": "/as/:id/resume/as/:id",
+  "request": {
+    "headers": {
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/jxl,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+      "content-type": "application/x-www-form-urlencoded",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "upgrade-insecure-requests": null,
+      "user-agent": null
+    },
+    "body": {
+      "kind": "form",
+      "shape": {
+        "type": "record",
+        "values": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 302,
+      "contentType": "text/html",
+      "headers": {
+        "cache-control": null,
+        "content-length": null,
+        "content-type": "text/html",
+        "date": null,
+        "expires": null,
+        "location": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "strict-transport-security": null,
+        "via": null,
+        "x-amz-cf-id": null,
+        "x-amz-cf-pop": null,
+        "x-cache": null,
+        "x-frame-options": null
+      },
+      "setCookies": [
+        "PF"
+      ],
+      "body": {
+        "kind": "empty"
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

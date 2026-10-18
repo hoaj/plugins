@@ -1,0 +1,53 @@
+{
+  "operation": "GET /mit-yousee",
+  "kind": "rest",
+  "effect": "read",
+  "navigation": true,
+  "resourceType": "document",
+  "host": "yousee.dk",
+  "method": "GET",
+  "path": "/mit-yousee",
+  "request": {
+    "headers": {
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/jxl,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+      "cookie": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "upgrade-insecure-requests": null,
+      "user-agent": null
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "text/html",
+      "headers": {
+        "alt-svc": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-type": "text/html",
+        "date": null,
+        "etag": null,
+        "transfer-encoding": null,
+        "vary": null,
+        "via": null,
+        "x-amz-cf-id": null,
+        "x-amz-cf-pop": null,
+        "x-cache": null,
+        "x-nextjs-cache": null,
+        "x-slug": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "html"
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

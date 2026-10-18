@@ -1,0 +1,64 @@
+{
+  "operation": "POST /shop/cip-routes/outage/v1/getOutageInfo",
+  "kind": "rest",
+  "effect": "write",
+  "resourceType": "xhr",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/cip-routes/outage/v1/getOutageInfo",
+  "request": {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "body": {
+      "kind": "json",
+      "shape": {
+        "type": "object",
+        "fields": {
+          "addressId": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "numeric"
+            }
+          }
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [],
+  "seen": 2,
+  "aborted": 2
+}

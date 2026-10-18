@@ -1,0 +1,120 @@
+{
+  "operation": "listFtpdServiceUserProducts",
+  "kind": "graphql",
+  "effect": "read",
+  "resourceType": "fetch",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/graphql-server/graphql",
+  "graphql": {
+    "operationName": "listFtpdServiceUserProducts",
+    "operationType": "query",
+    "query": "# number literals were redacted to 0: write the real ones (or variables) back\nquery listFtpdServiceUserProducts($customerId: ID!, $filters: [String!], $exposeTotalPrice: Boolean, $priceEstimationDate: DateTime) {\n  listFtpdProducts(\n    customerId: $customerId\n    exposeTotalPrice: $exposeTotalPrice\n    priceEstimationDate: $priceEstimationDate\n  ) @limit(limit: 0) @filter(filters: $filters) {\n    ...FtpdServiceUserProductParts\n    __typename\n  }\n}\n\nfragment FtpdServiceUserProductParts on Product {\n  id\n  status\n  name\n  marketId\n  distributionChannelId\n  productSerialNumber\n  parentProductId\n  eventGenerating\n  rootProductId\n  quoteId\n  quantity\n  sourceQuoteItemId\n  startDate\n  effectiveDate\n  disconnectionReason\n  disconnectionReasonDescription\n  terminationDate\n  extendedParameters\n  technicalBarringRecord {\n    id\n    barringType\n    businessBarringRecordId\n    __typename\n  }\n  productFamily {\n    id\n    __typename\n  }\n  businessBarringSpecification {\n    id\n    name\n    extendedParameters\n    __typename\n  }\n  businessBarringRecord {\n    id\n    businessBarringSpecification {\n      id\n      name\n      __typename\n    }\n    __typename\n  }\n  numberOfInstallments\n  expirationDate\n  originalExpirationDate\n  isOneTimeOffering\n  place {\n    id\n    name\n    origin {\n      address {\n        country\n        streetName\n        streetNr\n        streetNrSuffix\n        stateOrProvince\n        postCode\n        city\n        extendedAttributes\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  billingAccount {\n    id\n    __typename\n  }\n  characteristic {\n    id\n    name\n    value\n    attributeId\n    businessType\n    technical\n    __typename\n  }\n  productOffering {\n    id\n    name\n    origin {\n      ...FtpdProductOfferingParts\n      __typename\n    }\n    __typename\n  }\n  productPrice {\n    priceType\n    rateCurrency\n    priceCurrency\n    priceAlteration {\n      priceAlterationType\n      priceType\n      name\n      promotionId\n      extendedParameters\n      validFor {\n        startDateTime\n        endDateTime\n        __typename\n      }\n      price {\n        percentage\n        __typename\n      }\n      __typename\n    }\n    price {\n      pricePlanId\n      overridden\n      valueSubTotalPriceIncludingTaxRounded\n      valueBasePriceIncludingTaxRounded\n      valueIncludingTaxRounded\n      approxInstallmentPaymentAmountIncludingTaxRounded\n      downPaymentValueIncludingTaxRounded\n      __typename\n    }\n    __typename\n  }\n  businessGroup {\n    id\n    name\n    extendedParameters\n    marketingBundleId\n    __typename\n  }\n  relatedParty {\n    id\n    role\n    atReferredType\n    userOfService\n    name\n    validFor {\n      startDateTime\n      endDateTime\n      __typename\n    }\n    origin {\n      ... on Individual {\n        contactMedium {\n          characteristic {\n            emailAddress\n            __typename\n          }\n          type\n          mediumType\n          preferred\n          __typename\n        }\n        familyName\n        fullName\n        givenName\n        __typename\n      }\n      ... on Customer {\n        name\n        engagedParty {\n          id\n          origin {\n            ... on Individual {\n              extendedAttributes\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  realizingService {\n    id\n    name\n    role\n    __typename\n  }\n  productRelationship {\n    relationshipType\n    product {\n      id\n      name\n      __typename\n    }\n    __typename\n  }\n  customerCategory {\n    id\n    name\n    __typename\n  }\n  __typename\n}\n\nfragment FtpdProductOfferingParts on ProductOffering {\n  id\n  name\n  isTangible\n  templateId\n  isAppliedByBusinessRule\n  effectiveLifecycleStatus\n  extendedParameters\n  removeRoles\n  businessBarringSpecification {\n    id\n    name\n    extendedParameters\n    __typename\n  }\n  duration {\n    units\n    amount\n    __typename\n  }\n  channel {\n    id\n    __typename\n  }\n  isBundleOnly\n  productFamily {\n    id\n    name\n    __typename\n  }\n  localizedData {\n    ...FtpdLocalizedDataParts\n    __typename\n  }\n  isTopOffer\n  category {\n    id\n    name\n    __typename\n  }\n  childCategory {\n    id\n    name\n    __typename\n  }\n  childOffering {\n    id\n    childMin\n    childMax\n    cardinalityDefault\n    __typename\n  }\n  prodSpecCharValueUse {\n    ...FtpdProdSpecCharValueUseParts\n    __typename\n  }\n  validFor {\n    endDateTime\n    __typename\n  }\n  productOfferingPrice {\n    id\n    origin {\n      id\n      eligibility {\n        id\n        __typename\n      }\n      priceType\n      priceSpecificationId\n      extendedParameters\n      prodSpecCharValueUse {\n        name\n        businessType\n        productSpecCharacteristicValue {\n          name\n          value\n          __typename\n        }\n        __typename\n      }\n      price {\n        value\n        units\n        __typename\n      }\n      validFor {\n        startDateTime\n        __typename\n      }\n      ... on ProductOfferPriceCharge {\n        isBasePrice\n        isDefaultPrice\n        pricePlanId\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  enrichmentContainer {\n    staticEnrichment {\n      ...FtpdStaticEnrichmentValueFragment\n      __typename\n    }\n    ...FtpdEnrichmentContainerFragment\n    __typename\n  }\n  __typename\n}\n\nfragment FtpdLocalizedDataParts on LocalizedData {\n  name\n  description\n  locale\n  __typename\n}\n\nfragment FtpdProdSpecCharValueUseParts on ProdSpecCharValueUse {\n  id\n  characteristicId\n  productSpecificationCharacteristic {\n    attributeId\n    __typename\n  }\n  name\n  mask\n  businessType\n  modifiable\n  localizedData {\n    ...FtpdLocalizedDataParts\n    __typename\n  }\n  defaultValue {\n    name\n    localizedData {\n      ...FtpdLocalizedDataParts\n      __typename\n    }\n    value\n    __typename\n  }\n  availableValue {\n    name\n    localizedData {\n      ...FtpdLocalizedDataParts\n      __typename\n    }\n    value\n    __typename\n  }\n  productSpecCharacteristicValue {\n    name\n    localizedData {\n      ...FtpdLocalizedDataParts\n      __typename\n    }\n    value\n    __typename\n  }\n  valueFrom\n  valueTo\n  validFor {\n    startDateTime\n    endDateTime\n    __typename\n  }\n  __typename\n}\n\nfragment FtpdStaticEnrichmentValueFragment on StaticEnrichmentValue {\n  name\n  atType\n  value\n  localizedGroup {\n    ...FtpdLocalizedDataParts\n    __typename\n  }\n  localizedName {\n    ...FtpdLocalizedDataParts\n    __typename\n  }\n  localizedValue {\n    ...FtpdLocalizedDataParts\n    __typename\n  }\n  group\n  __typename\n}\n\nfragment FtpdEnrichmentContainerFragment on EnrichmentContainer {\n  id\n  name\n  entity {\n    id\n    name\n    __typename\n  }\n  validFor {\n    startDateTime\n    endDateTime\n    __typename\n  }\n  wrapper {\n    name\n    enrichment {\n      name\n      attribute {\n        meta\n        name\n        value\n        localizedName {\n          ...FtpdLocalizedDataParts\n          __typename\n        }\n        localizedValue {\n          ...FtpdLocalizedDataParts\n          __typename\n        }\n        __typename\n      }\n      component {\n        name\n        order\n        attribute {\n          meta\n          name\n          value\n          localizedName {\n            ...FtpdLocalizedDataParts\n            __typename\n          }\n          localizedValue {\n            ...FtpdLocalizedDataParts\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}",
+    "persisted": false
+  },
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "variables": {
+      "type": "object",
+      "fields": {
+        "customerId": {
+          "type": "string"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exposeTotalPrice": {
+          "type": "boolean"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "request-start-time": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-content-type-options": null,
+        "x-envoy-upstream-service-time": null,
+        "x-frame-options": null,
+        "x-projected-time": null,
+        "x-request-id": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "data": {
+              "type": "object",
+              "fields": {
+                "listFtpdProducts": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

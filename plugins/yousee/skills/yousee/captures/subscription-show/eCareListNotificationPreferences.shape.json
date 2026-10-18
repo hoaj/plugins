@@ -1,0 +1,335 @@
+{
+  "operation": "eCareListNotificationPreferences",
+  "kind": "graphql",
+  "effect": "read",
+  "resourceType": "fetch",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/graphql-server/graphql",
+  "graphql": {
+    "operationName": "eCareListNotificationPreferences",
+    "operationType": "query",
+    "query": "query eCareListNotificationPreferences($customerId: String!, $filters: [String!]) {\n  eCareListNotificationPreferences(customerId: $customerId) @filter(filters: $filters) {\n    id\n    isDisabled\n    disablementReason\n    contactMediumId\n    notificationCategory\n    notificationTargetId\n    notificationTargetType\n    customerId\n    partyRefId\n    partyRefType\n    activeFrom\n    validFor {\n      startDateTime\n      endDateTime\n      __typename\n    }\n    contactMedium {\n      id\n      type\n      preferred\n      isActive\n      isVerified\n      mediumType\n      contactHour {\n        dayOfWeek\n        startTime\n        endTime\n        __typename\n      }\n      characteristic {\n        type\n        emailAddress\n        phoneNumber\n        street1\n        street2\n        postCode\n        city\n        country\n        stateOrProvince\n        extendedAttributes\n        __typename\n      }\n      __typename\n    }\n    targetObject {\n      ... on BillingAccountFD {\n        id\n        name\n        type\n        accountNumber\n        prepaid\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}",
+    "persisted": false
+  },
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "variables": {
+      "type": "object",
+      "fields": {
+        "customerId": {
+          "type": "string"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "request-start-time": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-content-type-options": null,
+        "x-envoy-upstream-service-time": null,
+        "x-frame-options": null,
+        "x-projected-time": null,
+        "x-request-id": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "extensions": {
+              "type": "object",
+              "fields": {
+                "eCareListNotificationPreferences": {
+                  "type": "object",
+                  "fields": {
+                    "totalCount": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "data": {
+              "type": "object",
+              "fields": {
+                "eCareListNotificationPreferences": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "fields": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "isDisabled": {
+                        "type": "boolean"
+                      },
+                      "disablementReason": {
+                        "type": "null"
+                      },
+                      "contactMediumId": {
+                        "type": "string"
+                      },
+                      "notificationCategory": {
+                        "type": "string"
+                      },
+                      "notificationTargetId": {
+                        "type": "string"
+                      },
+                      "notificationTargetType": {
+                        "type": "string"
+                      },
+                      "customerId": {
+                        "type": "string"
+                      },
+                      "partyRefId": {
+                        "type": "string"
+                      },
+                      "partyRefType": {
+                        "type": "string"
+                      },
+                      "activeFrom": {
+                        "type": "string",
+                        "format": "datetime"
+                      },
+                      "validFor": {
+                        "type": "object",
+                        "fields": {
+                          "startDateTime": {
+                            "type": "string",
+                            "format": "datetime"
+                          },
+                          "endDateTime": {
+                            "type": "null"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "contactMedium": {
+                        "type": "object",
+                        "fields": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "preferred": {
+                            "type": "boolean"
+                          },
+                          "isActive": {
+                            "type": "boolean"
+                          },
+                          "isVerified": {
+                            "type": "boolean"
+                          },
+                          "mediumType": {
+                            "type": "string"
+                          },
+                          "contactHour": {
+                            "type": "union",
+                            "anyOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "fields": {
+                                    "dayOfWeek": {
+                                      "type": "string"
+                                    },
+                                    "startTime": {
+                                      "type": "string"
+                                    },
+                                    "endTime": {
+                                      "type": "string"
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "characteristic": {
+                            "type": "object",
+                            "fields": {
+                              "type": {
+                                "type": "string"
+                              },
+                              "emailAddress": {
+                                "type": "union",
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "phoneNumber": {
+                                "type": "union",
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "format": "numeric"
+                                  }
+                                ]
+                              },
+                              "street1": {
+                                "type": "null"
+                              },
+                              "street2": {
+                                "type": "null"
+                              },
+                              "postCode": {
+                                "type": "null"
+                              },
+                              "city": {
+                                "type": "null"
+                              },
+                              "country": {
+                                "type": "null"
+                              },
+                              "stateOrProvince": {
+                                "type": "null"
+                              },
+                              "extendedAttributes": {
+                                "type": "object",
+                                "fields": {
+                                  "isVerifiedStatus": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "__typename": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "targetObject": {
+                        "type": "object",
+                        "fields": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "accountNumber": {
+                            "type": "string",
+                            "format": "numeric"
+                          },
+                          "prepaid": {
+                            "type": "boolean"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        },
+                        "optional": [
+                          "accountNumber",
+                          "id",
+                          "name",
+                          "prepaid",
+                          "type"
+                        ]
+                      },
+                      "__typename": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 3,
+  "aborted": 0
+}

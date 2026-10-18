@@ -1,0 +1,235 @@
+{
+  "operation": "listProductsModificationOptions",
+  "kind": "graphql",
+  "effect": "read",
+  "resourceType": "fetch",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/graphql-server/graphql",
+  "graphql": {
+    "operationName": "listProductsModificationOptions",
+    "operationType": "query",
+    "query": "# number literals were redacted to 0: write the real ones (or variables) back\nquery listProductsModificationOptions($customerId: ID!, $filters: [String!]) {\n  listProducts(customerId: $customerId) @limit(limit: 0) @filter(filters: $filters) {\n    id\n    productOffering {\n      origin {\n        canBeUpgradedTo {\n          id\n          name\n          origin {\n            id\n            isBundleOnly\n            __typename\n          }\n          __typename\n        }\n        canBeDowngradedTo {\n          id\n          name\n          origin {\n            id\n            isBundleOnly\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}",
+    "persisted": false
+  },
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "variables": {
+      "type": "object",
+      "fields": {
+        "customerId": {
+          "type": "string"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "request-start-time": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-content-type-options": null,
+        "x-envoy-upstream-service-time": null,
+        "x-frame-options": null,
+        "x-projected-time": null,
+        "x-request-id": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "extensions": {
+              "type": "object",
+              "fields": {
+                "listProducts": {
+                  "type": "object",
+                  "fields": {
+                    "totalCount": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "data": {
+              "type": "object",
+              "fields": {
+                "listProducts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "fields": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "productOffering": {
+                        "type": "object",
+                        "fields": {
+                          "origin": {
+                            "type": "object",
+                            "fields": {
+                              "canBeUpgradedTo": {
+                                "type": "union",
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "fields": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "origin": {
+                                          "type": "object",
+                                          "fields": {
+                                            "id": {
+                                              "type": "string"
+                                            },
+                                            "isBundleOnly": {
+                                              "type": "boolean"
+                                            },
+                                            "__typename": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "canBeDowngradedTo": {
+                                "type": "union",
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "fields": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "origin": {
+                                          "type": "object",
+                                          "fields": {
+                                            "id": {
+                                              "type": "string"
+                                            },
+                                            "isBundleOnly": {
+                                              "type": "boolean"
+                                            },
+                                            "__typename": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "__typename": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "__typename": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

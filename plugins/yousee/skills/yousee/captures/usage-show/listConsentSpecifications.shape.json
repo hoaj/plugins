@@ -1,0 +1,259 @@
+{
+  "operation": "listConsentSpecifications",
+  "kind": "graphql",
+  "effect": "read",
+  "resourceType": "fetch",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/graphql-server/graphql",
+  "graphql": {
+    "operationName": "listConsentSpecifications",
+    "operationType": "query",
+    "query": "query listConsentSpecifications($filters: [String!]) {\n  listConsentSpecifications @filter(filters: $filters) {\n    ...ConsentSpecPart\n    __typename\n  }\n}\n\nfragment ConsentSpecPart on ConsentSpecification {\n  id\n  name\n  consentCode\n  validFor {\n    startDateTime\n    endDateTime\n    __typename\n  }\n  category\n  subCategory\n  requiredFor\n  isMandatory\n  consentSubjectEntityType\n  localizedContextText {\n    locale\n    text\n    __typename\n  }\n  description\n  requiredForNotificationCategory\n  __typename\n}",
+    "persisted": false
+  },
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "variables": {
+      "type": "object",
+      "fields": {
+        "filters": {
+          "type": "array"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "request-start-time": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-content-type-options": null,
+        "x-envoy-upstream-service-time": null,
+        "x-frame-options": null,
+        "x-projected-time": null,
+        "x-request-id": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "extensions": {
+              "type": "object",
+              "fields": {
+                "listConsentSpecifications": {
+                  "type": "object",
+                  "fields": {
+                    "totalCount": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "data": {
+              "type": "object",
+              "fields": {
+                "listConsentSpecifications": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "fields": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "consentCode": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "validFor": {
+                        "type": "object",
+                        "fields": {
+                          "startDateTime": {
+                            "type": "null"
+                          },
+                          "endDateTime": {
+                            "type": "string",
+                            "format": "datetime"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "subCategory": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "requiredFor": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "isMandatory": {
+                        "type": "boolean"
+                      },
+                      "consentSubjectEntityType": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "localizedContextText": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "locale": {
+                                  "type": "string"
+                                },
+                                "text": {
+                                  "type": "string"
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "requiredForNotificationCategory": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "__typename": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 2,
+  "aborted": 0
+}

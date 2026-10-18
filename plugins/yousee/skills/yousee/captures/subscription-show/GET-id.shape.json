@@ -1,0 +1,77 @@
+{
+  "operation": "GET /:id",
+  "kind": "rest",
+  "effect": "read",
+  "navigation": true,
+  "resourceType": "document",
+  "host": "yousee.dk",
+  "method": "GET",
+  "path": "/:id",
+  "request": {
+    "headers": {
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/jxl,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+      "accept-encoding": null,
+      "accept-language": null,
+      "cache-control": null,
+      "connection": null,
+      "cookie": null,
+      "host": null,
+      "pragma": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "sec-fetch-dest": null,
+      "sec-fetch-mode": null,
+      "sec-fetch-site": null,
+      "upgrade-insecure-requests": null,
+      "user-agent": null
+    },
+    "query": {
+      "type": "object",
+      "fields": {
+        "code": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "text/html",
+      "headers": {
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "text/html",
+        "date": null,
+        "feature-policy": null,
+        "referrer-policy": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "vary": null,
+        "x-b3-spanid": null,
+        "x-b3-traceid": null,
+        "x-content-type-options": null,
+        "x-request-id": null,
+        "x-server-time": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "html"
+      }
+    }
+  ],
+  "seen": 2,
+  "aborted": 0
+}

@@ -21,6 +21,11 @@
         "repo": "hoaj/site-cli-creator"
       },
       "description": "Turn the calls a website makes into a plugin of CLI skills that coding agents can run, with Drift checks and a feedback loop."
+    },
+    {
+      "name": "yousee",
+      "source": "./plugins/yousee",
+      "description": "Read your Mit YouSee subscription, bills and usage."
     }
   ]
 }

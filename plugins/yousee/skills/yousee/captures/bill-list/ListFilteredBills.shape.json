@@ -1,0 +1,294 @@
+{
+  "operation": "ListFilteredBills",
+  "kind": "graphql",
+  "effect": "read",
+  "resourceType": "fetch",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/graphql-server/graphql",
+  "graphql": {
+    "operationName": "ListFilteredBills",
+    "operationType": "query",
+    "query": "query ListFilteredBills($accountId: String!, $status: [String!], $startDate: DateTime, $endDate: DateTime, $offset: Int, $limit: Int) {\n  listFilteredBills(\n    accountId: $accountId\n    billStatus: $status\n    startDate: $startDate\n    endDate: $endDate\n  ) @sort(fields: [\"\"]) @filter(filters: [\"\"]) @limit(offset: $offset, limit: $limit) {\n    ...FilteredBillFragment\n    __typename\n  }\n}\n\nfragment FilteredBillFragment on Bill {\n  name\n  accountFD {\n    product {\n      id\n      __typename\n    }\n    __typename\n  }\n  outstandingDebtAmount {\n    currencyCode\n    exponent\n    amount\n    __typename\n  }\n  billType {\n    displayName\n    name\n    __typename\n  }\n  invoiceNumber\n  nominalBillTime\n  settled\n  paymentDueDate {\n    day\n    month\n    year\n    __typename\n  }\n  netAmount {\n    currencyCode\n    exponent\n    amount\n    __typename\n  }\n  taxAmount {\n    currencyCode\n    exponent\n    amount\n    __typename\n  }\n  chaseDebtAmount {\n    currencyCode\n    exponent\n    amount\n    __typename\n  }\n  actualBillTime\n  settledTime\n  test\n  __typename\n}",
+    "persisted": false
+  },
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "variables": {
+      "type": "object",
+      "fields": {
+        "accountId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "offset": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "request-start-time": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-content-type-options": null,
+        "x-envoy-upstream-service-time": null,
+        "x-frame-options": null,
+        "x-projected-time": null,
+        "x-request-id": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "extensions": {
+              "type": "object",
+              "fields": {
+                "listFilteredBills": {
+                  "type": "object",
+                  "fields": {
+                    "totalCount": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "data": {
+              "type": "object",
+              "fields": {
+                "listFilteredBills": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "fields": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "accountFD": {
+                        "type": "object",
+                        "fields": {
+                          "product": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "outstandingDebtAmount": {
+                        "type": "object",
+                        "fields": {
+                          "currencyCode": {
+                            "type": "string"
+                          },
+                          "exponent": {
+                            "type": "number"
+                          },
+                          "amount": {
+                            "type": "string",
+                            "format": "numeric"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "billType": {
+                        "type": "object",
+                        "fields": {
+                          "displayName": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "invoiceNumber": {
+                        "type": "string",
+                        "format": "numeric"
+                      },
+                      "nominalBillTime": {
+                        "type": "string",
+                        "format": "datetime"
+                      },
+                      "settled": {
+                        "type": "boolean"
+                      },
+                      "paymentDueDate": {
+                        "type": "object",
+                        "fields": {
+                          "day": {
+                            "type": "number"
+                          },
+                          "month": {
+                            "type": "number"
+                          },
+                          "year": {
+                            "type": "number"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "netAmount": {
+                        "type": "object",
+                        "fields": {
+                          "currencyCode": {
+                            "type": "string"
+                          },
+                          "exponent": {
+                            "type": "number"
+                          },
+                          "amount": {
+                            "type": "string",
+                            "format": "numeric"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "taxAmount": {
+                        "type": "object",
+                        "fields": {
+                          "currencyCode": {
+                            "type": "string"
+                          },
+                          "exponent": {
+                            "type": "number"
+                          },
+                          "amount": {
+                            "type": "string",
+                            "format": "numeric"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "chaseDebtAmount": {
+                        "type": "object",
+                        "fields": {
+                          "currencyCode": {
+                            "type": "string"
+                          },
+                          "exponent": {
+                            "type": "number"
+                          },
+                          "amount": {
+                            "type": "string",
+                            "format": "numeric"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "actualBillTime": {
+                        "type": "string",
+                        "format": "datetime"
+                      },
+                      "settledTime": {
+                        "type": "string",
+                        "format": "datetime"
+                      },
+                      "test": {
+                        "type": "boolean"
+                      },
+                      "__typename": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 3,
+  "aborted": 0
+}

@@ -1,0 +1,408 @@
+{
+  "operation": "listFilteredAccountPayments",
+  "kind": "graphql",
+  "effect": "read",
+  "resourceType": "fetch",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/graphql-server/graphql",
+  "graphql": {
+    "operationName": "listFilteredAccountPayments",
+    "operationType": "query",
+    "query": "query listFilteredAccountPayments($customerId: String!, $accountId: String!, $filters: [String!], $offset: Int, $limit: Int, $paymentOriginNames: [String!]) {\n  listFilteredAccountPayments(\n    customerId: $customerId\n    accountId: $accountId\n    paymentOriginNames: $paymentOriginNames\n  ) @filter(filters: $filters) @limit(limit: $limit, offset: $offset) @sort(fields: [\"\"]) {\n    id\n    createTime\n    attributeValues\n    billingAccountFD {\n      id\n      __typename\n    }\n    paymentAmount {\n      currencyCode\n      exponent\n      amount\n      __typename\n    }\n    paymentStatus\n    paymentAllocations {\n      logicallyDeleted\n      amount {\n        currencyCode\n        exponent\n        amount\n        __typename\n      }\n      billName\n      bill {\n        invoiceNumber\n        nominalBillTime\n        actualBillTime\n        outstandingDebtAmount {\n          currencyCode\n          exponent\n          amount\n          __typename\n        }\n        netAmount {\n          currencyCode\n          exponent\n          amount\n          __typename\n        }\n        taxAmount {\n          currencyCode\n          exponent\n          amount\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    paymentDate {\n      day\n      month\n      year\n      __typename\n    }\n    customerPayment {\n      paymentMethodName\n      isRefund\n      createTime\n      paymentStatus\n      paymentAmount {\n        amount\n        currencyCode\n        exponent\n        __typename\n      }\n      attributeValues\n      __typename\n    }\n    paymentOriginName\n    attributeValues\n    __typename\n  }\n}",
+    "persisted": false
+  },
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "variables": {
+      "type": "object",
+      "fields": {
+        "accountId": {
+          "type": "string"
+        },
+        "customerId": {
+          "type": "string"
+        },
+        "paymentOriginNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limit": {
+          "type": "number"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "request-start-time": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-content-type-options": null,
+        "x-envoy-upstream-service-time": null,
+        "x-frame-options": null,
+        "x-projected-time": null,
+        "x-request-id": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "extensions": {
+              "type": "object",
+              "fields": {
+                "listFilteredAccountPayments": {
+                  "type": "object",
+                  "fields": {
+                    "totalCount": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "data": {
+              "type": "object",
+              "fields": {
+                "listFilteredAccountPayments": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "fields": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "createTime": {
+                        "type": "string",
+                        "format": "datetime"
+                      },
+                      "attributeValues": {
+                        "type": "object",
+                        "fields": {}
+                      },
+                      "billingAccountFD": {
+                        "type": "object",
+                        "fields": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "paymentAmount": {
+                        "type": "object",
+                        "fields": {
+                          "currencyCode": {
+                            "type": "string"
+                          },
+                          "exponent": {
+                            "type": "number"
+                          },
+                          "amount": {
+                            "type": "string",
+                            "format": "numeric"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "paymentStatus": {
+                        "type": "string"
+                      },
+                      "paymentAllocations": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "fields": {
+                            "logicallyDeleted": {
+                              "type": "boolean"
+                            },
+                            "amount": {
+                              "type": "object",
+                              "fields": {
+                                "currencyCode": {
+                                  "type": "string"
+                                },
+                                "exponent": {
+                                  "type": "number"
+                                },
+                                "amount": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "billName": {
+                              "type": "string"
+                            },
+                            "bill": {
+                              "type": "object",
+                              "fields": {
+                                "invoiceNumber": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                },
+                                "nominalBillTime": {
+                                  "type": "string",
+                                  "format": "datetime"
+                                },
+                                "actualBillTime": {
+                                  "type": "string",
+                                  "format": "datetime"
+                                },
+                                "outstandingDebtAmount": {
+                                  "type": "object",
+                                  "fields": {
+                                    "currencyCode": {
+                                      "type": "string"
+                                    },
+                                    "exponent": {
+                                      "type": "number"
+                                    },
+                                    "amount": {
+                                      "type": "string",
+                                      "format": "numeric"
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "netAmount": {
+                                  "type": "object",
+                                  "fields": {
+                                    "currencyCode": {
+                                      "type": "string"
+                                    },
+                                    "exponent": {
+                                      "type": "number"
+                                    },
+                                    "amount": {
+                                      "type": "string",
+                                      "format": "numeric"
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "taxAmount": {
+                                  "type": "object",
+                                  "fields": {
+                                    "currencyCode": {
+                                      "type": "string"
+                                    },
+                                    "exponent": {
+                                      "type": "number"
+                                    },
+                                    "amount": {
+                                      "type": "string",
+                                      "format": "numeric"
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "__typename": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "paymentDate": {
+                        "type": "object",
+                        "fields": {
+                          "day": {
+                            "type": "number"
+                          },
+                          "month": {
+                            "type": "number"
+                          },
+                          "year": {
+                            "type": "number"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "customerPayment": {
+                        "type": "object",
+                        "fields": {
+                          "paymentMethodName": {
+                            "type": "string"
+                          },
+                          "isRefund": {
+                            "type": "boolean"
+                          },
+                          "createTime": {
+                            "type": "string",
+                            "format": "datetime"
+                          },
+                          "paymentStatus": {
+                            "type": "string"
+                          },
+                          "paymentAmount": {
+                            "type": "object",
+                            "fields": {
+                              "amount": {
+                                "type": "string",
+                                "format": "numeric"
+                              },
+                              "currencyCode": {
+                                "type": "string"
+                              },
+                              "exponent": {
+                                "type": "number"
+                              },
+                              "__typename": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "attributeValues": {
+                            "type": "object",
+                            "fields": {
+                              "card_number": {
+                                "type": "object",
+                                "fields": {
+                                  "stringValue": {
+                                    "type": "string",
+                                    "format": "numeric"
+                                  }
+                                }
+                              },
+                              "card_type": {
+                                "type": "object",
+                                "fields": {
+                                  "stringValue": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "card_expiry_date": {
+                                "type": "object",
+                                "fields": {
+                                  "stringValue": {
+                                    "type": "string",
+                                    "format": "numeric"
+                                  }
+                                }
+                              },
+                              "external_payment_id": {
+                                "type": "object",
+                                "fields": {
+                                  "stringValue": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "reference_id": {
+                                "type": "object",
+                                "fields": {
+                                  "stringValue": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "paymentOriginName": {
+                        "type": "string"
+                      },
+                      "__typename": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

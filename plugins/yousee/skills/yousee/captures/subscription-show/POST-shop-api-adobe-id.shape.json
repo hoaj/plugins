@@ -1,0 +1,69 @@
+{
+  "operation": "POST /shop/api/adobe/:id",
+  "kind": "rest",
+  "effect": "write",
+  "resourceType": "xhr",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/adobe/:id",
+  "request": {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "body": {
+      "kind": "json",
+      "shape": {
+        "type": "object",
+        "fields": {
+          "customerId": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "string"
+          },
+          "displayType": {
+            "type": "string"
+          },
+          "placementKey": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [],
+  "seen": 7,
+  "aborted": 7
+}

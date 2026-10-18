@@ -1,0 +1,49 @@
+{
+  "operation": "POST /std/method/dtp-nuuday/:id/api/authCode",
+  "kind": "rest",
+  "effect": "write",
+  "loginFlow": true,
+  "resourceType": "xhr",
+  "host": "signicat-id.mitid.dk",
+  "method": "POST",
+  "path": "/std/method/dtp-nuuday/:id/api/authCode",
+  "request": {
+    "headers": {
+      "accept": "application/json",
+      "content-type": "multipart/form-data",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null
+    },
+    "body": {
+      "kind": "multipart"
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "headers": {
+        "connection": null,
+        "content-length": null,
+        "date": null,
+        "keep-alive": null,
+        "p3p": null,
+        "referrer-policy": null,
+        "server": null,
+        "strict-transport-security": null,
+        "x-content-type-options": null,
+        "x-robots-tag": null,
+        "x-xss-protection": null
+      },
+      "body": {
+        "kind": "empty"
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

@@ -1,0 +1,866 @@
+{
+  "operation": "GET /shop/api/localization-content",
+  "kind": "rest",
+  "effect": "read",
+  "resourceType": "xhr",
+  "host": "yousee.dk",
+  "method": "GET",
+  "path": "/shop/api/localization-content",
+  "request": {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "authorization": null,
+      "cookie": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "query": {
+      "type": "object",
+      "fields": {
+        "consumer": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "connection": null,
+        "content-encoding": null,
+        "content-type": "application/json",
+        "date": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-b3-spanid": null,
+        "x-b3-traceid": null,
+        "x-request-id": null,
+        "x-server-time": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "consumer": {
+              "type": "string"
+            },
+            "lang": {
+              "type": "string"
+            },
+            "content": {
+              "type": "object",
+              "fields": {
+                "autopayment": {
+                  "type": "object",
+                  "fields": {
+                    "textBoxBetallingsService": {
+                      "type": "object",
+                      "fields": {
+                        "listItem": {
+                          "type": "object",
+                          "fields": {
+                            "free": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "boltOn": {
+                  "type": "object",
+                  "fields": {
+                    "activation": {
+                      "type": "object",
+                      "fields": {
+                        "dataSharing": {
+                          "type": "object",
+                          "fields": {
+                            "confirmation": {
+                              "type": "object",
+                              "fields": {
+                                "success": {
+                                  "type": "object",
+                                  "fields": {
+                                    "title": {
+                                      "type": "string"
+                                    },
+                                    "lineOne": {
+                                      "type": "string"
+                                    },
+                                    "lineTwo": {
+                                      "type": "string"
+                                    },
+                                    "lineThree": {
+                                      "type": "string"
+                                    },
+                                    "lineFour": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "common": {
+                  "type": "object",
+                  "fields": {
+                    "next": {
+                      "type": "string"
+                    },
+                    "calls": {
+                      "type": "string"
+                    },
+                    "cancel": {
+                      "type": "string"
+                    },
+                    "back": {
+                      "type": "string"
+                    },
+                    "cheek": {
+                      "type": "string"
+                    },
+                    "close": {
+                      "type": "string"
+                    },
+                    "rediger": {
+                      "type": "string"
+                    },
+                    "deactivate": {
+                      "type": "string"
+                    },
+                    "edit": {
+                      "type": "string"
+                    },
+                    "editDetails": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "errorTitle": {
+                      "type": "string"
+                    },
+                    "errorDescription": {
+                      "type": "string"
+                    },
+                    "finish": {
+                      "type": "string"
+                    },
+                    "greeting": {
+                      "type": "string"
+                    },
+                    "mitYouSee": {
+                      "type": "string"
+                    },
+                    "noGoBack": {
+                      "type": "string"
+                    },
+                    "goBack": {
+                      "type": "string"
+                    },
+                    "continue": {
+                      "type": "string"
+                    },
+                    "cancelText": {
+                      "type": "string"
+                    },
+                    "backText": {
+                      "type": "string"
+                    },
+                    "modal": {
+                      "type": "object",
+                      "fields": {
+                        "confirmation": {
+                          "type": "object",
+                          "fields": {
+                            "cancel": {
+                              "type": "string"
+                            },
+                            "confirm": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "channel": {
+                      "type": "object",
+                      "fields": {
+                        "title": {
+                          "type": "string"
+                        },
+                        "tvChannelsIncluded": {
+                          "type": "string"
+                        },
+                        "streaming": {
+                          "type": "string"
+                        },
+                        "gotIt": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "monthShort": {
+                      "type": "string"
+                    },
+                    "numberPrefixDollar": {
+                      "type": "string"
+                    },
+                    "numberSuffixKr": {
+                      "type": "string"
+                    },
+                    "currencyCodeKr": {
+                      "type": "string"
+                    },
+                    "currencyCodeDkk": {
+                      "type": "string"
+                    },
+                    "currencyCodeUsd": {
+                      "type": "string"
+                    },
+                    "travelDataPackageCurrency": {
+                      "type": "string"
+                    },
+                    "noImageAlt": {
+                      "type": "string"
+                    },
+                    "none": {
+                      "type": "string"
+                    },
+                    "oneTimePaymentOnTheFirstBill": {
+                      "type": "string"
+                    },
+                    "order": {
+                      "type": "string"
+                    },
+                    "restrictedActions": {
+                      "type": "string"
+                    },
+                    "overdueBills": {
+                      "type": "string"
+                    },
+                    "payNow": {
+                      "type": "string"
+                    },
+                    "save": {
+                      "type": "string"
+                    },
+                    "sms": {
+                      "type": "string"
+                    },
+                    "legalGurdianInfo": {
+                      "type": "string"
+                    },
+                    "mail": {
+                      "type": "string"
+                    },
+                    "toFinance": {
+                      "type": "string"
+                    },
+                    "total": {
+                      "type": "string"
+                    },
+                    "totalPerMonth": {
+                      "type": "string"
+                    },
+                    "viewAll": {
+                      "type": "string"
+                    },
+                    "selectStore": {
+                      "type": "string"
+                    },
+                    "searchAgain": {
+                      "type": "string"
+                    },
+                    "selectPackageShop": {
+                      "type": "string"
+                    },
+                    "unsubscribe": {
+                      "type": "string"
+                    },
+                    "weekDays": {
+                      "type": "object",
+                      "fields": {
+                        "monday": {
+                          "type": "string"
+                        },
+                        "tuesday": {
+                          "type": "string"
+                        },
+                        "wednesday": {
+                          "type": "string"
+                        },
+                        "thursday": {
+                          "type": "string"
+                        },
+                        "friday": {
+                          "type": "string"
+                        },
+                        "saturday": {
+                          "type": "string"
+                        },
+                        "sunday": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "quoteInProgressMessages": {
+                      "type": "object",
+                      "fields": {
+                        "changePrivacy": {
+                          "type": "string"
+                        },
+                        "activateBolton": {
+                          "type": "string"
+                        },
+                        "deActivateBolton": {
+                          "type": "string"
+                        },
+                        "reIssueSim": {
+                          "type": "string"
+                        },
+                        "changeToStandAloneLine": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "productRestrictionAlert": {
+                      "type": "object",
+                      "fields": {
+                        "barringAlert": {
+                          "type": "object",
+                          "fields": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "potentialBoltonMessage": {
+                          "type": "object",
+                          "fields": {
+                            "CCAbarring": {
+                              "type": "object",
+                              "fields": {
+                                "message": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "billingAccountInCollection": {
+                              "type": "object",
+                              "fields": {
+                                "message": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "message": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "addon": {
+                          "type": "object",
+                          "fields": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "alertLinkText": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "futureOrInProgressRequest": {
+                          "type": "object",
+                          "fields": {
+                            "description": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "billingAccountInCollection": {
+                          "type": "object",
+                          "fields": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "buttonText": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "futureDisconnectionRequest": {
+                          "type": "object",
+                          "fields": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "buttonText": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "disconnectionInProgress": {
+                          "type": "object",
+                          "fields": {
+                            "description": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "futurePortOutRequest": {
+                          "type": "object",
+                          "fields": {
+                            "description": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "customerHasOverdueInvoice": {
+                          "type": "object",
+                          "fields": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "buttonText": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "activeCommitment": {
+                          "type": "object",
+                          "fields": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "linkText": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "changeOwnership": {
+                          "type": "object",
+                          "fields": {
+                            "headerText": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "customerHasSpecialDiscount": {
+                          "type": "object",
+                          "fields": {
+                            "headerText": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "homeDelivery": {
+                      "type": "string"
+                    },
+                    "inStoreDelivery": {
+                      "type": "string"
+                    },
+                    "dropPointDelivery": {
+                      "type": "string"
+                    },
+                    "NA": {
+                      "type": "string"
+                    },
+                    "subscription": {
+                      "type": "string"
+                    },
+                    "ok": {
+                      "type": "string"
+                    },
+                    "and": {
+                      "type": "string"
+                    },
+                    "errorScreenTitle": {
+                      "type": "string"
+                    },
+                    "errorScreenDescription": {
+                      "type": "string"
+                    },
+                    "errorScreenTryAgainText": {
+                      "type": "string"
+                    },
+                    "errorScreenTryAgainButtonLabel": {
+                      "type": "string"
+                    },
+                    "changeSubscription": {
+                      "type": "string"
+                    },
+                    "relocationCard": {
+                      "type": "object",
+                      "fields": {
+                        "helpertext": {
+                          "type": "string"
+                        },
+                        "buttonText": {
+                          "type": "string"
+                        },
+                        "drawerTitle": {
+                          "type": "string"
+                        },
+                        "drawerDescription": {
+                          "type": "string"
+                        },
+                        "addressTitle": {
+                          "type": "string"
+                        },
+                        "calendarTitle": {
+                          "type": "string"
+                        },
+                        "addressInputText": {
+                          "type": "string"
+                        },
+                        "invalidAddress": {
+                          "type": "string"
+                        },
+                        "mandatoryAddressField": {
+                          "type": "string"
+                        },
+                        "dateInputText": {
+                          "type": "string"
+                        },
+                        "mandatoryDateField": {
+                          "type": "string"
+                        },
+                        "startChat": {
+                          "type": "string"
+                        },
+                        "cancel": {
+                          "type": "string"
+                        },
+                        "errorDrawerTitle": {
+                          "type": "string"
+                        },
+                        "errorDrawerDescription": {
+                          "type": "string"
+                        },
+                        "errorDrawerBtnText": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "errorsAlert": {
+                  "type": "object",
+                  "fields": {
+                    "addOns": {
+                      "type": "object",
+                      "fields": {
+                        "planInActivation": {
+                          "type": "object",
+                          "fields": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "details": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "planDisconnected": {
+                          "type": "object",
+                          "fields": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "details": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "upgradeDowngrade": {
+                      "type": "object",
+                      "fields": {
+                        "futureTerminationRequested": {
+                          "type": "object",
+                          "fields": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "details": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "mailBox": {
+                  "type": "object",
+                  "fields": {
+                    "changePassword": {
+                      "type": "object",
+                      "fields": {
+                        "helperText": {
+                          "type": "string"
+                        },
+                        "drawer": {
+                          "type": "object",
+                          "fields": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "mandatoryErrorText": {
+                              "type": "string"
+                            },
+                            "newPasswordLabel": {
+                              "type": "string"
+                            },
+                            "confirmPasswordLabel": {
+                              "type": "string"
+                            },
+                            "minCharactersError": {
+                              "type": "string"
+                            },
+                            "helperText": {
+                              "type": "string"
+                            },
+                            "noMatchError": {
+                              "type": "string"
+                            },
+                            "cancel": {
+                              "type": "string"
+                            },
+                            "submit": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "ownerAndUser": {
+                  "type": "object",
+                  "fields": {
+                    "disconnectionInProgress": {
+                      "type": "object",
+                      "fields": {
+                        "title": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "payment": {
+                  "type": "object",
+                  "fields": {
+                    "autoPaymentSetup": {
+                      "type": "object",
+                      "fields": {
+                        "paymentMethod": {
+                          "type": "object",
+                          "fields": {
+                            "betalingsService": {
+                              "type": "object",
+                              "fields": {
+                                "benefits": {
+                                  "type": "object",
+                                  "fields": {
+                                    "fee": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "settings": {
+                  "type": "object",
+                  "fields": {
+                    "navigationItems": {
+                      "type": "object",
+                      "fields": {
+                        "logIn": {
+                          "type": "object",
+                          "fields": {
+                            "introText": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "notification": {
+                          "type": "object",
+                          "fields": {
+                            "errorMessage": {
+                              "type": "string"
+                            },
+                            "offersAndNews": {
+                              "type": "object",
+                              "fields": {
+                                "consentText": {
+                                  "type": "object",
+                                  "fields": {
+                                    "acceptedText1": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "simCard": {
+                  "type": "object",
+                  "fields": {
+                    "reissueSim": {
+                      "type": "object",
+                      "fields": {
+                        "eSimDisclaimer1": {
+                          "type": "string"
+                        },
+                        "eSimDisclaimer2": {
+                          "type": "string"
+                        },
+                        "eSimConsent": {
+                          "type": "string"
+                        },
+                        "reissueEsimConsentWarning": {
+                          "type": "string"
+                        },
+                        "inProgress": {
+                          "type": "object",
+                          "fields": {
+                            "esim": {
+                              "type": "object",
+                              "fields": {
+                                "title": {
+                                  "type": "string"
+                                },
+                                "description": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "success": {
+                          "type": "object",
+                          "fields": {
+                            "eSimFirstMessage": {
+                              "type": "string"
+                            },
+                            "eSimSecondMessage": {
+                              "type": "string"
+                            },
+                            "simInstruction": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "tangible": {
+                  "type": "object",
+                  "fields": {
+                    "activationSuccessful": {
+                      "type": "object",
+                      "fields": {
+                        "purchaseRegistered": {
+                          "type": "string"
+                        },
+                        "orderTracking": {
+                          "type": "string"
+                        },
+                        "purchaseConfirmation": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 2,
+  "aborted": 0
+}

@@ -1,0 +1,295 @@
+{
+  "operation": "listMaskedCostedEvents",
+  "kind": "graphql",
+  "effect": "read",
+  "resourceType": "fetch",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/graphql-server/graphql",
+  "graphql": {
+    "operationName": "listMaskedCostedEvents",
+    "operationType": "query",
+    "query": "query listMaskedCostedEvents($accountId: String!, $customerId: String!, $startTime: DateTime, $endTime: DateTime, $billed: Boolean, $eventTypeNames: [String!], $eventTypeAttributeName: String, $eventTypeAttributeValues: [String!], $filters: [String!], $sortField: String!, $offset: Int, $limit: Int) {\n  listMaskedCostedEvents(\n    accountId: $accountId\n    customerId: $customerId\n    startTime: $startTime\n    endTime: $endTime\n    billed: $billed\n    eventTypeNames: $eventTypeNames\n    eventTypeAttributeName: $eventTypeAttributeName\n    eventTypeAttributeValues: $eventTypeAttributeValues\n  ) @filter(filters: $filters) @sort(fields: [$sortField]) @limit(limit: $limit, offset: $offset) {\n    ...CostedEventFragment\n    __typename\n  }\n}\n\nfragment CostedEventFragment on CostedEvent {\n  id\n  accountName\n  billName\n  eventTypeName\n  attributeValues {\n    position\n    value\n    __typename\n  }\n  billedCost {\n    currencyCode\n    exponent\n    amount\n    __typename\n  }\n  createdTime\n  cost {\n    currencyCode\n    exponent\n    amount\n    __typename\n  }\n  eventReference\n  eventSource\n  eventTime\n  fragmentNumber\n  modified\n  name\n  originalAccountName\n  preDiscountedCost {\n    currencyCode\n    exponent\n    amount\n    __typename\n  }\n  ratedOnline\n  ratingDiscountedUsageTotal\n  ratingTariffName\n  receivableClassName\n  revenueCodeName\n  eventType {\n    name\n    id\n    displayName\n    __typename\n  }\n  productInstanceName\n  __typename\n}",
+    "persisted": false
+  },
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "variables": {
+      "type": "object",
+      "fields": {
+        "accountId": {
+          "type": "string"
+        },
+        "customerId": {
+          "type": "string"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "datetime"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "datetime"
+        },
+        "eventTypeNames": {
+          "type": "array"
+        },
+        "sortField": {
+          "type": "string"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limit": {
+          "type": "number"
+        },
+        "offset": {
+          "type": "number"
+        },
+        "eventTypeAttributeName": {
+          "type": "string"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "request-start-time": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-content-type-options": null,
+        "x-envoy-upstream-service-time": null,
+        "x-frame-options": null,
+        "x-projected-time": null,
+        "x-request-id": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "extensions": {
+              "type": "object",
+              "fields": {
+                "listMaskedCostedEvents": {
+                  "type": "object",
+                  "fields": {
+                    "totalCount": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "data": {
+              "type": "object",
+              "fields": {
+                "listMaskedCostedEvents": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "fields": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "accountName": {
+                        "type": "string"
+                      },
+                      "billName": {
+                        "type": "null"
+                      },
+                      "eventTypeName": {
+                        "type": "string"
+                      },
+                      "attributeValues": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "fields": {
+                            "position": {
+                              "type": "number"
+                            },
+                            "value": {
+                              "type": "string"
+                            },
+                            "__typename": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "billedCost": {
+                        "type": "null"
+                      },
+                      "createdTime": {
+                        "type": "string",
+                        "format": "datetime"
+                      },
+                      "cost": {
+                        "type": "object",
+                        "fields": {
+                          "currencyCode": {
+                            "type": "string"
+                          },
+                          "exponent": {
+                            "type": "number"
+                          },
+                          "amount": {
+                            "type": "string",
+                            "format": "numeric"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "eventReference": {
+                        "type": "string"
+                      },
+                      "eventSource": {
+                        "type": "string",
+                        "format": "numeric"
+                      },
+                      "eventTime": {
+                        "type": "string",
+                        "format": "datetime"
+                      },
+                      "fragmentNumber": {
+                        "type": "null"
+                      },
+                      "modified": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "originalAccountName": {
+                        "type": "null"
+                      },
+                      "preDiscountedCost": {
+                        "type": "object",
+                        "fields": {
+                          "currencyCode": {
+                            "type": "string"
+                          },
+                          "exponent": {
+                            "type": "number"
+                          },
+                          "amount": {
+                            "type": "string",
+                            "format": "numeric"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "ratedOnline": {
+                        "type": "null"
+                      },
+                      "ratingDiscountedUsageTotal": {
+                        "type": "string",
+                        "format": "numeric"
+                      },
+                      "ratingTariffName": {
+                        "type": "string"
+                      },
+                      "receivableClassName": {
+                        "type": "string"
+                      },
+                      "revenueCodeName": {
+                        "type": "string"
+                      },
+                      "eventType": {
+                        "type": "object",
+                        "fields": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "displayName": {
+                            "type": "string"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "productInstanceName": {
+                        "type": "string"
+                      },
+                      "__typename": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 4,
+  "aborted": 0
+}

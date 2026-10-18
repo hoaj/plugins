@@ -1,0 +1,447 @@
+{
+  "operation": "POST /shop/api/session-management/post-login",
+  "kind": "rest",
+  "effect": "write",
+  "loginFlow": true,
+  "resourceType": "xhr",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/session-management/post-login",
+  "request": {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "body": {
+      "kind": "json",
+      "shape": {
+        "type": "object",
+        "fields": {
+          "ciamId": {
+            "type": "string"
+          },
+          "individualId": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-methods": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-type": "application/json",
+        "date": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-b3-spanid": null,
+        "x-b3-traceid": null,
+        "x-request-id": null,
+        "x-server-time": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "CSESSIONID",
+        "TS010116dd",
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "personalInfo": {
+              "type": "object",
+              "fields": {
+                "customerId": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "object",
+                  "fields": {
+                    "id": {
+                      "type": "string",
+                      "format": "numeric"
+                    },
+                    "careOf": {
+                      "type": "string"
+                    },
+                    "street1": {
+                      "type": "string"
+                    },
+                    "street2": {
+                      "type": "string",
+                      "format": "numeric"
+                    },
+                    "streetCode": {
+                      "type": "string",
+                      "format": "numeric"
+                    },
+                    "floor": {
+                      "type": "string",
+                      "format": "numeric"
+                    },
+                    "suite": {
+                      "type": "string"
+                    },
+                    "stateOrProvince": {
+                      "type": "string"
+                    },
+                    "postCode": {
+                      "type": "string",
+                      "format": "numeric"
+                    },
+                    "city": {
+                      "type": "string"
+                    },
+                    "district": {
+                      "type": "string"
+                    },
+                    "municipalityCode": {
+                      "type": "string",
+                      "format": "numeric"
+                    },
+                    "country": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phoneNumber": {
+                  "type": "string",
+                  "format": "numeric"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "contactMediums": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "fields": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "mediumType": {
+                        "type": "string"
+                      },
+                      "characteristic": {
+                        "type": "object",
+                        "fields": {
+                          "phoneNumber": {
+                            "type": "string",
+                            "format": "numeric"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "contactType": {
+                            "type": "string"
+                          },
+                          "extendedAttributes": {
+                            "type": "object",
+                            "fields": {
+                              "isVerifiedStatus": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "migration_source": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "suite": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "migration_phase": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "streetCode": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "floor": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "municipalityCode": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "migration_date": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "datetime"
+                                }
+                              },
+                              "namId": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "careOf": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "district": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "optional": [
+                              "careOf",
+                              "district",
+                              "floor",
+                              "isVerifiedStatus",
+                              "migration_date",
+                              "migration_phase",
+                              "migration_source",
+                              "municipalityCode",
+                              "namId",
+                              "streetCode",
+                              "suite"
+                            ]
+                          },
+                          "emailAddress": {
+                            "type": "string"
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "type": "string"
+                          },
+                          "postCode": {
+                            "type": "string",
+                            "format": "numeric"
+                          },
+                          "street1": {
+                            "type": "string"
+                          },
+                          "street2": {
+                            "type": "string",
+                            "format": "numeric"
+                          },
+                          "stateOrProvince": {
+                            "type": "string"
+                          }
+                        },
+                        "optional": [
+                          "city",
+                          "contactType",
+                          "country",
+                          "emailAddress",
+                          "phoneNumber",
+                          "postCode",
+                          "stateOrProvince",
+                          "street1",
+                          "street2",
+                          "type"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "notificationPreferences": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "fields": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "activeFrom": {
+                        "type": "string",
+                        "format": "datetime"
+                      },
+                      "notificationCategory": {
+                        "type": "string"
+                      },
+                      "notificationTargetId": {
+                        "type": "string"
+                      },
+                      "notificationTargetType": {
+                        "type": "string"
+                      },
+                      "contactMediumId": {
+                        "type": "string"
+                      },
+                      "partyRefId": {
+                        "type": "string"
+                      },
+                      "partyRefType": {
+                        "type": "string"
+                      },
+                      "customerId": {
+                        "type": "string"
+                      },
+                      "contactMedium": {
+                        "type": "object",
+                        "fields": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "mediumType": {
+                            "type": "string"
+                          },
+                          "characteristic": {
+                            "type": "object",
+                            "fields": {
+                              "phoneNumber": {
+                                "type": "string",
+                                "format": "numeric"
+                              },
+                              "type": {
+                                "type": "string"
+                              },
+                              "contactType": {
+                                "type": "string"
+                              },
+                              "extendedAttributes": {
+                                "type": "object",
+                                "fields": {
+                                  "isVerifiedStatus": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "emailAddress": {
+                                "type": "string"
+                              }
+                            },
+                            "optional": [
+                              "emailAddress",
+                              "phoneNumber"
+                            ]
+                          }
+                        }
+                      },
+                      "disabled": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                },
+                "addressProtected": {
+                  "type": "boolean"
+                },
+                "legalOwner": {
+                  "type": "boolean"
+                },
+                "foreignAddress": {
+                  "type": "boolean"
+                },
+                "cprStatus": {
+                  "type": "string"
+                },
+                "cprId": {
+                  "type": "string"
+                },
+                "cprConsentAccepted": {
+                  "type": "boolean"
+                },
+                "customerCategoryId": {
+                  "type": "string"
+                },
+                "newCvr": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "applicableBundleIds": {
+              "type": "array"
+            },
+            "categoryChanged": {
+              "type": "boolean"
+            },
+            "adobePromotionUpdated": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

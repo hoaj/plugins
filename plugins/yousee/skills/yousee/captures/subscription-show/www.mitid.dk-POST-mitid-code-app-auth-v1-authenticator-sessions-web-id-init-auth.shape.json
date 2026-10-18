@@ -1,0 +1,92 @@
+{
+  "operation": "POST /mitid-code-app-auth/v1/authenticator-sessions/web/:id/init-auth",
+  "kind": "rest",
+  "effect": "write",
+  "loginFlow": true,
+  "resourceType": "xhr",
+  "host": "www.mitid.dk",
+  "method": "POST",
+  "path": "/mitid-code-app-auth/v1/authenticator-sessions/web/:id/init-auth",
+  "request": {
+    "headers": {
+      "accept": "application/json",
+      "content-type": "application/json",
+      "mitid-ch-ua-platform-version": null,
+      "origin": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-correlation-id": null
+    },
+    "body": {
+      "kind": "json",
+      "shape": {
+        "type": "object",
+        "fields": {
+          "riskdata": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "fields": {
+                "pc": {
+                  "type": "string"
+                },
+                "pt": {
+                  "type": "string"
+                },
+                "obs": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-headers": null,
+        "access-control-allow-methods": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "content-length": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "expires": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "server": null,
+        "x-content-type-options": null,
+        "x-correlation-id": null,
+        "x-frame-options": null,
+        "x-xss-protection": null
+      },
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "pollUrl": {
+              "type": "string"
+            },
+            "ticket": {
+              "type": "string"
+            },
+            "channelBindingValueAppSwitch": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

@@ -1,0 +1,499 @@
+{
+  "operation": "listPartyRoles",
+  "kind": "graphql",
+  "effect": "read",
+  "resourceType": "fetch",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/graphql-server/graphql",
+  "graphql": {
+    "operationName": "listPartyRoles",
+    "operationType": "query",
+    "query": "query listPartyRoles($enrichContactMediumAssociation: Boolean, $rsqlPredicate: String) {\n  listPartyRoles(\n    enrichContactMediumAssociation: $enrichContactMediumAssociation\n    rsqlPredicate: $rsqlPredicate\n  ) {\n    ...PartyRoleFragment\n    __typename\n  }\n}\n\nfragment PartyRoleFragment on PartyRole {\n  id\n  name\n  type {\n    name\n    __typename\n  }\n  validFor {\n    endDateTime\n    __typename\n  }\n  contactMedium {\n    id\n    preferred\n    isVerified\n    type\n    mediumType\n    contactHour {\n      dayOfWeek\n      startTime\n      endTime\n      __typename\n    }\n    characteristic {\n      type\n      emailAddress\n      phoneNumber\n      faxNumber\n      socialNetworkId\n      street1\n      street2\n      postCode\n      city\n      country\n      stateOrProvince\n      extendedAttributes\n      __typename\n    }\n    contactHour {\n      startTime\n      endTime\n      __typename\n    }\n    __typename\n  }\n  engagedParty {\n    id\n    atReferredType\n    role\n    origin {\n      __typename\n      ... on Individual {\n        id\n        fullName\n        familyName\n        givenName\n        middleName\n        extendedAttributes\n        __typename\n      }\n    }\n    __typename\n  }\n  __typename\n}",
+    "persisted": false
+  },
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "variables": {
+      "type": "object",
+      "fields": {
+        "rsqlPredicate": {
+          "type": "string"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "request-start-time": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-content-type-options": null,
+        "x-envoy-upstream-service-time": null,
+        "x-frame-options": null,
+        "x-projected-time": null,
+        "x-request-id": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "extensions": {
+              "type": "object",
+              "fields": {
+                "listPartyRoles": {
+                  "type": "object",
+                  "fields": {
+                    "totalCount": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "data": {
+              "type": "object",
+              "fields": {
+                "listPartyRoles": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "fields": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "object",
+                        "fields": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "validFor": {
+                        "type": "null"
+                      },
+                      "contactMedium": {
+                        "type": "union",
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "preferred": {
+                                  "type": "boolean"
+                                },
+                                "isVerified": {
+                                  "type": "union",
+                                  "anyOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "type": "boolean"
+                                    }
+                                  ]
+                                },
+                                "type": {
+                                  "type": "string"
+                                },
+                                "mediumType": {
+                                  "type": "string"
+                                },
+                                "contactHour": {
+                                  "type": "union",
+                                  "anyOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "fields": {
+                                          "dayOfWeek": {
+                                            "type": "string"
+                                          },
+                                          "startTime": {
+                                            "type": "string"
+                                          },
+                                          "endTime": {
+                                            "type": "string"
+                                          },
+                                          "__typename": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                },
+                                "characteristic": {
+                                  "type": "object",
+                                  "fields": {
+                                    "type": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "emailAddress": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "phoneNumber": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "type": "string",
+                                          "format": "numeric"
+                                        }
+                                      ]
+                                    },
+                                    "faxNumber": {
+                                      "type": "null"
+                                    },
+                                    "socialNetworkId": {
+                                      "type": "null"
+                                    },
+                                    "street1": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "street2": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string",
+                                          "format": "numeric"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "postCode": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string",
+                                          "format": "numeric"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "city": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "country": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "stateOrProvince": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "extendedAttributes": {
+                                      "type": "object",
+                                      "fields": {
+                                        "suite": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "careOf": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "streetCode": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "numeric"
+                                          }
+                                        },
+                                        "district": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "floor": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "numeric"
+                                          }
+                                        },
+                                        "municipalityCode": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "numeric"
+                                          }
+                                        },
+                                        "namId": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "numeric"
+                                          }
+                                        },
+                                        "isVerifiedStatus": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "migration_source": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "migration_phase": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "numeric"
+                                          }
+                                        },
+                                        "migration_date": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "datetime"
+                                          }
+                                        }
+                                      },
+                                      "optional": [
+                                        "careOf",
+                                        "district",
+                                        "floor",
+                                        "isVerifiedStatus",
+                                        "migration_date",
+                                        "migration_phase",
+                                        "migration_source",
+                                        "municipalityCode",
+                                        "namId",
+                                        "streetCode",
+                                        "suite"
+                                      ]
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "engagedParty": {
+                        "type": "object",
+                        "fields": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "atReferredType": {
+                            "type": "string"
+                          },
+                          "role": {
+                            "type": "string"
+                          },
+                          "origin": {
+                            "type": "object",
+                            "fields": {
+                              "__typename": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "fullName": {
+                                "type": "string"
+                              },
+                              "familyName": {
+                                "type": "string"
+                              },
+                              "givenName": {
+                                "type": "string"
+                              },
+                              "middleName": {
+                                "type": "null"
+                              },
+                              "extendedAttributes": {
+                                "type": "object",
+                                "fields": {
+                                  "cprLastUpdated": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "format": "datetime"
+                                    }
+                                  },
+                                  "cprStatus": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "cprSubscribed": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "cprEventStatus": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "format": "numeric"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "__typename": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

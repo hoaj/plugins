@@ -1,0 +1,1544 @@
+{
+  "operation": "eCareListBillingAccountsFD",
+  "kind": "graphql",
+  "effect": "read",
+  "resourceType": "fetch",
+  "host": "yousee.dk",
+  "method": "POST",
+  "path": "/shop/api/graphql-server/graphql",
+  "graphql": {
+    "operationName": "eCareListBillingAccountsFD",
+    "operationType": "query",
+    "query": "query eCareListBillingAccountsFD($customerId: String!) {\n  eCareListBillingAccountsFD(customerId: $customerId) {\n    ...eCareBillingAccountParts\n    __typename\n  }\n}\n\nfragment eCareBillingAccountParts on ECareBillingAccountFD {\n  billingAccount {\n    id\n    prepaid\n    accountNumber\n    title\n    extendedAttributes\n    accountCurrency {\n      id\n      __typename\n    }\n    relatedParty {\n      id\n      role\n      atReferredType\n      origin {\n        ... on Customer {\n          engagedParty {\n            id\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    partyAccountDetails {\n      accountingMethod\n      effectiveStartDate\n      state\n      creditClass\n      contact {\n        id\n        contactName\n        partyRoleType\n        validFor {\n          endDateTime\n          __typename\n        }\n        relatedParty {\n          id\n          role\n          atReferredType\n          origin {\n            ... on PartyRole {\n              id\n              name\n              type {\n                name\n                __typename\n              }\n              validFor {\n                startDateTime\n                endDateTime\n                __typename\n              }\n              engagedParty {\n                origin {\n                  ... on Individual {\n                    id\n                    atType\n                    givenName\n                    familyName\n                    __typename\n                  }\n                  __typename\n                }\n                __typename\n              }\n              contactMedium {\n                type\n                preferred\n                characteristic {\n                  city\n                  country\n                  emailAddress\n                  phoneNumber\n                  postCode\n                  stateOrProvince\n                  street1\n                  street2\n                  extendedAttributes\n                  __typename\n                }\n                __typename\n              }\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        contactMedium {\n          type\n          preferred\n          characteristic {\n            city\n            country\n            emailAddress\n            phoneNumber\n            postCode\n            stateOrProvince\n            street1\n            street2\n            extendedAttributes\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      billStructure {\n        presentationMedia {\n          id\n          name\n          __typename\n        }\n        format {\n          id\n          name\n          __typename\n        }\n        cycleSpecification {\n          id\n          name\n          frequency\n          origin {\n            id\n            billingDateShift\n            frequency\n            billingPeriod\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      defaultPaymentMethod {\n        href\n        id\n        name\n        originCore {\n          description\n          details\n          endDate\n          id\n          name\n          preferred\n          startDate\n          status\n          statusDate\n          type\n          __typename\n        }\n        paymentMethodType\n        __typename\n      }\n      __typename\n    }\n    cycleSpecification {\n      id\n      frequency\n      origin {\n        id\n        billingDateShift\n        frequency\n        billingPeriod\n        __typename\n      }\n      __typename\n    }\n    paymentMethod {\n      id\n      __typename\n    }\n    paymentMandate {\n      id\n      reference\n      paymentMethod {\n        id\n        originCore {\n          id\n          details\n          __typename\n        }\n        __typename\n      }\n      validFor {\n        startDateTime\n        endDateTime\n        __typename\n      }\n      status\n      __typename\n    }\n    accountBalance {\n      accountBalance {\n        currencyCode\n        exponent\n        amount\n        __typename\n      }\n      __typename\n    }\n    notificationLanguage\n    product {\n      id\n      status\n      startDate\n      parentProductId\n      rootProductId\n      productOffering {\n        id\n        origin {\n          name\n          productFamily {\n            id\n            __typename\n          }\n          prodSpecCharValueUse {\n            mask\n            businessType\n            __typename\n          }\n          category {\n            id\n            origin {\n              offeringCountMax\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      productFamily {\n        id\n        __typename\n      }\n      characteristic {\n        value\n        businessType\n        __typename\n      }\n      __typename\n    }\n    validFor {\n      startDateTime\n      __typename\n    }\n    ecaBillingAccount {\n      billingStatus\n      lastBillTime\n      balance {\n        balance {\n          amount\n          currencyCode\n          exponent\n          __typename\n        }\n        __typename\n      }\n      lastBill {\n        name\n        invoiceNumber\n        paymentsAmount {\n          amount\n          currencyCode\n          exponent\n          __typename\n        }\n        __typename\n      }\n      nextBillDate {\n        day\n        month\n        year\n        __typename\n      }\n      chasableDebt {\n        amount\n        currencyCode\n        exponent\n        __typename\n      }\n      __typename\n    }\n    templateName\n    __typename\n  }\n  payerInfo {\n    partyRoleId\n    fullName\n    isOwner\n    contactMediums {\n      id\n      type\n      preferred\n      contactHour {\n        dayOfWeek\n        startTime\n        endTime\n        __typename\n      }\n      characteristic {\n        type\n        city\n        country\n        emailAddress\n        phoneNumber\n        postCode\n        stateOrProvince\n        street1\n        street2\n        extendedAttributes\n        billingData {\n          addressFormat\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}",
+    "persisted": false
+  },
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "authorization": null,
+      "content-type": "application/json",
+      "cookie": null,
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null,
+      "x-b3-parentspanid": null,
+      "x-b3-spanid": null,
+      "x-b3-traceid": null
+    },
+    "variables": {
+      "type": "object",
+      "fields": {
+        "customerId": {
+          "type": "string"
+        }
+      }
+    },
+    "bearerClaims": {
+      "type": "record",
+      "values": {
+        "type": "union",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "connection": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "application/json",
+        "date": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "request-start-time": null,
+        "span-id": null,
+        "strict-transport-security": null,
+        "trace-id": null,
+        "transfer-encoding": null,
+        "x-content-type-options": null,
+        "x-envoy-upstream-service-time": null,
+        "x-frame-options": null,
+        "x-projected-time": null,
+        "x-request-id": null,
+        "x-xss-protection": null,
+        "x-ysproxy": null
+      },
+      "setCookies": [
+        "TS889b4e1b027"
+      ],
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "extensions": {
+              "type": "object",
+              "fields": {
+                "eCareListBillingAccountsFD": {
+                  "type": "object",
+                  "fields": {
+                    "totalCount": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "data": {
+              "type": "object",
+              "fields": {
+                "eCareListBillingAccountsFD": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "fields": {
+                      "billingAccount": {
+                        "type": "object",
+                        "fields": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "prepaid": {
+                            "type": "boolean"
+                          },
+                          "accountNumber": {
+                            "type": "string",
+                            "format": "numeric"
+                          },
+                          "title": {
+                            "type": "union",
+                            "anyOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          },
+                          "extendedAttributes": {
+                            "type": "object",
+                            "fields": {
+                              "migration_phase": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "migration_date": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "datetime"
+                                }
+                              },
+                              "migration_source": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "numeric"
+                                }
+                              },
+                              "inCollectionind": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "coverOnly": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "optional": [
+                              "coverOnly",
+                              "migration_date",
+                              "migration_phase",
+                              "migration_source"
+                            ]
+                          },
+                          "accountCurrency": {
+                            "type": "union",
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "fields": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "relatedParty": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "role": {
+                                  "type": "string"
+                                },
+                                "atReferredType": {
+                                  "type": "string"
+                                },
+                                "origin": {
+                                  "type": "object",
+                                  "fields": {
+                                    "engagedParty": {
+                                      "type": "object",
+                                      "fields": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "partyAccountDetails": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "accountingMethod": {
+                                  "type": "string"
+                                },
+                                "effectiveStartDate": {
+                                  "type": "string",
+                                  "format": "datetime"
+                                },
+                                "state": {
+                                  "type": "string"
+                                },
+                                "creditClass": {
+                                  "type": "string"
+                                },
+                                "contact": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "fields": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "contactName": {
+                                        "type": "string"
+                                      },
+                                      "partyRoleType": {
+                                        "type": "string"
+                                      },
+                                      "validFor": {
+                                        "type": "union",
+                                        "anyOf": [
+                                          {
+                                            "type": "object",
+                                            "fields": {
+                                              "endDateTime": {
+                                                "type": "null"
+                                              },
+                                              "__typename": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "relatedParty": {
+                                        "type": "object",
+                                        "fields": {
+                                          "id": {
+                                            "type": "string"
+                                          },
+                                          "role": {
+                                            "type": "string"
+                                          },
+                                          "atReferredType": {
+                                            "type": "string"
+                                          },
+                                          "origin": {
+                                            "type": "object",
+                                            "fields": {
+                                              "id": {
+                                                "type": "string"
+                                              },
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "type": {
+                                                "type": "object",
+                                                "fields": {
+                                                  "name": {
+                                                    "type": "string"
+                                                  },
+                                                  "__typename": {
+                                                    "type": "string"
+                                                  }
+                                                }
+                                              },
+                                              "validFor": {
+                                                "type": "object",
+                                                "fields": {
+                                                  "startDateTime": {
+                                                    "type": "string",
+                                                    "format": "datetime"
+                                                  },
+                                                  "endDateTime": {
+                                                    "type": "null"
+                                                  },
+                                                  "__typename": {
+                                                    "type": "string"
+                                                  }
+                                                }
+                                              },
+                                              "engagedParty": {
+                                                "type": "object",
+                                                "fields": {
+                                                  "origin": {
+                                                    "type": "object",
+                                                    "fields": {
+                                                      "id": {
+                                                        "type": "string"
+                                                      },
+                                                      "atType": {
+                                                        "type": "string"
+                                                      },
+                                                      "givenName": {
+                                                        "type": "string"
+                                                      },
+                                                      "familyName": {
+                                                        "type": "string"
+                                                      },
+                                                      "__typename": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  },
+                                                  "__typename": {
+                                                    "type": "string"
+                                                  }
+                                                }
+                                              },
+                                              "contactMedium": {
+                                                "type": "array",
+                                                "items": {
+                                                  "type": "object",
+                                                  "fields": {
+                                                    "type": {
+                                                      "type": "string"
+                                                    },
+                                                    "preferred": {
+                                                      "type": "boolean"
+                                                    },
+                                                    "characteristic": {
+                                                      "type": "object",
+                                                      "fields": {
+                                                        "city": {
+                                                          "type": "union",
+                                                          "anyOf": [
+                                                            {
+                                                              "type": "string"
+                                                            },
+                                                            {
+                                                              "type": "null"
+                                                            }
+                                                          ]
+                                                        },
+                                                        "country": {
+                                                          "type": "union",
+                                                          "anyOf": [
+                                                            {
+                                                              "type": "string"
+                                                            },
+                                                            {
+                                                              "type": "null"
+                                                            }
+                                                          ]
+                                                        },
+                                                        "emailAddress": {
+                                                          "type": "union",
+                                                          "anyOf": [
+                                                            {
+                                                              "type": "string"
+                                                            },
+                                                            {
+                                                              "type": "null"
+                                                            }
+                                                          ]
+                                                        },
+                                                        "phoneNumber": {
+                                                          "type": "union",
+                                                          "anyOf": [
+                                                            {
+                                                              "type": "null"
+                                                            },
+                                                            {
+                                                              "type": "string",
+                                                              "format": "numeric"
+                                                            }
+                                                          ]
+                                                        },
+                                                        "postCode": {
+                                                          "type": "union",
+                                                          "anyOf": [
+                                                            {
+                                                              "type": "string",
+                                                              "format": "numeric"
+                                                            },
+                                                            {
+                                                              "type": "null"
+                                                            }
+                                                          ]
+                                                        },
+                                                        "stateOrProvince": {
+                                                          "type": "union",
+                                                          "anyOf": [
+                                                            {
+                                                              "type": "null"
+                                                            },
+                                                            {
+                                                              "type": "string"
+                                                            }
+                                                          ]
+                                                        },
+                                                        "street1": {
+                                                          "type": "union",
+                                                          "anyOf": [
+                                                            {
+                                                              "type": "string"
+                                                            },
+                                                            {
+                                                              "type": "null"
+                                                            }
+                                                          ]
+                                                        },
+                                                        "street2": {
+                                                          "type": "union",
+                                                          "anyOf": [
+                                                            {
+                                                              "type": "string",
+                                                              "format": "numeric"
+                                                            },
+                                                            {
+                                                              "type": "null"
+                                                            }
+                                                          ]
+                                                        },
+                                                        "extendedAttributes": {
+                                                          "type": "object",
+                                                          "fields": {
+                                                            "migration_source": {
+                                                              "type": "array",
+                                                              "items": {
+                                                                "type": "string"
+                                                              }
+                                                            },
+                                                            "suite": {
+                                                              "type": "array",
+                                                              "items": {
+                                                                "type": "string"
+                                                              }
+                                                            },
+                                                            "migration_phase": {
+                                                              "type": "array",
+                                                              "items": {
+                                                                "type": "string",
+                                                                "format": "numeric"
+                                                              }
+                                                            },
+                                                            "streetCode": {
+                                                              "type": "array",
+                                                              "items": {
+                                                                "type": "string",
+                                                                "format": "numeric"
+                                                              }
+                                                            },
+                                                            "isVerifiedStatus": {
+                                                              "type": "array",
+                                                              "items": {
+                                                                "type": "string"
+                                                              }
+                                                            },
+                                                            "floor": {
+                                                              "type": "array",
+                                                              "items": {
+                                                                "type": "string",
+                                                                "format": "numeric"
+                                                              }
+                                                            },
+                                                            "municipalityCode": {
+                                                              "type": "array",
+                                                              "items": {
+                                                                "type": "string",
+                                                                "format": "numeric"
+                                                              }
+                                                            },
+                                                            "migration_date": {
+                                                              "type": "array",
+                                                              "items": {
+                                                                "type": "string",
+                                                                "format": "datetime"
+                                                              }
+                                                            },
+                                                            "namId": {
+                                                              "type": "array",
+                                                              "items": {
+                                                                "type": "string",
+                                                                "format": "numeric"
+                                                              }
+                                                            },
+                                                            "careOf": {
+                                                              "type": "array",
+                                                              "items": {
+                                                                "type": "string"
+                                                              }
+                                                            },
+                                                            "district": {
+                                                              "type": "array",
+                                                              "items": {
+                                                                "type": "string"
+                                                              }
+                                                            }
+                                                          },
+                                                          "optional": [
+                                                            "careOf",
+                                                            "district",
+                                                            "floor",
+                                                            "isVerifiedStatus",
+                                                            "migration_date",
+                                                            "migration_phase",
+                                                            "migration_source",
+                                                            "municipalityCode",
+                                                            "namId",
+                                                            "streetCode",
+                                                            "suite"
+                                                          ]
+                                                        },
+                                                        "__typename": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    },
+                                                    "__typename": {
+                                                      "type": "string"
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "__typename": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          },
+                                          "__typename": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "contactMedium": {
+                                        "type": "union",
+                                        "anyOf": [
+                                          {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object",
+                                              "fields": {
+                                                "type": {
+                                                  "type": "string"
+                                                },
+                                                "preferred": {
+                                                  "type": "boolean"
+                                                },
+                                                "characteristic": {
+                                                  "type": "object",
+                                                  "fields": {
+                                                    "city": {
+                                                      "type": "union",
+                                                      "anyOf": [
+                                                        {
+                                                          "type": "null"
+                                                        },
+                                                        {
+                                                          "type": "string"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "country": {
+                                                      "type": "union",
+                                                      "anyOf": [
+                                                        {
+                                                          "type": "null"
+                                                        },
+                                                        {
+                                                          "type": "string"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "emailAddress": {
+                                                      "type": "string"
+                                                    },
+                                                    "phoneNumber": {
+                                                      "type": "null"
+                                                    },
+                                                    "postCode": {
+                                                      "type": "union",
+                                                      "anyOf": [
+                                                        {
+                                                          "type": "null"
+                                                        },
+                                                        {
+                                                          "type": "string",
+                                                          "format": "numeric"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "stateOrProvince": {
+                                                      "type": "null"
+                                                    },
+                                                    "street1": {
+                                                      "type": "union",
+                                                      "anyOf": [
+                                                        {
+                                                          "type": "null"
+                                                        },
+                                                        {
+                                                          "type": "string"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "street2": {
+                                                      "type": "union",
+                                                      "anyOf": [
+                                                        {
+                                                          "type": "null"
+                                                        },
+                                                        {
+                                                          "type": "string",
+                                                          "format": "numeric"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "extendedAttributes": {
+                                                      "type": "object",
+                                                      "fields": {
+                                                        "migration_phase": {
+                                                          "type": "array",
+                                                          "items": {
+                                                            "type": "string",
+                                                            "format": "numeric"
+                                                          }
+                                                        },
+                                                        "migration_date": {
+                                                          "type": "array",
+                                                          "items": {
+                                                            "type": "string",
+                                                            "format": "datetime"
+                                                          }
+                                                        },
+                                                        "migration_source": {
+                                                          "type": "array",
+                                                          "items": {
+                                                            "type": "string"
+                                                          }
+                                                        },
+                                                        "floor": {
+                                                          "type": "array",
+                                                          "items": {
+                                                            "type": "string",
+                                                            "format": "numeric"
+                                                          }
+                                                        },
+                                                        "suite": {
+                                                          "type": "array",
+                                                          "items": {
+                                                            "type": "string"
+                                                          }
+                                                        },
+                                                        "careOf": {
+                                                          "type": "array"
+                                                        },
+                                                        "namId": {
+                                                          "type": "array",
+                                                          "items": {
+                                                            "type": "string",
+                                                            "format": "numeric"
+                                                          }
+                                                        },
+                                                        "municipalityCode": {
+                                                          "type": "array",
+                                                          "items": {
+                                                            "type": "string",
+                                                            "format": "numeric"
+                                                          }
+                                                        },
+                                                        "district": {
+                                                          "type": "array"
+                                                        },
+                                                        "streetCode": {
+                                                          "type": "array",
+                                                          "items": {
+                                                            "type": "string",
+                                                            "format": "numeric"
+                                                          }
+                                                        },
+                                                        "isVerifiedStatus": {
+                                                          "type": "array",
+                                                          "items": {
+                                                            "type": "string"
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    "__typename": {
+                                                      "type": "string"
+                                                    }
+                                                  }
+                                                },
+                                                "__typename": {
+                                                  "type": "string"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "__typename": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                },
+                                "billStructure": {
+                                  "type": "object",
+                                  "fields": {
+                                    "presentationMedia": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "fields": {
+                                          "id": {
+                                            "type": "string"
+                                          },
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "__typename": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "format": {
+                                      "type": "object",
+                                      "fields": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "cycleSpecification": {
+                                      "type": "object",
+                                      "fields": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "frequency": {
+                                          "type": "null"
+                                        },
+                                        "origin": {
+                                          "type": "object",
+                                          "fields": {
+                                            "id": {
+                                              "type": "string"
+                                            },
+                                            "billingDateShift": {
+                                              "type": "number"
+                                            },
+                                            "frequency": {
+                                              "type": "string"
+                                            },
+                                            "billingPeriod": {
+                                              "type": "string",
+                                              "format": "numeric"
+                                            },
+                                            "__typename": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "defaultPaymentMethod": {
+                                  "type": "object",
+                                  "fields": {
+                                    "href": {
+                                      "type": "null"
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "originCore": {
+                                      "type": "object",
+                                      "fields": {
+                                        "description": {
+                                          "type": "union",
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        },
+                                        "details": {
+                                          "type": "record",
+                                          "values": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "endDate": {
+                                          "type": "null"
+                                        },
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "preferred": {
+                                          "type": "union",
+                                          "anyOf": [
+                                            {
+                                              "type": "boolean"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        },
+                                        "startDate": {
+                                          "type": "string",
+                                          "format": "datetime"
+                                        },
+                                        "status": {
+                                          "type": "string"
+                                        },
+                                        "statusDate": {
+                                          "type": "string",
+                                          "format": "datetime"
+                                        },
+                                        "type": {
+                                          "type": "string"
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "paymentMethodType": {
+                                      "type": "string"
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "cycleSpecification": {
+                            "type": "null"
+                          },
+                          "paymentMethod": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "paymentMandate": {
+                            "type": "null"
+                          },
+                          "accountBalance": {
+                            "type": "object",
+                            "fields": {
+                              "accountBalance": {
+                                "type": "object",
+                                "fields": {
+                                  "currencyCode": {
+                                    "type": "string"
+                                  },
+                                  "exponent": {
+                                    "type": "number"
+                                  },
+                                  "amount": {
+                                    "type": "string",
+                                    "format": "numeric"
+                                  },
+                                  "__typename": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "__typename": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "notificationLanguage": {
+                            "type": "string"
+                          },
+                          "product": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "status": {
+                                  "type": "string"
+                                },
+                                "startDate": {
+                                  "type": "string",
+                                  "format": "datetime"
+                                },
+                                "parentProductId": {
+                                  "type": "null"
+                                },
+                                "rootProductId": {
+                                  "type": "string"
+                                },
+                                "productOffering": {
+                                  "type": "object",
+                                  "fields": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "origin": {
+                                      "type": "object",
+                                      "fields": {
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "productFamily": {
+                                          "type": "object",
+                                          "fields": {
+                                            "id": {
+                                              "type": "string"
+                                            },
+                                            "__typename": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        },
+                                        "prodSpecCharValueUse": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "fields": {
+                                              "mask": {
+                                                "type": "union",
+                                                "anyOf": [
+                                                  {
+                                                    "type": "null"
+                                                  },
+                                                  {
+                                                    "type": "string"
+                                                  }
+                                                ]
+                                              },
+                                              "businessType": {
+                                                "type": "union",
+                                                "anyOf": [
+                                                  {
+                                                    "type": "null"
+                                                  },
+                                                  {
+                                                    "type": "string"
+                                                  }
+                                                ]
+                                              },
+                                              "__typename": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "category": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "fields": {
+                                              "id": {
+                                                "type": "string"
+                                              },
+                                              "origin": {
+                                                "type": "object",
+                                                "fields": {
+                                                  "offeringCountMax": {
+                                                    "type": "null"
+                                                  },
+                                                  "__typename": {
+                                                    "type": "string"
+                                                  }
+                                                }
+                                              },
+                                              "__typename": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "productFamily": {
+                                  "type": "object",
+                                  "fields": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "characteristic": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "fields": {
+                                      "value": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "businessType": {
+                                        "type": "union",
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "__typename": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "validFor": {
+                            "type": "object",
+                            "fields": {
+                              "startDateTime": {
+                                "type": "string",
+                                "format": "datetime"
+                              },
+                              "__typename": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "ecaBillingAccount": {
+                            "type": "object",
+                            "fields": {
+                              "billingStatus": {
+                                "type": "string"
+                              },
+                              "lastBillTime": {
+                                "type": "union",
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "format": "datetime"
+                                  }
+                                ]
+                              },
+                              "balance": {
+                                "type": "null"
+                              },
+                              "lastBill": {
+                                "type": "object",
+                                "fields": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "invoiceNumber": {
+                                    "type": "string"
+                                  },
+                                  "paymentsAmount": {
+                                    "type": "object",
+                                    "fields": {
+                                      "amount": {
+                                        "type": "string",
+                                        "format": "numeric"
+                                      },
+                                      "currencyCode": {
+                                        "type": "string"
+                                      },
+                                      "exponent": {
+                                        "type": "number"
+                                      },
+                                      "__typename": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "__typename": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "nextBillDate": {
+                                "type": "object",
+                                "fields": {
+                                  "day": {
+                                    "type": "number"
+                                  },
+                                  "month": {
+                                    "type": "number"
+                                  },
+                                  "year": {
+                                    "type": "number"
+                                  },
+                                  "__typename": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "chasableDebt": {
+                                "type": "object",
+                                "fields": {
+                                  "amount": {
+                                    "type": "string",
+                                    "format": "numeric"
+                                  },
+                                  "currencyCode": {
+                                    "type": "string"
+                                  },
+                                  "exponent": {
+                                    "type": "number"
+                                  },
+                                  "__typename": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "__typename": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "templateName": {
+                            "type": "string"
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "payerInfo": {
+                        "type": "object",
+                        "fields": {
+                          "partyRoleId": {
+                            "type": "string"
+                          },
+                          "fullName": {
+                            "type": "string"
+                          },
+                          "isOwner": {
+                            "type": "boolean"
+                          },
+                          "contactMediums": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "fields": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "type": {
+                                  "type": "string"
+                                },
+                                "preferred": {
+                                  "type": "boolean"
+                                },
+                                "contactHour": {
+                                  "type": "union",
+                                  "anyOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "fields": {
+                                          "dayOfWeek": {
+                                            "type": "string"
+                                          },
+                                          "startTime": {
+                                            "type": "string"
+                                          },
+                                          "endTime": {
+                                            "type": "string"
+                                          },
+                                          "__typename": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                },
+                                "characteristic": {
+                                  "type": "object",
+                                  "fields": {
+                                    "type": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "city": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "country": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "emailAddress": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "phoneNumber": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "type": "string",
+                                          "format": "numeric"
+                                        }
+                                      ]
+                                    },
+                                    "postCode": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string",
+                                          "format": "numeric"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "stateOrProvince": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "street1": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "street2": {
+                                      "type": "union",
+                                      "anyOf": [
+                                        {
+                                          "type": "string",
+                                          "format": "numeric"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "extendedAttributes": {
+                                      "type": "object",
+                                      "fields": {
+                                        "migration_source": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "suite": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "migration_phase": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "numeric"
+                                          }
+                                        },
+                                        "streetCode": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "numeric"
+                                          }
+                                        },
+                                        "isVerifiedStatus": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "floor": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "numeric"
+                                          }
+                                        },
+                                        "municipalityCode": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "numeric"
+                                          }
+                                        },
+                                        "migration_date": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "datetime"
+                                          }
+                                        },
+                                        "namId": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "format": "numeric"
+                                          }
+                                        },
+                                        "careOf": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "district": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "optional": [
+                                        "careOf",
+                                        "district",
+                                        "floor",
+                                        "isVerifiedStatus",
+                                        "migration_date",
+                                        "migration_phase",
+                                        "migration_source",
+                                        "municipalityCode",
+                                        "namId",
+                                        "streetCode",
+                                        "suite"
+                                      ]
+                                    },
+                                    "billingData": {
+                                      "type": "object",
+                                      "fields": {
+                                        "addressFormat": {
+                                          "type": "string"
+                                        },
+                                        "__typename": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "__typename": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "__typename": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "__typename": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "__typename": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}
