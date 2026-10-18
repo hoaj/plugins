@@ -1,0 +1,254 @@
+{
+  "operation": "GET /api/bondinformation/table",
+  "kind": "rest",
+  "effect": "read",
+  "resourceType": "xhr",
+  "host": "www.totalkredit.dk",
+  "method": "GET",
+  "path": "/api/bondinformation/table",
+  "request": {
+    "headers": {
+      "accept": "application/json, text/*",
+      "cookie": null,
+      "referer": null,
+      "request-id": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "traceparent": null,
+      "user-agent": null
+    },
+    "query": {
+      "type": "object",
+      "fields": {
+        "tableId": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "alt-svc": null,
+        "cf-cache-status": null,
+        "cf-ray": null,
+        "content-encoding": null,
+        "content-type": "application/json",
+        "date": null,
+        "priority": null,
+        "request-context": null,
+        "server": null,
+        "server-timing": null
+      },
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "title": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "disclaimer": {
+              "type": "string"
+            },
+            "tableDisplayVariant": {
+              "type": "string"
+            },
+            "columns": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "fields": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "order": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "fields": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "entries": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "fields": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "lifetime": {
+                          "type": "string"
+                        },
+                        "isOpenForOffer": {
+                          "type": "boolean"
+                        },
+                        "innerInterestGrossValue": {
+                          "type": "string"
+                        },
+                        "fondCode": {
+                          "type": "string",
+                          "format": "numeric"
+                        },
+                        "green": {
+                          "type": "string"
+                        },
+                        "isGreen": {
+                          "type": "boolean"
+                        },
+                        "redemptionRate": {
+                          "type": "string"
+                        },
+                        "interestMarginRate": {
+                          "type": "string"
+                        },
+                        "expectedRate": {
+                          "type": "string"
+                        },
+                        "spotPriceRateRedemption": {
+                          "type": "string"
+                        },
+                        "nasdaqUrl": {
+                          "type": "string"
+                        },
+                        "openForOffer": {
+                          "type": "string"
+                        },
+                        "effectiveRate": {
+                          "type": "string"
+                        },
+                        "priceRate": {
+                          "type": "string",
+                          "format": "numeric"
+                        },
+                        "spotPriceRatePayment": {
+                          "type": "string",
+                          "format": "numeric"
+                        }
+                      },
+                      "optional": [
+                        "effectiveRate",
+                        "expectedRate",
+                        "fondCode",
+                        "green",
+                        "innerInterestGrossValue",
+                        "interestMarginRate",
+                        "isGreen",
+                        "lifetime",
+                        "nasdaqUrl",
+                        "openForOffer",
+                        "priceRate",
+                        "redemptionRate",
+                        "spotPriceRatePayment",
+                        "spotPriceRateRedemption"
+                      ]
+                    }
+                  },
+                  "nameTooltipLabel": {
+                    "type": "string"
+                  },
+                  "lifetimeTooltipLabel": {
+                    "type": "string"
+                  },
+                  "innerInterestGrossValueTooltipLabel": {
+                    "type": "string"
+                  },
+                  "fondCodeTooltipLabel": {
+                    "type": "string"
+                  },
+                  "greenTooltipLabel": {
+                    "type": "string"
+                  },
+                  "redemptionRateTooltipLabel": {
+                    "type": "string"
+                  },
+                  "interestRateTooltipLabel": {
+                    "type": "string"
+                  },
+                  "expectedRateTooltipLabel": {
+                    "type": "string"
+                  },
+                  "spotPriceRatePaymentTooltipLabel": {
+                    "type": "string"
+                  },
+                  "openForOfferTooltipLabel": {
+                    "type": "string"
+                  },
+                  "effectiveRateTooltipLabel": {
+                    "type": "string"
+                  },
+                  "spotPriceRateRedemptionTooltipLabel": {
+                    "type": "string"
+                  },
+                  "interestMarginRateTooltipLabel": {
+                    "type": "string"
+                  }
+                },
+                "optional": [
+                  "effectiveRateTooltipLabel",
+                  "expectedRateTooltipLabel",
+                  "fondCodeTooltipLabel",
+                  "greenTooltipLabel",
+                  "innerInterestGrossValueTooltipLabel",
+                  "interestMarginRateTooltipLabel",
+                  "interestRateTooltipLabel",
+                  "lifetimeTooltipLabel",
+                  "openForOfferTooltipLabel",
+                  "redemptionRateTooltipLabel",
+                  "spotPriceRatePaymentTooltipLabel",
+                  "spotPriceRateRedemptionTooltipLabel"
+                ]
+              }
+            },
+            "lastUpdatedTimestamp": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "nextUpdateTimestamp": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "hasTime": {
+              "type": "boolean"
+            },
+            "alarmBanner": {
+              "type": "object",
+              "fields": {
+                "description": {
+                  "type": "string"
+                },
+                "linkUrl": {
+                  "type": "string"
+                }
+              }
+            },
+            "showLogo": {
+              "type": "boolean"
+            },
+            "showTooltipIcon": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 4,
+  "aborted": 0
+}

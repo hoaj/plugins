@@ -1,0 +1,48 @@
+{
+  "operation": "GET /g/collect",
+  "kind": "rest",
+  "effect": "read",
+  "resourceType": "fetch",
+  "host": "svr.totalkredit.dk",
+  "method": "GET",
+  "path": "/g/collect",
+  "request": {
+    "headers": {
+      "accept": "*/*",
+      "origin": null,
+      "referer": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "user-agent": null
+    },
+    "query": {
+      "type": "record",
+      "values": {
+        "type": "string"
+      }
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "text/plain",
+      "headers": {
+        "access-control-allow-credentials": null,
+        "access-control-allow-origin": null,
+        "cache-control": null,
+        "content-encoding": null,
+        "content-type": "text/plain",
+        "date": null,
+        "vary": null,
+        "via": null,
+        "x-content-type-options": null
+      },
+      "body": {
+        "kind": "text"
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

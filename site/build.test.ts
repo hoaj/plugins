@@ -237,9 +237,9 @@ describe("render", () => {
 describe("loadData", () => {
   test("the local plugins load with a version and their command tables", () => {
     const real = loadData(ROOT);
-    expect(real.plugins.map((p) => p.name).sort()).toEqual(["logbuy", "yousee"]);
+    expect(real.plugins.map((p) => p.name).sort()).toEqual(["logbuy", "totalkredit", "yousee"]);
     const byName = (name: string) => real.plugins.find((p) => p.name === name)!;
-    for (const [name, command] of [["logbuy", "logbuy deal search"], ["yousee", "yousee bill list"]] as const) {
+    for (const [name, command] of [["logbuy", "logbuy deal search"], ["totalkredit", "totalkredit fixed-rate list"], ["yousee", "yousee bill list"]] as const) {
       const plugin = byName(name);
       expect(plugin.version).toMatch(/^\d+\.\d+\.\d+$/);
       expect(plugin.cliSkills.map((s) => s.name)).toEqual([name]);
