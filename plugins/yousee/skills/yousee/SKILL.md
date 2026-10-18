@@ -2,11 +2,11 @@
 name: yousee
 description: Use when the user asks about their own Mit YouSee account (yousee.dk) - their subscriptions and monthly price, their bills and what is outstanding, their mobile data/talk/SMS usage this period, or the status and delivery of their orders. Read-only; signs in with MitID.
 ---
-<!-- version: 0.1.0 -->
+<!-- version: 0.1.1 -->
 
 # yousee
 
-- `bin/yousee` (`bin/yousee.exe` on Windows) in this skill's folder is a CLI for https://www.yousee.dk; below, `yousee` means that path. Every command prints exactly one JSON document on stdout; progress goes to stderr.
+- `bin/yousee` (`bin/yousee.exe` on Windows) in this skill's folder is a CLI for Mit YouSee (https://yousee.dk); below, `yousee` means that path. Every command prints exactly one JSON document on stdout; progress goes to stderr.
 - Write commands (marked in the table) print a dry run without `--confirm`. Show the user the dry run and get an explicit yes before rerunning with `--confirm`.
 - A Task that spans several logins or sites is never one command: chain commands from each CLI skill.
 - Session, network and input failures are handled here. Only Drift, bugs and missing Tasks go to the `yousee-feedback` skill.

@@ -2,7 +2,7 @@
 name: yousee-feedback
 description: Files a problem with the yousee plugin as a GitHub issue on hoaj/plugins, after the user approves the text. Use when a yousee CLI exits 3 (drift) or 1 (bug), when the plugin cannot do a Task the user needs (a feature request), or when the user says "report this" about it. Not for exit 2 (input), 4 (session) or 5 (network).
 ---
-<!-- version: 0.1.0 -->
+<!-- version: 0.1.1 -->
 
 # yousee feedback
 
