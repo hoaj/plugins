@@ -1,0 +1,18 @@
+{
+  "name": "totalkredit",
+  "description": "Read Totalkredit's current bond prices and rates (kurser og renter) for paying out and redeeming mortgage loans.",
+  "version": "0.1.0",
+  "author": {
+    "name": "hoaj"
+  },
+  "homepage": "https://github.com/hoaj/plugins/tree/main/plugins/totalkredit",
+  "repository": "https://github.com/hoaj/plugins",
+  "keywords": [
+    "totalkredit"
+  ],
+  "skills": [
+    "./skills/totalkredit",
+    "./skills/totalkredit-deploy",
+    "./skills/totalkredit-feedback"
+  ]
+}

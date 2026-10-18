@@ -1,0 +1,55 @@
+{
+  "operation": "GET /boliglan/kurser-og-priser/",
+  "kind": "rest",
+  "effect": "read",
+  "navigation": true,
+  "resourceType": "document",
+  "host": "www.totalkredit.dk",
+  "method": "GET",
+  "path": "/boliglan/kurser-og-priser/",
+  "request": {
+    "headers": {
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/jxl,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "upgrade-insecure-requests": null,
+      "user-agent": null
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "text/html",
+      "headers": {
+        "alt-svc": null,
+        "cache-control": null,
+        "cf-cache-status": null,
+        "cf-ray": null,
+        "content-encoding": null,
+        "content-security-policy": null,
+        "content-type": "text/html",
+        "date": null,
+        "expires": null,
+        "permissions-policy": null,
+        "pragma": null,
+        "referrer-policy": null,
+        "request-context": null,
+        "server": null,
+        "strict-transport-security": null,
+        "x-content-type-options": null,
+        "x-frame-options": null
+      },
+      "setCookies": [
+        ".AspNetCore.Session",
+        "ARRAffinity",
+        "ARRAffinitySameSite"
+      ],
+      "body": {
+        "kind": "html"
+      }
+    }
+  ],
+  "seen": 1,
+  "aborted": 0
+}

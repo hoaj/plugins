@@ -29,6 +29,11 @@
       "name": "yousee",
       "source": "./plugins/yousee",
       "description": "Read your Mit YouSee subscription, bills and usage."
+    },
+    {
+      "name": "totalkredit",
+      "source": "./plugins/totalkredit",
+      "description": "Read Totalkredit's current bond prices and rates (kurser og renter) for paying out and redeeming mortgage loans."
     }
   ]
 }

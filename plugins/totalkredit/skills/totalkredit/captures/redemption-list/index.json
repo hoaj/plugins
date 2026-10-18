@@ -1,0 +1,52 @@
+{
+  "task": "redemption-list",
+  "startPath": "/boliglan/kurser-og-priser/",
+  "write": false,
+  "operations": [
+    {
+      "operation": "GET /boliglan/kurser-og-priser/",
+      "kind": "rest",
+      "effect": "read",
+      "navigation": true,
+      "method": "GET",
+      "host": "www.totalkredit.dk",
+      "path": "/boliglan/kurser-og-priser/",
+      "file": "GET-boliglan-kurser-og-priser.shape.json",
+      "seen": 1,
+      "aborted": 0
+    },
+    {
+      "operation": "GET /api/bondinformation/labels",
+      "kind": "rest",
+      "effect": "read",
+      "method": "GET",
+      "host": "www.totalkredit.dk",
+      "path": "/api/bondinformation/labels",
+      "file": "GET-api-bondinformation-labels.shape.json",
+      "seen": 2,
+      "aborted": 0
+    },
+    {
+      "operation": "GET /api/bondinformation/table",
+      "kind": "rest",
+      "effect": "read",
+      "method": "GET",
+      "host": "www.totalkredit.dk",
+      "path": "/api/bondinformation/table",
+      "file": "GET-api-bondinformation-table.shape.json",
+      "seen": 4,
+      "aborted": 0
+    },
+    {
+      "operation": "GET /g/collect",
+      "kind": "rest",
+      "effect": "read",
+      "method": "GET",
+      "host": "svr.totalkredit.dk",
+      "path": "/g/collect",
+      "file": "svr.totalkredit.dk-GET-g-collect.shape.json",
+      "seen": 1,
+      "aborted": 0
+    }
+  ]
+}

@@ -1,0 +1,288 @@
+{
+  "operation": "GET /api/bondinformation/labels",
+  "kind": "rest",
+  "effect": "read",
+  "resourceType": "xhr",
+  "host": "www.totalkredit.dk",
+  "method": "GET",
+  "path": "/api/bondinformation/labels",
+  "request": {
+    "headers": {
+      "accept": "application/json, text/*",
+      "cookie": null,
+      "referer": null,
+      "request-id": null,
+      "sec-ch-ua": null,
+      "sec-ch-ua-mobile": null,
+      "sec-ch-ua-platform": null,
+      "traceparent": null,
+      "user-agent": null
+    }
+  },
+  "responses": [
+    {
+      "status": 200,
+      "contentType": "application/json",
+      "headers": {
+        "alt-svc": null,
+        "cf-cache-status": null,
+        "cf-ray": null,
+        "content-encoding": null,
+        "content-type": "application/json",
+        "date": null,
+        "priority": null,
+        "request-context": null,
+        "server": null,
+        "server-timing": null
+      },
+      "body": {
+        "kind": "json",
+        "shape": {
+          "type": "object",
+          "fields": {
+            "labels": {
+              "type": "object",
+              "fields": {
+                "logoHidingDomains": {
+                  "type": "string"
+                },
+                "serviceWindowBeginMinutes": {
+                  "type": "number"
+                },
+                "serviceWindowEndMinutes": {
+                  "type": "number"
+                },
+                "monitorIntervalAddedMinutes": {
+                  "type": "number"
+                },
+                "alarmBannerDescription": {
+                  "type": "null"
+                },
+                "alarmBannerReadMore": {
+                  "type": "null"
+                },
+                "searchIsinLabel": {
+                  "type": "string"
+                },
+                "searchIsinTooltipLabel": {
+                  "type": "string"
+                },
+                "showMoreLabel": {
+                  "type": "string"
+                },
+                "lastUpdatedLabel": {
+                  "type": "string"
+                },
+                "nextUpdateLabel": {
+                  "type": "string"
+                },
+                "dateNotAvailable": {
+                  "type": "string"
+                },
+                "dataFetchError": {
+                  "type": "string"
+                },
+                "dataNoSearchResults": {
+                  "type": "string"
+                },
+                "yearLabel": {
+                  "type": "string"
+                },
+                "yesLabel": {
+                  "type": "string"
+                },
+                "noLabel": {
+                  "type": "string"
+                },
+                "openLabel": {
+                  "type": "string"
+                },
+                "closedLabel": {
+                  "type": "string"
+                },
+                "fondCodeLabel": {
+                  "type": "string"
+                },
+                "fondCodeTooltipLabel": {
+                  "type": "string"
+                },
+                "nameLabel": {
+                  "type": "string"
+                },
+                "nameTooltipLabel": {
+                  "type": "string"
+                },
+                "lifetimeLabel": {
+                  "type": "string"
+                },
+                "lifetimeTooltipLabel": {
+                  "type": "string"
+                },
+                "openForOfferLabel": {
+                  "type": "string"
+                },
+                "openForOfferTooltipLabel": {
+                  "type": "string"
+                },
+                "adjustedDurationLabel": {
+                  "type": "string"
+                },
+                "adjustedDurationTooltipLabel": {
+                  "type": "string"
+                },
+                "circulatingAmountLabel": {
+                  "type": "string"
+                },
+                "circulatingAmountTooltipLabel": {
+                  "type": "string"
+                },
+                "effectiveRateLabel": {
+                  "type": "string"
+                },
+                "effectiveRateTooltipLabel": {
+                  "type": "string"
+                },
+                "greenLabel": {
+                  "type": "string"
+                },
+                "greenTooltipLabel": {
+                  "type": "string"
+                },
+                "redemptionRateLabel": {
+                  "type": "string"
+                },
+                "redemptionRateTooltipLabel": {
+                  "type": "string"
+                },
+                "interestMarginRateLabel": {
+                  "type": "string"
+                },
+                "interestMarginRateTooltipLabel": {
+                  "type": "string"
+                },
+                "interestRateLabel": {
+                  "type": "string"
+                },
+                "interestRateTooltipLabel": {
+                  "type": "string"
+                },
+                "danishMortgageBondTypeLabel": {
+                  "type": "string"
+                },
+                "danishMortgageBondTypeTooltipLabel": {
+                  "type": "string"
+                },
+                "expectedRateLabel": {
+                  "type": "string"
+                },
+                "expectedRateTooltipLabel": {
+                  "type": "string"
+                },
+                "priceRateLabel": {
+                  "type": "string"
+                },
+                "priceRateTooltipLabel": {
+                  "type": "string"
+                },
+                "spotPriceRatePaymentLabel": {
+                  "type": "string"
+                },
+                "spotPriceRatePaymentTooltipLabel": {
+                  "type": "string"
+                },
+                "spotPriceRateRedemptionLabel": {
+                  "type": "string"
+                },
+                "spotPriceRateRedemptionTooltipLabel": {
+                  "type": "string"
+                },
+                "termDeduction7DLabel": {
+                  "type": "string"
+                },
+                "termDeduction7DTooltipLabel": {
+                  "type": "string"
+                },
+                "termDeduction14DLabel": {
+                  "type": "string"
+                },
+                "termDeduction14DTooltipLabel": {
+                  "type": "string"
+                },
+                "termDeduction30DLabel": {
+                  "type": "string"
+                },
+                "termDeduction30DTooltipLabel": {
+                  "type": "string"
+                },
+                "termDeduction90DLabel": {
+                  "type": "string"
+                },
+                "termDeduction90DTooltipLabel": {
+                  "type": "string"
+                },
+                "termSupplement7DLabel": {
+                  "type": "string"
+                },
+                "termSupplement7DTooltipLabel": {
+                  "type": "string"
+                },
+                "termSupplement14DLabel": {
+                  "type": "string"
+                },
+                "termSupplement14DTooltipLabel": {
+                  "type": "string"
+                },
+                "termSupplement30DLabel": {
+                  "type": "string"
+                },
+                "termSupplement30DTooltipLabel": {
+                  "type": "string"
+                },
+                "termSupplement90DLabel": {
+                  "type": "string"
+                },
+                "termSupplement90DTooltipLabel": {
+                  "type": "string"
+                },
+                "innerInterestGrossValueLabel": {
+                  "type": "string"
+                },
+                "innerInterestGrossValueTooltipLabel": {
+                  "type": "string"
+                },
+                "tableRowShownOutOfLabel": {
+                  "type": "string"
+                },
+                "noDataLabel": {
+                  "type": "string"
+                },
+                "showLessLabel": {
+                  "type": "string"
+                }
+              }
+            },
+            "settings": {
+              "type": "object",
+              "fields": {
+                "showMoreAmount": {
+                  "type": "number"
+                },
+                "greenIconUrl": {
+                  "type": "string"
+                },
+                "alarmBannerLink": {
+                  "type": "string"
+                },
+                "logoImageUrl": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "seen": 2,
+  "aborted": 0
+}
