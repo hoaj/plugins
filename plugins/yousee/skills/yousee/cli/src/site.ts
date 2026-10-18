@@ -11,7 +11,7 @@ export default defineSite({
   plugin: "yousee",
   skill: "yousee",
   repo: "hoaj/plugins",
-  version: "0.1.0",
+  version: "0.1.1",
   generatedWith: "0.9.1",
   origin: "https://yousee.dk",
   graphqlPath: "/shop/api/graphql-server/graphql",
