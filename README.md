@@ -62,7 +62,7 @@ Generate it with site-cli-creator's `new --into <this repo>`, which writes every
 - A line in each marketplace file (`.claude-plugin/`, `.github/plugin/`, `.cursor-plugin/marketplace.json`) and a row in the table above. The catalog site (`site/`, see `site/DESIGN.md`) rebuilds on every merge and lists the plugins whose marketplace source is a `./plugins/...` path; add example prompts for it in `site/extra.json`.
 - An issue label named after the plugin.
 
-A plugin from another repo gets a marketplace line only: `git-subdir` (Claude Code) or `github` with `path` (Copilot CLI). Give `git-subdir` the full HTTPS URL (`https://github.com/<owner>/<repo>.git`): the `owner/repo` shorthand makes Claude Code clone over SSH first, which fails for anyone without GitHub's host key.
+A plugin from another repo gets a marketplace line only. For Claude Code use a `url` source with the full HTTPS URL (`https://github.com/<owner>/<repo>.git`), or `git-subdir` with that URL and a `path` when the plugin sits in a subfolder; the `owner/repo` shorthand makes Claude Code clone over SSH first, which fails for anyone without GitHub's host key. For Copilot CLI use `github` with `repo` (and `path` for a subfolder).
 
 ## License
 

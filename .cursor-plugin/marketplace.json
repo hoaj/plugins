@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Plugins for coding agents by hoaj. Cursor lists only the plugins in this repo: install site-cli-creator from the marketplace in hoaj/site-cli-creator.",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "plugins": [
     {
