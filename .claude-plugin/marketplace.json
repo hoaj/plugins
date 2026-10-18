@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Plugins for coding agents by hoaj: CLI skills for websites, made with site-cli-creator, and the generator itself.",
-    "version": "1.1.0"
+    "version": "1.1.1"
   },
   "plugins": [
     {
@@ -19,7 +19,7 @@
       "name": "site-cli-creator",
       "source": {
         "source": "git-subdir",
-        "url": "hoaj/site-cli-creator",
+        "url": "https://github.com/hoaj/site-cli-creator.git",
         "path": "plugins/site-cli-creator"
       },
       "description": "Turn the calls a website makes into a plugin of CLI skills that coding agents can run, with Drift checks and a feedback loop.",
