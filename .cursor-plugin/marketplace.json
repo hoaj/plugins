@@ -4,7 +4,7 @@
     "name": "Andreas Jørgensen"
   },
   "metadata": {
-    "description": "Plugins for coding agents by hoaj. Cursor lists only the plugins in this repo: install site-cli-creator from the marketplace in hoaj/site-cli-creator.",
+    "description": "Plugins for coding agents by hoaj. Cursor lists only the plugins in this repo: install site-cli-creator and slides-skill-creator from the marketplaces in their own repos, hoaj/site-cli-creator and hoaj/slides-skill-creator.",
     "version": "1.2.0"
   },
   "plugins": [

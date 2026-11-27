@@ -24,7 +24,7 @@ copilot plugin install logbuy@hoaj
 
 ### Cursor
 
-Settings → Plugins → Add marketplace → `hoaj/plugins`, then install a plugin. Cursor cannot list a plugin from another repo, so it shows only the plugins in this repo. For site-cli-creator, add the marketplace `hoaj/site-cli-creator` instead.
+Settings → Plugins → Add marketplace → `hoaj/plugins`, then install a plugin. Cursor cannot list a plugin from another repo, so it shows only the plugins in this repo. For site-cli-creator or slides-skill-creator, add the marketplace `hoaj/site-cli-creator` or `hoaj/slides-skill-creator` instead.
 
 Coming from the old `hoaj-skills` marketplace (hoaj/skills, now hoaj/site-cli-creator)? Remove it and add this one: `/plugin marketplace remove hoaj-skills`, `/plugin marketplace add hoaj/plugins`, then `/plugin install logbuy@hoaj`.
 
@@ -36,6 +36,7 @@ The CLI binaries download over HTTPS from this repo's public releases the first 
 |--------|----------|--------------|
 | [logbuy](./plugins/logbuy) | here | Find deals on Visma LogBuy (mylogbuy.com): search products, show a deal, browse categories. Also an MCP server (`logbuy mcp`) |
 | [site-cli-creator](https://github.com/hoaj/site-cli-creator) | hoaj/site-cli-creator | The generator: turn the calls a website makes into a plugin like the ones here |
+| [slides-skill-creator](https://github.com/hoaj/slides-skill-creator) | hoaj/slides-skill-creator | Make a skill that builds on-brand HTML slide decks for your brand, and keeps its shared Engine upgradable |
 
 ## Report a problem
 
